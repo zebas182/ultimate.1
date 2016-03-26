@@ -1,0 +1,55 @@
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+        <title>Login</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+        <link href="resources/css/login.css" rel="stylesheet" type="text/css"/>
+    </h:head>
+
+    <h:body id="body" class="body">
+        <center>
+
+            <div id="partnert">
+                <br/><br/><br/><br/><br/>
+                <table id="hol" border="0"  style=" width:375px; height: 375px;border-radius: 10px; border-color: #000000; background: url('resources/images/login6.jpg')">
+                    <tr>
+                        <center>
+                            <td style="border-radius: 10px;" >
+                                <center>
+
+                                    <h:form class="formulario">            
+
+                                        <p:messages autoUpdate="true" closable="true" showDetail="true"/>
+
+                                        <h:panelGrid columns="1" cellpadding="">
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <!-- <h:outputLabel class="label" for="username" value="Usuario" /> -->
+                                            <p:inputText class="username" id="username" value="#{usuarioController.selected.nombreUsuario}" required="true" label="username" requiredMessage="Usuario Requerido" placeholder="&#128272; Ingrese su usuario" />
+                                            <br/>
+                                            <!-- <h:outputLabel class="label" for="password" value="Contraseña" /> -->
+                                            <p:password class="contrasena" id="password" value="#{usuarioController.contrasenaEncriptada}" required="true" label="password" requiredMessage="Contraseña Obligatoria" placeholder="&#128272; ingrese su contraseña"/> <!--feedback="true"--> 
+                                            <p:link value="olvidó su contraseña?" class="link"></p:link>
+                                            <br/>
+                                            <p:commandButton class="btn" style="background-image: url(''); background-repeat: no-repeat; background-position: 2px;" value="Ingresar" action="#{usuarioController.validado()}"/>
+                                            <br/>
+                                            <p:outputLabel class="label" value="No esta registrado?"/>    
+                                            <p:link value="Registrese" href="Admin/usuario/Registro.xhtml" class="link"></p:link>
+                                            
+                                        </h:panelGrid> 
+                                    </h:form>
+                                </center>
+                            </td>
+                        </center>
+                    </tr>
+                </table>
+            </div>
+        </center>
+    </h:body>
+</html>

@@ -30,7 +30,7 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
     }
     public Usuario listaDeUsuario(String usuario,String clave) {
         try {
-             Usuario u = (Usuario) em.createQuery("SELECT u FROM Usuario u WHERE u.nombreUsuario = :Usuario and u.clave = :clave and u.estado=1").setParameter("Usuario", usuario).setParameter("clave", clave).getSingleResult();
+             Usuario u = (Usuario) em.createQuery("SELECT u FROM Usuario u WHERE u.nombreUsuario = :Usuario and u.contrasena = :clave and u.estado=1").setParameter("Usuario", usuario).setParameter("clave", clave).getSingleResult();
              if (u !=null){
             return u;
         }

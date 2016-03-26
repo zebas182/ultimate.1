@@ -11,6 +11,10 @@
                 <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
                 <title>PrimeFaces</title>
             </f:facet>
+            
+             <f:metadata>
+                <f:event type="preRenderView" listener="#{usuarioController.validarSesion()}"></f:event>
+            </f:metadata>
         </h:head>
 
         <h:body>
@@ -18,7 +22,7 @@
             <p:layout fullPage="true">
 
                 <p:layoutUnit position="north" size="100" resizable="true" closable="true" collapsible="true">
-                    Header
+                   
                 </p:layoutUnit>
 
                 <p:layoutUnit position="south" size="100" closable="true" collapsible="true">
@@ -26,7 +30,7 @@
                 </p:layoutUnit>
 
                 <p:layoutUnit position="west" size="175" header="Left" collapsible="true">
-                    <p:menu>
+                 <!--   <p:menu>
                         <p:submenu label="Resources">
                             <p:menuitem value="Demo" url="http://www.primefaces.org/showcase-labs/ui/home.jsf" />
                             <p:menuitem value="Documentation" url="http://www.primefaces.org/documentation.html" />
@@ -35,11 +39,40 @@
 
                         </p:submenu>
 
-                    </p:menu>
-                </p:layoutUnit>
+                    </p:menu>  -->
+                </p:layoutUnit> 
 
                 <p:layoutUnit position="center">
-                    Welcome to PrimeFaces
+                    <br />
+                <h:link outcome="welcomePrimefaces" value="Primefaces welcome page" />
+                <br />
+                <h:link outcome="/Admin/categoria/List" value="Show All Categoria Items"/>
+                <br />
+                <h:link outcome="/Admin/despacho/List" value="Show All Despacho Items"/>
+                <br />
+                <h:link outcome="/Admin/detalleDespacho/List" value="Show All DetalleDespacho Items"/>
+                <br />
+                <h:link outcome="/Admin/detalleDevolucion/List" value="Show All DetalleDevolucion Items"/>
+                <br />
+                <h:link outcome="/Admin/detallePedido/List" value="Show All DetallePedido Items"/>
+                <br />
+                <h:link outcome="/Admin/devolucion/List" value="Show All Devolucion Items"/>
+                <br />
+                <h:link outcome="/Admin/empleado/List" value="Show All Empleado Items"/>
+                <br />
+                <h:link outcome="/Admin/marca/List" value="Show All Marca Items"/>
+                <br />
+                <h:link outcome="/Admin/pedido/List" value="Show All Pedido Items"/>
+                <br />
+                <h:link outcome="/Admin/producto/List" value="Show All Producto Items"/>
+                <br />
+                <h:link outcome="/Admin/proveedor/List" value="Show All Proveedor Items"/>
+                <br />
+                <h:link outcome="/Admin/usuario/List" value="Show All Usuario Items"/>
+                <br />
+                <h:link outcome="/Admin/pedido/Carrito" value="Carrito"/>
+                <br />
+                <h:link outcome="/Admin/usuario/Registro" value="Registrar Usuario"/>
                 </p:layoutUnit>
 
             </p:layout>

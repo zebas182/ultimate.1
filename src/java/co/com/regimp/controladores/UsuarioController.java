@@ -1,9 +1,11 @@
 package co.com.regimp.controladores;
 
+import Encripcion.Encriptar;
 import co.com.regimp.modelos.Usuario;
 import co.com.regimp.controladores.util.JsfUtil;
 import co.com.regimp.controladores.util.JsfUtil.PersistAction;
 import co.com.regimp.operaciones.UsuarioFacade;
+import java.io.IOException;
 
 import java.io.Serializable;
 import java.util.List;
@@ -12,12 +14,15 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIComponent;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.servlet.http.HttpSession;
 
 @ManagedBean(name = "usuarioController")
 @SessionScoped
@@ -26,11 +31,55 @@ public class UsuarioController implements Serializable {
     @EJB
     private co.com.regimp.operaciones.UsuarioFacade ejbFacade;
     private List<Usuario> items = null;
-    private Usuario selected;
+    private Usuario selected = new Usuario();
+    private String contrasenaEncriptada;
+    private Usuario u = new Usuario();
 
     public UsuarioController() {
     }
 
+    public String validado() {
+        try {
+            selected.setContrasena(Encriptar.encriptaEnMD5(contrasenaEncriptada));
+            contrasenaEncriptada = null;
+            u = ejbFacade.listaDeUsuario(selected.getNombreUsuario(), selected.getContrasena());
+            if (u != null) {
+                if (u.getRolidRol().getIdRol().equals(1)) {
+                    return "welcomePrimefaces?faces-redirect=true";
+                }
+                if (u.getRolidRol().getIdRol().equals(2)) {
+                    return "welcomePrimefaces?faces-redirect=true";
+                }
+
+            }
+        } catch (Exception e) {
+            throw e;
+        }
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "¡ERROR!", "El usuario o la contraseña no coinciden con ninguna cuenta"));
+        return null;
+
+    }
+
+    public void validarSesion() {
+        if (u.getNombreUsuario() == null) {
+            try {
+                FacesContext.getCurrentInstance().getExternalContext().redirect("faces/Login.xhtml");
+            } catch (IOException ex) {
+                Logger.getLogger(UsuarioController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
+    public void cerrarSesion() {
+
+        FacesContext context = FacesContext.getCurrentInstance();
+        ExternalContext externalContext = context.getExternalContext();
+        Object session = externalContext.getSession(false);
+        HttpSession httpSession = (HttpSession) session;
+        httpSession.invalidate();
+
+    }
+    
     public Usuario getSelected() {
         return selected;
     }
@@ -111,6 +160,30 @@ public class UsuarioController implements Serializable {
 
     public List<Usuario> getItemsAvailableSelectOne() {
         return getFacade().findAll();
+    }
+
+    public co.com.regimp.operaciones.UsuarioFacade getEjbFacade() {
+        return ejbFacade;
+    }
+
+    public void setEjbFacade(co.com.regimp.operaciones.UsuarioFacade ejbFacade) {
+        this.ejbFacade = ejbFacade;
+    }
+
+    public String getContrasenaEncriptada() {
+        return contrasenaEncriptada;
+    }
+
+    public void setContrasenaEncriptada(String contrasenaEncriptada) {
+        this.contrasenaEncriptada = contrasenaEncriptada;
+    }
+
+    public Usuario getU() {
+        return u;
+    }
+
+    public void setU(Usuario u) {
+        this.u = u;
     }
 
     @FacesConverter(forClass = Usuario.class)

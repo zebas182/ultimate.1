@@ -1,0 +1,66 @@
+.username,.contrasena
+{
+    border: 1px solid #DBE1EB;
+    font-size: 17px;
+    font-family: Good Times RG, Verdana;
+    padding-left: 7px;
+    margin: 0px auto;
+    padding-right: 7px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 7px;
+    -moz-border-radius: 7px;
+    -webkit-border-radius: 7px;
+    -o-border-radius: 7px;
+    background: #FFFFFF;
+    background: linear-gradient(left, #FFFFFF, #F7F9FA);
+    background: -moz-linear-gradient(left, #FFFFFF, #F7F9FA);
+    background: -webkit-linear-gradient(left, #FFFFFF, #F7F9FA);
+    background: -o-linear-gradient(left, #FFFFFF, #F7F9FA);
+    color: #2E3133;
+}
+
+.username:focus,.contrasena:focus
+{
+    color: #2E3133;
+    border-color: #449AF6;
+}
+
+.body {
+    background-image: url("../images/bgfondo.jpg");
+    background-repeat: no-repeat;
+    background-size: auto;
+}
+
+.label {
+
+    font-size: 14px;
+    color: black;
+    font-family: verdana;
+}
+
+.link {
+    font-size: 14px; 
+    font-family: verdana;
+}
+
+.btn {
+    left: 67px;
+    -webkit-border-radius: 7px;
+    -moz-border-radius: 7px;
+    border-radius: 7px;
+    font-family: Verdana;
+    color: #ffffff;
+    font-size: 15px;
+    background: #FF7F00;
+    cursor: pointer;  
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+
+.btn:hover {
+    background:  #FF7F00;
+    opacity: 0,2;
+    text-decoration: none;
+    border-color: #449AF6;
+}
