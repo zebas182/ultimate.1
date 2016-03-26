@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="DetallePedidoViewDlg" widgetVar="DetallePedidoViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewDetallePedidoTitle}">
+            <h:form id="DetallePedidoViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{detallePedidoController.selected != null}">
+                        <h:outputText value="#{bundle.ViewDetallePedidoLabel_idDetallePedido}"/>
+                        <h:outputText value="#{detallePedidoController.selected.idDetallePedido}" title="#{bundle.ViewDetallePedidoTitle_idDetallePedido}"/>
+                        <h:outputText value="#{bundle.ViewDetallePedidoLabel_unidadDeMedida}"/>
+                        <h:outputText value="#{detallePedidoController.selected.unidadDeMedida}" title="#{bundle.ViewDetallePedidoTitle_unidadDeMedida}"/>
+                        <h:outputText value="#{bundle.ViewDetallePedidoLabel_precioUnidadCompra}"/>
+                        <h:outputText value="#{detallePedidoController.selected.precioUnidadCompra}" title="#{bundle.ViewDetallePedidoTitle_precioUnidadCompra}"/>
+                        <h:outputText value="#{bundle.ViewDetallePedidoLabel_cantidadPedidos}"/>
+                        <h:outputText value="#{detallePedidoController.selected.cantidadPedidos}" title="#{bundle.ViewDetallePedidoTitle_cantidadPedidos}"/>
+                        <h:outputText value="#{bundle.ViewDetallePedidoLabel_fechaDeVencimiento}"/>
+                        <h:outputText value="#{detallePedidoController.selected.fechaDeVencimiento}" title="#{bundle.ViewDetallePedidoTitle_fechaDeVencimiento}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewDetallePedidoLabel_cantidadEntregados}"/>
+                        <h:outputText value="#{detallePedidoController.selected.cantidadEntregados}" title="#{bundle.ViewDetallePedidoTitle_cantidadEntregados}"/>
+                        <h:outputText value="#{bundle.ViewDetallePedidoLabel_fechaLote}"/>
+                        <h:outputText value="#{detallePedidoController.selected.fechaLote}" title="#{bundle.ViewDetallePedidoTitle_fechaLote}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewDetallePedidoLabel_precioTotal}"/>
+                        <h:outputText value="#{detallePedidoController.selected.precioTotal}" title="#{bundle.ViewDetallePedidoTitle_precioTotal}"/>
+                        <h:outputText value="#{bundle.ViewDetallePedidoLabel_pedidoidPedido}"/>
+                        <h:outputText value="#{detallePedidoController.selected.pedidoidPedido}" title="#{bundle.ViewDetallePedidoTitle_pedidoidPedido}"/>
+                        <h:outputText value="#{bundle.ViewDetallePedidoLabel_productoidProducto}"/>
+                        <h:outputText value="#{detallePedidoController.selected.productoidProducto}" title="#{bundle.ViewDetallePedidoTitle_productoidProducto}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="DetallePedidoViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

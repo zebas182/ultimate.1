@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="DespachoCreateDlg" widgetVar="DespachoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateDespachoTitle}">
+            <h:form id="DespachoCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{despachoController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateDespachoLabel_idDespacho}" for="idDespacho" />
+                        <p:inputText id="idDespacho" value="#{despachoController.selected.idDespacho}" title="#{bundle.CreateDespachoTitle_idDespacho}" required="true" requiredMessage="#{bundle.CreateDespachoRequiredMessage_idDespacho}"/>
+                        <p:outputLabel value="#{bundle.CreateDespachoLabel_fechaDespacho}" for="fechaDespacho" />
+                        <p:calendar id="fechaDespacho" pattern="MM/dd/yyyy HH:mm:ss" value="#{despachoController.selected.fechaDespacho}" title="#{bundle.EditDespachoTitle_fechaDespacho}" required="true" requiredMessage="#{bundle.EditDespachoRequiredMessage_fechaDespacho}" showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateDespachoLabel_estado}" for="estado" />
+                        <p:selectBooleanCheckbox id="estado" value="#{despachoController.selected.estado}" required="true" requiredMessage="#{bundle.EditDespachoRequiredMessage_estado}"/>
+                        <p:outputLabel value="#{bundle.CreateDespachoLabel_empleado}" for="empleado" />
+                        <p:inputText id="empleado" value="#{despachoController.selected.empleado}" title="#{bundle.CreateDespachoTitle_empleado}" required="true" requiredMessage="#{bundle.CreateDespachoRequiredMessage_empleado}"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{despachoController.create}" value="#{bundle.Save}" update="display,:DespachoListForm:datalist,:growl" oncomplete="handleSubmit(args,'DespachoCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="DespachoCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

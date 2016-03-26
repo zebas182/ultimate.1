@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ProductoViewDlg" widgetVar="ProductoViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewProductoTitle}">
+            <h:form id="ProductoViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{productoController.selected != null}">
+                        <h:outputText value="#{bundle.ViewProductoLabel_idProducto}"/>
+                        <h:outputText value="#{productoController.selected.idProducto}" title="#{bundle.ViewProductoTitle_idProducto}"/>
+                        <h:outputText value="#{bundle.ViewProductoLabel_nombreProducto}"/>
+                        <h:outputText value="#{productoController.selected.nombreProducto}" title="#{bundle.ViewProductoTitle_nombreProducto}"/>
+                        <h:outputText value="#{bundle.ViewProductoLabel_unidadDeMedida}"/>
+                        <h:outputText value="#{productoController.selected.unidadDeMedida}" title="#{bundle.ViewProductoTitle_unidadDeMedida}"/>
+                        <h:outputText value="#{bundle.ViewProductoLabel_cantidadStock}"/>
+                        <h:outputText value="#{productoController.selected.cantidadStock}" title="#{bundle.ViewProductoTitle_cantidadStock}"/>
+                        <h:outputText value="#{bundle.ViewProductoLabel_estado}"/>
+                        <p:selectBooleanCheckbox value="#{productoController.selected.estado}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewProductoLabel_iva}"/>
+                        <h:outputText value="#{productoController.selected.iva}" title="#{bundle.ViewProductoTitle_iva}"/>
+                        <h:outputText value="#{bundle.ViewProductoLabel_proveedor}"/>
+                        <h:outputText value="#{productoController.selected.proveedor}" title="#{bundle.ViewProductoTitle_proveedor}"/>
+                        <h:outputText value="#{bundle.ViewProductoLabel_categoriaidCategoria}"/>
+                        <h:outputText value="#{productoController.selected.categoriaidCategoria}" title="#{bundle.ViewProductoTitle_categoriaidCategoria}"/>
+                        <h:outputText value="#{bundle.ViewProductoLabel_marcaidMarca}"/>
+                        <h:outputText value="#{productoController.selected.marcaidMarca}" title="#{bundle.ViewProductoTitle_marcaidMarca}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="ProductoViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

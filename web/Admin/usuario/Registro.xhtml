@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="body">
+            <h:form id="UsuarioCreateForm">
+                <p:panel id="panel" header="Crear Usuario" style="margin-bottom:30px; width: 500px; height: 490px; position: absolute; left: 35%;">
+                    <p:fieldset legend="Datos Empleado">
+                        <p:panelGrid id="list" columns="2" style="left: 10%; position: relative; height: 50px; border-radius: 10px; " >
+                            <p:outputLabel value="#{bundle.CreateEmpleadoLabel_nombre}" for="nombreEmpleado" />
+                            <p:inputText id="nombreEmpleado" class="button"  value="#{empleadoController.selected.nombreEmpleado}" validatorMessage="El nombre no puede tener números" title="#{bundle.CreateEmpleadoTitle_nombreEmpleado}" required="true" requiredMessage="#{bundle.CreateEmpleadoRequiredMessage_nombreEmpleado}">
+                                <f:validateRegex pattern="[A-Z a-z]{7,50}" />
+                            </p:inputText>
+                            <p:outputLabel value="#{bundle.CreateEmpleadoLabel_identificacion}" for="identificacion" />
+                            <p:inputText id="identificacion" class="button" value="#{empleadoController.selected.identificacion}" validatorMessage="La identificación no puede tener letras, debe ser menor a 12 dígitos y debe ser mayor a 7 dígitos" title="#{bundle.CreateEmpleadoTitle_identificacion}" required="true"  requiredMessage="#{bundle.CreateEmpleadoRequiredMessage_identificacion}">
+                                <f:validateRegex pattern="[0-9]{8,11}" />
+                            </p:inputText>
+                            <p:outputLabel value="#{bundle.CreateEmpleadoLabel_direccion}" for="direccion" />
+                            <p:inputText id="direccion" class="button" value="#{empleadoController.selected.direccion}" title="#{bundle.CreateEmpleadoTitle_direccion}" required="true" requiredMessage="#{bundle.CreateEmpleadoRequiredMessage_direccion}"/>
+                            <p:outputLabel value="Email" for="Email" />
+                            <p:inputText id="Email" class="button" value="#{empleadoController.selected.correo}" validatorMessage="El correo debe tener un @ y un . para ser un correo." title="Email" required="true" requiredMessage="El Email Es Obligatorio">
+                                <f:validateRegex pattern="\S+@\S+\.\S+" />
+                            </p:inputText>
+                            <p:outputLabel value="#{bundle.CreateEmpleadoLabel_telefono}" for="telefono" />
+                            <p:inputText id="telefono" class="button" value="#{empleadoController.selected.telefono}" validatorMessage="El telefono no puede llevar letras, debe ser mayor a 6 dígitos y menor a 11 dígitos." title="#{bundle.CreateEmpleadoTitle_telefono}" required="true" requiredMessage="#{bundle.CreateEmpleadoRequiredMessage_telefono}">
+                                <f:validateRegex pattern="[0-9]{7,15}"/>
+                            </p:inputText>
+                        </p:panelGrid>
+                    </p:fieldset>  
+                    <p:fieldset legend="Datos Usuario" style="align-items: center; align-content: center;">
+                        <p:panelGrid columns="2" id="list2" style="left: 10%; position: relative; border-radius: 10px; ">
+                            <p:outputLabel value="#{bundle.CreateUsuarioLabel_nombreUsuario}" for="nombreUsuario" />
+                            <p:inputText id="nombreUsuario" class="button" value="#{empleadoController.usuario.nombreUsuario}" title="#{bundle.CreateUsuarioTitle_nombreUsuario}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_nombreUsuario}"/>
+                            <p:outputLabel value="#{bundle.CreateUsuarioLabel_contrasena}" for="contrasena" />
+                            <p:password id="contrasena" class="button" value="#{empleadoController.contrasenaEncriptada}" match="contrasena2" feedback="true" goodLabel="Aceptable" promptLabel="Ingrese su contraseña" weakLabel="Insegura" strongLabel="Segura" validatorMessage="La contraseñas no cionciden, El minimo es de 6 y el maximo de 16"  title="#{bundle.CreateUsuarioTitle_contrasena}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_contrasena}">
+                                <f:validateLength minimum="6" maximum="16" />
+                                <p:clientValidator/>
+                            </p:password>
+                            <p:outputLabel value="#{bundle.CreateUsuarioLabel_contrasena}" for="contrasena2" />
+                            <p:password id="contrasena2" class="button" value="#{empleadoController.usuario.contrasena}" title="#{bundle.CreateUsuarioTitle_contrasena}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_contrasena}"/>
+                            <p:outputLabel value="#{bundle.CreateUsuarioLabel_rolidRol}" for="rolidRol" />
+                            <p:selectOneMenu id="rolidRol" value="#{empleadoController.usuario.rolidRol}"  converter="omnifaces.SelectItemsConverter" required="true" requiredMessage="#{bundle.EditUsuarioRequiredMessage_rolidRol}">
+                                <f:selectItem itemLabel="Seleccione" itemValue=""/>
+                                <f:selectItems value="#{rolController.itemsAvailableSelectOne}"
+                                               var="rolidRolItem"
+                                               itemValue="#{rolidRolItem}"
+                                               itemLabel="#{rolidRolItem.nombreRol}"/>
+                            </p:selectOneMenu>
+                        </p:panelGrid>
+                    </p:fieldset >
+                    <f:facet name="footer" >
+                        <center> 
+                            <p:commandButton actionListener="#{empleadoController.Registrar()}" style="border-radius: 10px;" value="Registrarse" icon="ui-icon-disk"   update=":growl,list,list2" />
+                        </center>
+                    </f:facet>
+                </p:panel>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>

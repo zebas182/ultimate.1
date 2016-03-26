@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="DespachoViewDlg" widgetVar="DespachoViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewDespachoTitle}">
+            <h:form id="DespachoViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{despachoController.selected != null}">
+                        <h:outputText value="#{bundle.ViewDespachoLabel_idDespacho}"/>
+                        <h:outputText value="#{despachoController.selected.idDespacho}" title="#{bundle.ViewDespachoTitle_idDespacho}"/>
+                        <h:outputText value="#{bundle.ViewDespachoLabel_fechaDespacho}"/>
+                        <h:outputText value="#{despachoController.selected.fechaDespacho}" title="#{bundle.ViewDespachoTitle_fechaDespacho}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewDespachoLabel_estado}"/>
+                        <p:selectBooleanCheckbox value="#{despachoController.selected.estado}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewDespachoLabel_empleado}"/>
+                        <h:outputText value="#{despachoController.selected.empleado}" title="#{bundle.ViewDespachoTitle_empleado}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="DespachoViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

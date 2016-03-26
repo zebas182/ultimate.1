@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="DetalleDespachoEditDlg" widgetVar="DetalleDespachoEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditDetalleDespachoTitle}">
+            <h:form id="DetalleDespachoEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{detalleDespachoController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditDetalleDespachoLabel_idDetalleDespacho}" for="idDetalleDespacho" />
+                        <p:inputText id="idDetalleDespacho" value="#{detalleDespachoController.selected.idDetalleDespacho}" title="#{bundle.EditDetalleDespachoTitle_idDetalleDespacho}" required="true" requiredMessage="#{bundle.EditDetalleDespachoRequiredMessage_idDetalleDespacho}"/>
+                        <p:outputLabel value="#{bundle.EditDetalleDespachoLabel_unidadDeMedida}" for="unidadDeMedida" />
+                        <p:inputText id="unidadDeMedida" value="#{detalleDespachoController.selected.unidadDeMedida}" title="#{bundle.EditDetalleDespachoTitle_unidadDeMedida}" required="true" requiredMessage="#{bundle.EditDetalleDespachoRequiredMessage_unidadDeMedida}"/>
+                        <p:outputLabel value="#{bundle.EditDetalleDespachoLabel_precioVentaUnidad}" for="precioVentaUnidad" />
+                        <p:inputText id="precioVentaUnidad" value="#{detalleDespachoController.selected.precioVentaUnidad}" title="#{bundle.EditDetalleDespachoTitle_precioVentaUnidad}" required="true" requiredMessage="#{bundle.EditDetalleDespachoRequiredMessage_precioVentaUnidad}"/>
+                        <p:outputLabel value="#{bundle.EditDetalleDespachoLabel_cantidadVendida}" for="cantidadVendida" />
+                        <p:inputText id="cantidadVendida" value="#{detalleDespachoController.selected.cantidadVendida}" title="#{bundle.EditDetalleDespachoTitle_cantidadVendida}" />
+                        <p:outputLabel value="#{bundle.EditDetalleDespachoLabel_precioTotal}" for="precioTotal" />
+                        <p:inputText id="precioTotal" value="#{detalleDespachoController.selected.precioTotal}" title="#{bundle.EditDetalleDespachoTitle_precioTotal}" />
+                        <p:outputLabel value="#{bundle.EditDetalleDespachoLabel_despachoidDespacho}" for="despachoidDespacho" />
+                        <p:selectOneMenu id="despachoidDespacho" value="#{detalleDespachoController.selected.despachoidDespacho}" required="true" requiredMessage="#{bundle.EditDetalleDespachoRequiredMessage_despachoidDespacho}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{despachoController.itemsAvailableSelectOne}"
+                                           var="despachoidDespachoItem"
+                                           itemValue="#{despachoidDespachoItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditDetalleDespachoLabel_productoidProducto}" for="productoidProducto" />
+                        <p:selectOneMenu id="productoidProducto" value="#{detalleDespachoController.selected.productoidProducto}" required="true" requiredMessage="#{bundle.EditDetalleDespachoRequiredMessage_productoidProducto}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{productoController.itemsAvailableSelectOne}"
+                                           var="productoidProductoItem"
+                                           itemValue="#{productoidProductoItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{detalleDespachoController.update}" value="#{bundle.Save}" update="display,:DetalleDespachoListForm:datalist,:growl" oncomplete="handleSubmit(args, 'DetalleDespachoEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="DetalleDespachoEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
