@@ -14,11 +14,12 @@
                     <p:panelGrid columns="2" rendered="#{usuarioController.selected != null}">
                         <p:outputLabel value="#{bundle.EditUsuarioLabel_nombreUsuario}" for="nombreUsuario" />
                         <p:inputText id="nombreUsuario" value="#{usuarioController.selected.nombreUsuario}" readonly="true" title="#{bundle.EditUsuarioTitle_nombreUsuario}" required="true" requiredMessage="#{bundle.EditUsuarioRequiredMessage_nombreUsuario}"/>
-                        <p:outputLabel value="#{bundle.EditUsuarioLabel_rolIdRol}" for="rolIdRol" />
+                        <p:outputLabel value="Rol" for="rolIdRol" />
                         <p:selectOneMenu id="rolIdRol" value="#{usuarioController.selected.rolidRol}" required="true" requiredMessage="#{bundle.EditUsuarioRequiredMessage_rolIdRol}">
                             <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
                             <f:selectItems value="#{rolController.itemsAvailableSelectOne}"
                                            var="rolIdRolItem"
+                                           itemLabel="#{rolIdRolItem.nombreRol}"
                                            itemValue="#{rolIdRolItem}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
