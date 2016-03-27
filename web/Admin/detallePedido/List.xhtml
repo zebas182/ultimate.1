@@ -20,13 +20,19 @@
                                  selectionMode="single" selection="#{detallePedidoController.selected}"
                                  paginator="true"
                                  rowKey="#{item.idDetallePedido}"
-                                 rows="10"
-                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 rows="6"
+                                 rowsPerPageTemplate="6,12,18,36,42"
                                  >
 
                         <p:ajax event="rowSelect"   update="viewButton editButton deleteButton"/>
                         <p:ajax event="rowUnselect" update="viewButton editButton deleteButton"/>
 
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDetallePedidoTitle_productoidProducto}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.productoidProducto.nombreProducto}"/>
+                        </p:column>
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListDetallePedidoTitle_unidadDeMedida}"/>
@@ -37,7 +43,9 @@
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListDetallePedidoTitle_precioUnidadCompra}"/>
                             </f:facet>
-                            <h:outputText value="#{item.precioUnidadCompra}"/>
+                            <h:outputText value="#{item.precioUnidadCompra}">
+                                <f:convertNumber currencySymbol="$" type="currency"/>
+                            </h:outputText>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
@@ -71,7 +79,9 @@
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListDetallePedidoTitle_precioTotal}"/>
                             </f:facet>
-                            <h:outputText value="#{item.precioTotal}"/>
+                            <h:outputText value="#{item.precioTotal}">
+                                <f:convertNumber currencySymbol="$" type="currency"/>
+                            </h:outputText>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
@@ -81,9 +91,9 @@
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListDetallePedidoTitle_productoidProducto}"/>
+                                <h:outputText value="Fecha Entrega"/>
                             </f:facet>
-                            <h:outputText value="#{item.productoidProducto.nombreProducto}"/>
+                            <h:outputText value="#{item.pedidoidPedido.fechaEntrega}"/>
                         </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":DetallePedidoViewForm" oncomplete="PF('DetallePedidoViewDialog').show()" disabled="#{empty detallePedidoController.selected}"/>
@@ -93,7 +103,7 @@
                     </p:dataTable>
                 </p:panel>
             </h:form>
-            
+
             <ui:include src="Edit.xhtml"/>
             <ui:include src="View.xhtml"/>
         </ui:define>

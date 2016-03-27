@@ -79,9 +79,7 @@ public class ProductoController implements Serializable {
     }
 
     public List<Producto> getItems() {
-        if (items == null) {
-            items = getFacade().findAll();
-        }
+        items = getFacade().findAll();
         return items;
     }
 
@@ -125,7 +123,7 @@ public class ProductoController implements Serializable {
     public List<Proveedor> getItemsAvailableSelectOneProveedor() {
         return ejbProveedor.findAll();
     }
-    
+
     public List<Proveedor> getListProveedor() {
         return listProveedor;
     }

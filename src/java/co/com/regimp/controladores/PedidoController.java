@@ -153,9 +153,7 @@ public class PedidoController implements Serializable {
     }
 
     public List<Pedido> getItems() {
-        if (items == null) {
             items = getFacade().findAll();
-        }
         return items;
     }
 

@@ -46,8 +46,6 @@ public class Despacho implements Serializable {
     @Basic(optional = false)
     @Column(name = "idDespacho")
     private Integer idDespacho;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "fecha_Despacho")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaDespacho;

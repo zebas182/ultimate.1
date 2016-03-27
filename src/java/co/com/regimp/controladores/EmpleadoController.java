@@ -7,6 +7,7 @@ import co.com.regimp.controladores.util.JsfUtil.PersistAction;
 import co.com.regimp.modelos.Rol;
 import co.com.regimp.modelos.Usuario;
 import co.com.regimp.operaciones.EmpleadoFacade;
+import co.com.regimp.operaciones.RolFacade;
 import co.com.regimp.operaciones.UsuarioFacade;
 
 import java.io.Serializable;
@@ -28,11 +29,12 @@ import javax.faces.convert.FacesConverter;
 @SessionScoped
 public class EmpleadoController implements Serializable {
 
-
     @EJB
     private co.com.regimp.operaciones.EmpleadoFacade ejbFacade;
     @EJB
     private UsuarioFacade ejbUsuario;
+    @EJB
+    private RolFacade ejbRol;
     private List<Empleado> items = null;
     private Empleado selected;
     private Usuario usuario;
@@ -45,29 +47,29 @@ public class EmpleadoController implements Serializable {
         rol = new Rol();
     }
 
-
     public void Registrar() {
         try {
-                Usuario u = ejbUsuario.registrar(usuario.getNombreUsuario());
-                if (u != null) {
-                    FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "El  Usuario ya existe ");
-                    FacesContext.getCurrentInstance().addMessage(null, facesMsg);
-                    usuario.setNombreUsuario(null);
-                } else {
-                    this.selected.setUsuarioidUsuario(usuario);
-                    usuario.setContrasena(Encriptar.encriptaEnMD5(contrasenaEncriptada));
-                    usuario.setEstado(true);
-                    ejbFacade.create(selected);
-                    FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Registrado", "El Empleado ha sido registrado");
-                    FacesContext.getCurrentInstance().addMessage(null, facesMsg);
-                    usuario.setNombreUsuario("");
-                    usuario.setRolidRol(null);
-                    selected.setNombreEmpleado("");
-                    selected.setDireccion("");
-                    selected.setCorreo("");
-                    selected.setIdentificacion("");
-                    selected.setTelefono("");
-                }
+            Usuario u = ejbUsuario.registrar(usuario.getNombreUsuario());
+            if (u != null) {
+                FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "El  Usuario ya existe ");
+                FacesContext.getCurrentInstance().addMessage(null, facesMsg);
+                usuario.setNombreUsuario(null);
+            } else {
+                this.selected.setUsuarioidUsuario(usuario);
+                usuario.setContrasena(Encriptar.encriptaEnMD5(contrasenaEncriptada));
+                usuario.setEstado(true);
+                usuario.setRolidRol(ejbRol.usuario());
+                ejbFacade.create(selected);
+                FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Registrado", "El Empleado ha sido registrado");
+                FacesContext.getCurrentInstance().addMessage(null, facesMsg);
+                usuario.setNombreUsuario("");
+                usuario.setRolidRol(null);
+                selected.setNombreEmpleado("");
+                selected.setDireccion("");
+                selected.setCorreo("");
+                selected.setIdentificacion("");
+                selected.setTelefono("");
+            }
         } catch (Exception e) {
         }
     }

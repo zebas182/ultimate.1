@@ -11,7 +11,7 @@
             <h:form id="UsuarioCreateForm">
                 <p:panel id="panel" header="Crear Usuario" style="margin-bottom:30px; width: 500px; height: 490px; position: absolute; left: 35%;">
                     <p:fieldset legend="Datos Empleado">
-                        <p:panelGrid id="list" columns="2" style="left: 10%; position: relative; height: 50px; border-radius: 10px; " >
+                        <h:panelGrid id="list" columns="2" style="left: 10%; position: relative; height: 50px; border-radius: 10px; " >
                             <p:outputLabel value="#{bundle.CreateEmpleadoLabel_nombre}" for="nombreEmpleado" />
                             <p:inputText id="nombreEmpleado" class="button"  value="#{empleadoController.selected.nombreEmpleado}" validatorMessage="El nombre no puede tener números" title="#{bundle.CreateEmpleadoTitle_nombreEmpleado}" required="true" requiredMessage="#{bundle.CreateEmpleadoRequiredMessage_nombreEmpleado}">
                                 <f:validateRegex pattern="[A-Z a-z]{7,50}" />
@@ -30,10 +30,10 @@
                             <p:inputText id="telefono" class="button" value="#{empleadoController.selected.telefono}" validatorMessage="El telefono no puede llevar letras, debe ser mayor a 6 dígitos y menor a 11 dígitos." title="#{bundle.CreateEmpleadoTitle_telefono}" required="true" requiredMessage="#{bundle.CreateEmpleadoRequiredMessage_telefono}">
                                 <f:validateRegex pattern="[0-9]{7,15}"/>
                             </p:inputText>
-                        </p:panelGrid>
+                        </h:panelGrid>
                     </p:fieldset>  
                     <p:fieldset legend="Datos Usuario" style="align-items: center; align-content: center;">
-                        <p:panelGrid columns="2" id="list2" style="left: 10%; position: relative; border-radius: 10px; ">
+                        <h:panelGrid columns="2" id="list2" style="left: 10%; position: relative; border-radius: 10px; ">
                             <p:outputLabel value="#{bundle.CreateUsuarioLabel_nombreUsuario}" for="nombreUsuario" />
                             <p:inputText id="nombreUsuario" class="button" value="#{empleadoController.usuario.nombreUsuario}" title="#{bundle.CreateUsuarioTitle_nombreUsuario}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_nombreUsuario}"/>
                             <p:outputLabel value="#{bundle.CreateUsuarioLabel_contrasena}" for="contrasena" />
@@ -43,15 +43,7 @@
                             </p:password>
                             <p:outputLabel value="#{bundle.CreateUsuarioLabel_contrasena}" for="contrasena2" />
                             <p:password id="contrasena2" class="button" value="#{empleadoController.usuario.contrasena}" title="#{bundle.CreateUsuarioTitle_contrasena}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_contrasena}"/>
-                            <p:outputLabel value="#{bundle.CreateUsuarioLabel_rolidRol}" for="rolidRol" />
-                            <p:selectOneMenu id="rolidRol" value="#{empleadoController.usuario.rolidRol}"  converter="omnifaces.SelectItemsConverter" required="true" requiredMessage="#{bundle.EditUsuarioRequiredMessage_rolidRol}">
-                                <f:selectItem itemLabel="Seleccione" itemValue=""/>
-                                <f:selectItems value="#{rolController.itemsAvailableSelectOne}"
-                                               var="rolidRolItem"
-                                               itemValue="#{rolidRolItem}"
-                                               itemLabel="#{rolidRolItem.nombreRol}"/>
-                            </p:selectOneMenu>
-                        </p:panelGrid>
+                        </h:panelGrid>
                     </p:fieldset >
                     <f:facet name="footer" >
                         <center> 
