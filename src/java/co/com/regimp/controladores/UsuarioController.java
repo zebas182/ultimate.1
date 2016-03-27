@@ -71,13 +71,11 @@ public class UsuarioController implements Serializable {
     }
 
     public void cerrarSesion() {
-
         FacesContext context = FacesContext.getCurrentInstance();
         ExternalContext externalContext = context.getExternalContext();
         Object session = externalContext.getSession(false);
         HttpSession httpSession = (HttpSession) session;
         httpSession.invalidate();
-
     }
     
     public Usuario getSelected() {
