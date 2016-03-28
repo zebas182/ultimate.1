@@ -56,6 +56,7 @@ public class ProductoFacade extends AbstractFacade<Producto> {
 
         int can = (int) em.createQuery("select p.cantidadStock from Producto p where p.idProducto=:id").setParameter("id", id).getSingleResult();
         int precant = can - cantidad;
+
         int canCon = (int) em.createQuery("select p.control from Producto p where p.idProducto=:id").setParameter("id", id).getSingleResult();
         almacen = canCon;
         almacen = almacen + cantidad;
@@ -64,7 +65,7 @@ public class ProductoFacade extends AbstractFacade<Producto> {
         int canControl = (int) em.createQuery("select p.control from Producto p where p.idProducto=:id").setParameter("id", id).getSingleResult();
 
         if (precant < 0) {
-            return 0;
+            return -1;
         } else {
             return canControl;
         }

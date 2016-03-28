@@ -18,6 +18,7 @@
         </h:head>
 
         <h:body>
+            <p:growl id="growl" autoUpdate="true"  showDetail="true" life="3000" />
 
             <p:layout fullPage="true">
 
@@ -32,52 +33,33 @@
                 </p:layoutUnit>
 
                 <p:layoutUnit position="west" size="175" header="Left" collapsible="true">
-                      <p:menu>
-                           <p:submenu label="Resources">
-                               <p:menuitem value="Demo" url="/faces/Admin/categoria/List.xhtml" />
-                               <p:menuitem value="Documentation" url="http://www.primefaces.org/documentation.html" />
-                               <p:menuitem value="Forum" url="http://forum.primefaces.org/" />
-                               <p:menuitem value="Themes" url="http://www.primefaces.org/themes.html" />
-   
-                           </p:submenu>
-   
-                       </p:menu>  
+                    <h:form>
+                        <p:menu>
+                            <p:submenu label="Resources">
+                                <p:menuitem value="Categoria" url="/faces/Admin/categoria/List.xhtml" />
+                                <p:menuitem value="Despacho" url="/faces/Admin/despacho/List.xhtml" />
+                                <p:menuitem value="DetalleDespacho" url="/faces/Admin/detalleDespacho/List.xhtml" />
+                                <p:menuitem value="detalleDevolucion" url="/faces/Admin/detalleDevolucion/List.xhtml" />
+                                <p:menuitem value="DetallePedido" url="/faces/Admin/detallePedido/List.xhtml" />
+                                <p:menuitem value="Devolucion" url="/faces/Admin/devolucion/List.xhtml" />
+                                <p:menuitem url="/faces/Admin/empleado/List.xhtml" value=" Empleado "/>
+                                <p:menuitem url="/faces/Admin/marca/List.xhtml" value=" Marca "/>
+                                <p:menuitem url="/faces/Admin/pedido/List.xhtml" value=" Pedido "/>
+                                <p:menuitem url="/faces/Admin/producto/List.xhtml" value=" Producto "/>
+                                <p:menuitem url="/faces/Admin/proveedor/List.xhtml" value=" Proveedor "/>
+                                <p:menuitem url="/faces/Admin/usuario/List.xhtml" value=" Usuario "/>
+                                <p:menuitem url="/faces/Admin/pedido/Carrito.xhtml" value="Carrito Pedido"/>
+                                <p:menuitem url="/faces/Admin/despacho/Carrito.xhtml" value="Carrito Despacho"/>
+                                <p:menuitem url="/faces/Admin/usuario/Registro" value="Registrar Usuario"/>
+                                <p:menuitem url="/faces/Admin/devolucion/Carrito.xhtml" value="Carrito Devolución"/>
+                            </p:submenu>
+
+                        </p:menu>
+                    </h:form>
                 </p:layoutUnit> 
 
                 <p:layoutUnit position="center">
-                        <br />
-        <h:link outcome="welcomePrimefaces" value="Primefaces welcome page" />
-        <br />
-        <h:link outcome="/Admin/categoria/List" value="Show All Categoria Items"/>
-        <br />
-        <h:link outcome="/Admin/despacho/List" value="Show All Despacho Items"/>
-        <br />
-        <h:link outcome="/Admin/detalleDespacho/List" value="Show All DetalleDespacho Items"/>
-        <br />
-        <h:link outcome="/Admin/detalleDevolucion/List" value="Show All DetalleDevolucion Items"/>
-        <br />
-        <h:link outcome="/Admin/detallePedido/List" value="Show All DetallePedido Items"/>
-        <br />
-        <h:link outcome="/Admin/devolucion/List" value="Show All Devolucion Items"/>
-        <br />
-        <h:link outcome="/Admin/empleado/List" value="Show All Empleado Items"/>
-        <br />
-        <h:link outcome="/Admin/marca/List" value="Show All Marca Items"/>
-        <br />
-        <h:link outcome="/Admin/pedido/List" value="Show All Pedido Items"/>
-        <br />
-        <h:link outcome="/Admin/producto/List" value="Show All Producto Items"/>
-        <br />
-        <h:link outcome="/Admin/proveedor/List" value="Show All Proveedor Items"/>
-        <br />
-        <h:link outcome="/Admin/usuario/List" value="Show All Usuario Items"/>
-        <br />
-        <h:link outcome="/Admin/pedido/Carrito" value="Carrito"/>
-        <br />
-        <h:link outcome="/Admin/despacho/Carrito" value="CarritoDespacho"/>
-        <br />
-        <h:link outcome="/Admin/usuario/Registro" value="Registrar Usuario"/>
-    
+                        <ui:insert name="body"/>
                 </p:layoutUnit>
 
             </p:layout>
