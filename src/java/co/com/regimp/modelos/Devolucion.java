@@ -22,6 +22,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -38,14 +39,13 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Devolucion.findByFechaDevolucion", query = "SELECT d FROM Devolucion d WHERE d.fechaDevolucion = :fechaDevolucion"),
     @NamedQuery(name = "Devolucion.findByEstado", query = "SELECT d FROM Devolucion d WHERE d.estado = :estado")})
 public class Devolucion implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "idDevolucion")
     private Integer idDevolucion;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "fecha_Devolucion")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaDevolucion;
@@ -53,6 +53,11 @@ public class Devolucion implements Serializable {
     @NotNull
     @Column(name = "estado")
     private boolean estado;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 70)
+    @Column(name = "empleado")
+    private String empleado;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "devolucionidDevolucion")
     private Collection<DetalleDevolucion> detalleDevolucionCollection;
 
@@ -126,5 +131,13 @@ public class Devolucion implements Serializable {
     public String toString() {
         return "co.com.regimp.modelos.Devolucion[ idDevolucion=" + idDevolucion + " ]";
     }
-    
+
+    public String getEmpleado() {
+        return empleado;
+    }
+
+    public void setEmpleado(String empleado) {
+        this.empleado = empleado;
+    }
+
 }

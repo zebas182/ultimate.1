@@ -80,7 +80,7 @@ public class UsuarioController implements Serializable {
     public void validarSesion() {
         if (u.getNombreUsuario() == null) {
             try {
-                FacesContext.getCurrentInstance().getExternalContext().redirect("faces/Login.xhtml");
+                FacesContext.getCurrentInstance().getExternalContext().redirect("../faces/Login.xhtml");
             } catch (IOException ex) {
                 Logger.getLogger(UsuarioController.class.getName()).log(Level.SEVERE, null, ex);
             }

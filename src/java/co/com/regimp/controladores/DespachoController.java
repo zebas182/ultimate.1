@@ -45,8 +45,7 @@ public class DespachoController implements Serializable {
     private Producto productoSeleccionado;
     private int result = 0;
     private int almacen = 0;
-    private int resta;
-
+    
     public DespachoController() {
     }
 
@@ -71,6 +70,7 @@ public class DespachoController implements Serializable {
         precioUnidadVenta = 0;
         producto = null;
         cantidadVendidos = 0;
+        selected.setEmpleado(null);
     }
 
     public void Agregar() {
