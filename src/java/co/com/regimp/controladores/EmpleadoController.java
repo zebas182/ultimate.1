@@ -38,8 +38,10 @@ public class EmpleadoController implements Serializable {
     private List<Empleado> items = null;
     private Empleado selected;
     private Usuario usuario;
+    private String correo;
     private String contrasenaEncriptada;
     private Rol rol;
+    private Empleado e = new Empleado();
 
     public EmpleadoController() {
         selected = new Empleado();
@@ -47,6 +49,17 @@ public class EmpleadoController implements Serializable {
         rol = new Rol();
     }
 
+    public Empleado  recibirCorreo() {
+        try {
+            Empleado e = ejbFacade.buscarID(getCorreo());
+            if (e != null) {
+              return e;  
+            }
+        } catch (Exception ex) {
+            ex.getMessage();
+        }
+        return null;
+    }
     public void Registrar() {
         try {
             Usuario u = ejbUsuario.registrar(usuario.getNombreUsuario());
@@ -182,6 +195,14 @@ public class EmpleadoController implements Serializable {
 
     public void setRol(Rol rol) {
         this.rol = rol;
+    }
+
+    public String getCorreo() {
+        return correo;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
     }
 
     @FacesConverter(forClass = Empleado.class)
