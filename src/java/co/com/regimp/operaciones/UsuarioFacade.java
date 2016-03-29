@@ -75,13 +75,16 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
         return null;
     }
 
-    public void cambioContrasena(String nombre) {
-        Usuario u = (Usuario) em.createQuery("Select u from Usuario u where u.nombreUsuario=:nombre ").setParameter("nombre", nombre).getResultList();
+    public int cambioContrasena(String nombre) {
+        int u = (int) em.createQuery("Select u.idUsuario from Usuario u where u.nombreUsuario=:nombre ").setParameter("nombre", nombre).getSingleResult();
+        String co = (String) em.createQuery("Select e.correo from Empleado e where e.usuarioidUsuario.idUsuario=:id ").setParameter("id", u).getSingleResult();
 
-        if (u != null) {
+        if (u != 0) {
             String nuevaClave = UUID.randomUUID().toString();
             String cifrado = Encripcion.Encriptar.encriptaEnMD5(nuevaClave);
             em.createQuery("UPDATE Usuario U set U.contrasena =':contrasena' where U.nombreUsuario=:nombre").setParameter("contrasena", cifrado).setParameter("nombre", nombre).executeUpdate();
+            return 1;
         }
+        return 0;
     }
 }

@@ -58,7 +58,7 @@ public class ProductoController implements Serializable {
     }
 
    
-    public String ReporteStockProducto() throws SQLException, JRException, IOException, NamingException {
+    public void ReporteStockProducto() throws SQLException, JRException, IOException, NamingException {
         //Fill Map with params values
         FacesContext context = FacesContext.getCurrentInstance();
         HttpServletResponse response = (HttpServletResponse) context.getExternalContext().getResponse();
@@ -77,7 +77,7 @@ public class ProductoController implements Serializable {
                 "attachment; filename=reporte.pdf");
         response.setContentType("application/pdf");
 
-        JasperPrint jasperPrint = JasperFillManager.fillReport("C:\\Users\\alber\\Documents\\NetBeansProjects\\UltimatePrueba\\ultimate.1\\web\\WEB-INF\\StockProducto.jasper", null, conexion);
+        JasperPrint jasperPrint = JasperFillManager.fillReport("C:\\Users\\Brayan\\Documents\\NetBeansProjects\\RegimpUltimate\\ultimate.1\\src\\java\\Reportes\\StockProducto.jasper", null, conexion);
         JRExporter exporter = new JRPdfExporter();
         exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
         exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, out);
@@ -87,7 +87,7 @@ public class ProductoController implements Serializable {
      
         
         FacesContext.getCurrentInstance().responseComplete();
-        return "";
+        
     }
 
 //    public void reportes() {

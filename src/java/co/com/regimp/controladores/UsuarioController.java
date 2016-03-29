@@ -55,7 +55,12 @@ public class UsuarioController implements Serializable {
 
     public void recibirUsuario() {
         try {
-            ejbFacade.cambioContrasena(selected.getNombreUsuario());
+            int u = ejbFacade.cambioContrasena(selected.getNombreUsuario());
+            if (u == 0) {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "¡ERROR!", "El usuario o la contraseña no coinciden con ninguna cuenta"));
+            } else {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "¡Actualizado!", "Su contraseña ha sido cambiada"));
+            }
         } catch (Exception e) {
             e.getStackTrace();
         }
@@ -86,7 +91,8 @@ public class UsuarioController implements Serializable {
     public void validarSesion() {
         if (u.getNombreUsuario() == null) {
             try {
-                FacesContext.getCurrentInstance().getExternalContext().redirect("../faces/Login.xhtml");
+                ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
+                context.redirect(context.getRequestContextPath() + "/faces/Login.xhtml");
             } catch (IOException ex) {
                 Logger.getLogger(UsuarioController.class.getName()).log(Level.SEVERE, null, ex);
             }
