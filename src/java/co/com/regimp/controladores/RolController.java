@@ -116,6 +116,10 @@ public class RolController implements Serializable {
     public List<Rol> getItemsAvailableSelectOne() {
         return getFacade().findAll();
     }
+    
+    public Rol Usuario() {
+        return getFacade().usuario();
+    }
 
     @FacesConverter(forClass = Rol.class)
     public static class RolControllerConverter implements Converter {

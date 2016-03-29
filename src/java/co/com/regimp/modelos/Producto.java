@@ -42,6 +42,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Producto.findByIva", query = "SELECT p FROM Producto p WHERE p.iva = :iva"),
     @NamedQuery(name = "Producto.findByProveedor", query = "SELECT p FROM Producto p WHERE p.proveedor = :proveedor")})
 public class Producto implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -62,6 +63,8 @@ public class Producto implements Serializable {
     @NotNull
     @Column(name = "cantidad_Stock")
     private int cantidadStock;
+    @Column(name = "control")
+    private Integer control;
     @Basic(optional = false)
     @NotNull
     @Column(name = "estado")
@@ -228,5 +231,13 @@ public class Producto implements Serializable {
     public String toString() {
         return "co.com.regimp.modelos.Producto[ idProducto=" + idProducto + " ]";
     }
-    
+
+    public Integer getControl() {
+        return control;
+    }
+
+    public void setControl(Integer control) {
+        this.control = control;
+    }
+
 }

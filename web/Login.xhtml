@@ -1,9 +1,6 @@
-
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Login</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -24,7 +21,7 @@
 
                                     <h:form class="formulario">            
 
-                                        <p:messages autoUpdate="true" closable="true" showDetail="true"/>
+                                        <p:growl id="growl" autoUpdate="true"  showDetail="true"/>
 
                                         <h:panelGrid columns="1" cellpadding="">
                                             <br/>

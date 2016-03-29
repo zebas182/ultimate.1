@@ -16,6 +16,7 @@ import javax.persistence.PersistenceContext;
  */
 @Stateless
 public class RolFacade extends AbstractFacade<Rol> {
+
     @PersistenceContext(unitName = "Ultimate.1PU")
     private EntityManager em;
 
@@ -27,5 +28,9 @@ public class RolFacade extends AbstractFacade<Rol> {
     public RolFacade() {
         super(Rol.class);
     }
-    
+
+    public Rol usuario() {
+        Rol rol = (Rol) em.createQuery("select r from Rol r WHERE r.idRol=:id").setParameter("id", 2).getSingleResult();
+        return rol;
+    }
 }

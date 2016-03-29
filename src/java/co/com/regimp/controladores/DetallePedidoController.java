@@ -104,9 +104,7 @@ public class DetallePedidoController implements Serializable {
     }
 
     public List<DetallePedido> getItems() {
-        
             items = getFacade().findAll();
-        
         return items;
     }
 

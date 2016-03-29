@@ -4,11 +4,13 @@ import Encripcion.Encriptar;
 import co.com.regimp.modelos.Usuario;
 import co.com.regimp.controladores.util.JsfUtil;
 import co.com.regimp.controladores.util.JsfUtil.PersistAction;
+import co.com.regimp.operaciones.EmpleadoFacade;
 import co.com.regimp.operaciones.UsuarioFacade;
 import java.io.IOException;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.UUID;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -30,12 +32,33 @@ public class UsuarioController implements Serializable {
 
     @EJB
     private co.com.regimp.operaciones.UsuarioFacade ejbFacade;
+    @EJB
+    EmpleadoFacade ejbEmpleado;
     private List<Usuario> items = null;
     private Usuario selected = new Usuario();
     private String contrasenaEncriptada;
     private Usuario u = new Usuario();
+    EmpleadoController e = new EmpleadoController();
+    private String nuevaClave;
 
     public UsuarioController() {
+    }
+
+    public void generarNuevaClave(Usuario id) {
+        try {
+            String nuevaClave = UUID.randomUUID().toString();
+            System.out.println(nuevaClave);
+        } catch (Exception ex) {
+            ex.getMessage();
+        }
+    }
+
+    public void recibirUsuario() {
+        try {
+            ejbFacade.cambioContrasena(selected.getNombreUsuario());
+        } catch (Exception e) {
+            e.getStackTrace();
+        }
     }
 
     public String validado() {
@@ -63,7 +86,7 @@ public class UsuarioController implements Serializable {
     public void validarSesion() {
         if (u.getNombreUsuario() == null) {
             try {
-                FacesContext.getCurrentInstance().getExternalContext().redirect("faces/Login.xhtml");
+                FacesContext.getCurrentInstance().getExternalContext().redirect("../faces/Login.xhtml");
             } catch (IOException ex) {
                 Logger.getLogger(UsuarioController.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -71,15 +94,13 @@ public class UsuarioController implements Serializable {
     }
 
     public void cerrarSesion() {
-
         FacesContext context = FacesContext.getCurrentInstance();
         ExternalContext externalContext = context.getExternalContext();
         Object session = externalContext.getSession(false);
         HttpSession httpSession = (HttpSession) session;
         httpSession.invalidate();
-
     }
-    
+
     public Usuario getSelected() {
         return selected;
     }

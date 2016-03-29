@@ -34,12 +34,18 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "DetalleDevolucion.findByCantidadProductos", query = "SELECT d FROM DetalleDevolucion d WHERE d.cantidadProductos = :cantidadProductos"),
     @NamedQuery(name = "DetalleDevolucion.findByObservaciones", query = "SELECT d FROM DetalleDevolucion d WHERE d.observaciones = :observaciones")})
 public class DetalleDevolucion implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "idDetalle_Devolucion")
     private Integer idDetalleDevolucion;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 20)
+    @Column(name = "unidad_De_Medida")
+    private String unidadDeMedida;
     @Basic(optional = false)
     @NotNull
     @Column(name = "cantidad_Productos")
@@ -133,5 +139,13 @@ public class DetalleDevolucion implements Serializable {
     public String toString() {
         return "co.com.regimp.modelos.DetalleDevolucion[ idDetalleDevolucion=" + idDetalleDevolucion + " ]";
     }
-    
+
+    public String getUnidadDeMedida() {
+        return unidadDeMedida;
+    }
+
+    public void setUnidadDeMedida(String unidadDeMedida) {
+        this.unidadDeMedida = unidadDeMedida;
+    }
+
 }

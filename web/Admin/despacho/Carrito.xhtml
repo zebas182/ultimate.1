@@ -1,0 +1,83 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/welcomePrimefaces.xhtml">
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListProductoTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form id="ProductoListForm">
+                <p:panel visible="true">
+                    <p:panelGrid columns="2"   style="left: 35%; position: relative; border-radius: 10px;">
+                        <f:facet name="header"><p:outputLabel value="Registro De Despachos"/></f:facet>
+                        <h:outputText value="Empleado"></h:outputText>
+                        <p:selectOneMenu id="Empleado" value="#{despachoController.selected.empleado}" converter="omnifaces.SelectItemsConverter" required="true" requiredMessage="#{bundle.EditPedidoRequiredMessage_proveedoridProveedor}">
+                            <f:selectItem noSelectionOption="true" itemLabel="Seleccione" itemValue="#{null}"/>
+                            <f:selectItems value="#{empleadoController.itemsAvailableSelectOne}"
+                                           var="Emple"
+                                           itemLabel="#{Emple.nombreEmpleado}"
+                                           itemValue="#{Emple.nombreEmpleado}"/>
+                        </p:selectOneMenu>
+
+
+
+                        <p:outputLabel value="Producto"  />
+                        <p:autoComplete id="productoslist" value="#{despachoController.producto}" completeMethod="#{despachoController.completeProducto}"
+                                        var="pro" itemLabel="#{pro.nombreProducto}" itemValue="#{pro}"    forceSelection="true" />
+
+                        <p:outputLabel value="Unidad De Medida" for="unidadDeMedida" />
+                        <p:selectOneMenu id="unidadDeMedida" value="#{despachoController.unidadDeMedida}" style="width:125px" required="true" requiredMessage="Unidad De Medida Requerida">
+                            <f:selectItem itemLabel="Select One" itemValue="" />
+                            <f:selectItem itemLabel="Paquete" itemValue="Paquete" />
+                            <f:selectItem itemLabel="Libras" itemValue="Libras" />
+                            <f:selectItem itemLabel="Kilos" itemValue="Kilos" />
+                            <f:selectItem itemLabel="Arroba" itemValue="Arroba" />
+                        </p:selectOneMenu>
+
+                        <h:outputLabel value="Cantidad De Productos Vendidos" for="CantidadPedidos" />
+                        <h:panelGrid columns="1"  >
+                            <p:inputText id="CantidadPedidos"  value="#{despachoController.cantidadVendidos}" title="Cantidad De Productos Pedidos" required="true" requiredMessage="El campo Cantidad De Productos Pedidos Es Obligatorio"/>
+                            <p:slider for="CantidadPedidos" step="1" />
+                        </h:panelGrid>
+
+                        <h:outputLabel value="Precio De Venta Por Unidad" for="preciounidad" />
+                        <h:panelGrid columns="1" cellpadding="5">
+                            <p:spinner id="preciounidad" prefix="$" min="0"  value="#{despachoController.precioUnidadVenta}"   title="Precio Unidad De Compra" required="true" requiredMessage="El campo precio Por Unidad Es Obligatorio"/>
+                        </h:panelGrid>
+                        <f:facet name="footer">
+                            <p:commandButton value="Agregar" actionListener="#{despachoController.Agregar()}" update="Detalle,ProductoListForm,:growl"/>
+                        </f:facet>
+                    </p:panelGrid>
+                </p:panel>
+                <p:separator/>
+
+                <p:dataTable id="Detalle" value="#{despachoController.detalleDespacho}" var="det" paginator="true" rows="10" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             rowsPerPageTemplate="5,10,15">
+                    <p:column headerText="Producto">
+                        #{det.productoidProducto.nombreProducto}
+                    </p:column>
+                    <p:column headerText="Precio">
+                        #{det.precioVentaUnidad}
+                    </p:column>
+                    <p:column headerText="Cantidad">
+                        #{det.cantidadVendida}
+                    </p:column>
+                    <p:column headerText="Total">
+                        #{det.precioTotal}
+                    </p:column>
+                    <f:facet name="footer">
+                        <p:commandButton id="Registrar" icon="ui-icon-disk"  value="Registrar" ajax="#{despachoController.limpiar()}" actionListener="#{despachoController.Registrar()}" update=":growl,Detalle,:ProductoListForm"/>
+                        <p:commandButton id="Cancelar"  icon="ui-icon-closethick" value="Cancelar" actionListener="#{despachoController.limpiar()}" update="Detalle,:ProductoListForm"/>
+                    </f:facet>
+                </p:dataTable>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>
+

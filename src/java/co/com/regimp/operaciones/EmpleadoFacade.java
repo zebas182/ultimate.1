@@ -5,6 +5,7 @@
  */
 package co.com.regimp.operaciones;
 
+import co.com.regimp.controladores.UsuarioController;
 import co.com.regimp.modelos.Empleado;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -16,6 +17,7 @@ import javax.persistence.PersistenceContext;
  */
 @Stateless
 public class EmpleadoFacade extends AbstractFacade<Empleado> {
+
     @PersistenceContext(unitName = "Ultimate.1PU")
     private EntityManager em;
 
@@ -27,5 +29,7 @@ public class EmpleadoFacade extends AbstractFacade<Empleado> {
     public EmpleadoFacade() {
         super(Empleado.class);
     }
-    
+
+
+   
 }

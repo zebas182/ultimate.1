@@ -7,6 +7,7 @@ package co.com.regimp.operaciones;
 
 import co.com.regimp.modelos.Usuario;
 import java.util.List;
+import java.util.UUID;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -17,6 +18,7 @@ import javax.persistence.PersistenceContext;
  */
 @Stateless
 public class UsuarioFacade extends AbstractFacade<Usuario> {
+
     @PersistenceContext(unitName = "Ultimate.1PU")
     private EntityManager em;
 
@@ -28,45 +30,58 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
     public UsuarioFacade() {
         super(Usuario.class);
     }
-    public Usuario listaDeUsuario(String usuario,String clave) {
+
+    public Usuario listaDeUsuario(String usuario, String clave) {
         try {
-             Usuario u = (Usuario) em.createQuery("SELECT u FROM Usuario u WHERE u.nombreUsuario = :Usuario and u.contrasena = :clave and u.estado=1").setParameter("Usuario", usuario).setParameter("clave", clave).getSingleResult();
-             if (u !=null){
-            return u;
-        }
-             
+            Usuario u = (Usuario) em.createQuery("SELECT u FROM Usuario u WHERE u.nombreUsuario = :Usuario and u.contrasena = :clave and u.estado=1").setParameter("Usuario", usuario).setParameter("clave", clave).getSingleResult();
+            if (u != null) {
+                return u;
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
     }
-      public List<Usuario> ListaUsuariosDisponibles() {
+
+    public List<Usuario> ListaUsuariosDisponibles() {
         try {
-             List<Usuario> lista = em.createQuery("SELECT u FROM Usuario u where u.estado=true").getResultList();
-             if (lista !=null){
-            return lista;
-        }
-             
+            List<Usuario> lista = em.createQuery("SELECT u FROM Usuario u where u.estado=true").getResultList();
+            if (lista != null) {
+                return lista;
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
     }
+
     public Usuario Eliminar(int id) {
         try {
-             em.createQuery("update Usuario u set u.estado=0 where u.idUsuario=:id").setParameter("id", id).executeUpdate();
+            em.createQuery("update Usuario u set u.estado=0 where u.idUsuario=:id").setParameter("id", id).executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
     }
-    
-    public Usuario registrar(String nombreUsuario){
+
+    public Usuario registrar(String nombreUsuario) {
         try {
-                return (Usuario) em.createQuery("SELECT U FROM Usuario U WHERE U.nombreUsuario=:nombreUsuario").setParameter("nombreUsuario", nombreUsuario).getSingleResult();
+            return (Usuario) em.createQuery("SELECT U FROM Usuario U WHERE U.nombreUsuario=:nombreUsuario").setParameter("nombreUsuario", nombreUsuario).getSingleResult();
 
         } catch (Exception e) {
         }
         return null;
-    }    
+    }
+
+    public void cambioContrasena(String nombre) {
+        Usuario u = (Usuario) em.createQuery("Select u from Usuario u where u.nombreUsuario=:nombre ").setParameter("nombre", nombre).getResultList();
+
+        if (u != null) {
+            String nuevaClave = UUID.randomUUID().toString();
+            String cifrado = Encripcion.Encriptar.encriptaEnMD5(nuevaClave);
+            em.createQuery("UPDATE Usuario U set U.contrasena =':contrasena' where U.nombreUsuario=:nombre").setParameter("contrasena", cifrado).setParameter("nombre", nombre).executeUpdate();
+        }
+    }
 }
