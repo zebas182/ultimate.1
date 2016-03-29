@@ -95,12 +95,6 @@
                             </f:facet>
                             <h:outputText value="#{item.pedidoidPedido.fechaEntrega}"/>
                         </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="Proveedor"/>
-                            </f:facet>
-                            <h:outputText value="#{item.pedidoidPedido.proveedoridProveedor.nombreProveedor}"/>
-                        </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":DetallePedidoViewForm" oncomplete="PF('DetallePedidoViewDialog').show()" disabled="#{empty detallePedidoController.selected}"/>
                             <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":DetallePedidoEditForm" oncomplete="PF('DetallePedidoEditDialog').show()" disabled="#{empty detallePedidoController.selected}"/>

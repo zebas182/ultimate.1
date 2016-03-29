@@ -32,12 +32,9 @@ public class ProductoController implements Serializable {
     private Producto selected;
     private List<Proveedor> listProveedor = null;
 
-    
     public ProductoController() {
     }
 
-
-    
     public Producto getSelected() {
         return selected;
     }
