@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e5250993-366a-4a45-82a8-ce1245127348">
+	<queryString language="SQL">
+		<![CDATA[SELECT
+     proveedor.`nombre_Proveedor` AS proveedor_nombre_Proveedor,
+     proveedor.`nombre_Contacto` AS proveedor_nombre_Contacto,
+     producto.`nombre_Producto` AS producto_nombre_Producto,
+     producto.`unidad_De_Medida` AS producto_unidad_De_Medida,
+     producto.`iva` AS producto_iva,
+     marca.`nombre_Marca` AS marca_nombre_Marca,
+     detalle_pedido.`precio_Unidad_Compra` AS detalle_pedido_precio_Unidad_Compra,
+     detalle_pedido.`Precio_Total` AS detalle_pedido_Precio_Total,
+     detalle_pedido.`cantidad_Pedidos` AS detalle_pedido_cantidad_Pedidos
+FROM
+     `marca` marca INNER JOIN `producto` producto ON marca.`idMarca` = producto.`Marca_idMarca`
+     INNER JOIN `detalle_pedido` detalle_pedido ON producto.`idProducto` = detalle_pedido.`Producto_idProducto`,
+     `proveedor` proveedor]]>
+	</queryString>
+	<field name="proveedor_nombre_Proveedor" class="java.lang.String"/>
+	<field name="proveedor_nombre_Contacto" class="java.lang.String"/>
+	<field name="producto_nombre_Producto" class="java.lang.String"/>
+	<field name="producto_unidad_De_Medida" class="java.lang.String"/>
+	<field name="marca_nombre_Marca" class="java.lang.String"/>
+	<field name="detalle_pedido_precio_Unidad_Compra" class="java.lang.Integer"/>
+	<field name="producto_iva" class="java.lang.Integer"/>
+	<field name="detalle_pedido_cantidad_Pedidos" class="java.lang.Integer"/>
+	<field name="detalle_pedido_Precio_Total" class="java.lang.Integer"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

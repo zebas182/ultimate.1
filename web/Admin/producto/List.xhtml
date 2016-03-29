@@ -78,13 +78,14 @@
                             <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{productoController.destroy}" update=":growl,datalist" disabled="#{empty productoController.selected}"/>
                         </f:facet>
                     </p:dataTable>
-                </p:panel>
+                </p:panel> <p:commandButton id="ReporteStock" icon="ui-icon-trash"  value="Reporte de Stock"   actionListener=""/>
             </h:form>
 
             <ui:include src="Create.xhtml"/>
             <ui:include src="Edit.xhtml"/>
             <ui:include src="View.xhtml"/>
         </ui:define>
+               
     </ui:composition>
 
 </html>
