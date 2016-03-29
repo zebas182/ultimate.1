@@ -49,9 +49,9 @@
                     <h:form>
                         <div class="form-group1">
                             <label for="exampleInputEmail1"> Ingrese su correo electronico </label>
-                            <p:inputText type="email" value="#{empleadoController.correo}" class="form-control" id="correo" placeholder="Enter email" />
+                            <p:inputText type="text" value="#{usuarioController.selected.nombreUsuario}" class="form-control" id="nombreUsuario" placeholder="Enter email" />
                         </div>
-                        <p:commandButton value="Siguiente" action="#{empleadoController.recibirCorreo()}"/>
+                        <p:commandButton value="Siguiente" actionListener="#{usuarioController.recibirUsuario()}"/>
                     </h:form>
                 </div>
             </div>

@@ -49,17 +49,7 @@ public class EmpleadoController implements Serializable {
         rol = new Rol();
     }
 
-    public Empleado  recibirCorreo() {
-        try {
-            Empleado e = ejbFacade.buscarID(getCorreo());
-            if (e != null) {
-              return e;  
-            }
-        } catch (Exception ex) {
-            ex.getMessage();
-        }
-        return null;
-    }
+   
     public void Registrar() {
         try {
             Usuario u = ejbUsuario.registrar(usuario.getNombreUsuario());

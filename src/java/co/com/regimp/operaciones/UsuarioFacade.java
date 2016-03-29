@@ -5,9 +5,9 @@
  */
 package co.com.regimp.operaciones;
 
-import co.com.regimp.modelos.Empleado;
 import co.com.regimp.modelos.Usuario;
 import java.util.List;
+import java.util.UUID;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -44,14 +44,6 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
         return null;
     }
 
-    public Usuario cambiarClave(String clave, int idUsuario) {
-        try {
-            em.createQuery("UPDATE Usuario u SET u.contrasena=:clave where u.idUsuario=:idUsuario").setParameter("clave", clave).setParameter("idUsuario", idUsuario).executeUpdate();
-        } catch (Exception ex) {
-        }
-        return null;
-    }
-
     public List<Usuario> ListaUsuariosDisponibles() {
         try {
             List<Usuario> lista = em.createQuery("SELECT u FROM Usuario u where u.estado=true").getResultList();
@@ -81,5 +73,15 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
         } catch (Exception e) {
         }
         return null;
+    }
+
+    public void cambioContrasena(String nombre) {
+        Usuario u = (Usuario) em.createQuery("Select u from Usuario u where u.nombreUsuario=:nombre ").setParameter("nombre", nombre).getResultList();
+
+        if (u != null) {
+            String nuevaClave = UUID.randomUUID().toString();
+            String cifrado = Encripcion.Encriptar.encriptaEnMD5(nuevaClave);
+            em.createQuery("UPDATE Usuario U set U.contrasena =':contrasena' where U.nombreUsuario=:nombre").setParameter("contrasena", cifrado).setParameter("nombre", nombre).executeUpdate();
+        }
     }
 }

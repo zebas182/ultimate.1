@@ -4,7 +4,7 @@ import Encripcion.Encriptar;
 import co.com.regimp.modelos.Usuario;
 import co.com.regimp.controladores.util.JsfUtil;
 import co.com.regimp.controladores.util.JsfUtil.PersistAction;
-import co.com.regimp.modelos.Empleado;
+import co.com.regimp.operaciones.EmpleadoFacade;
 import co.com.regimp.operaciones.UsuarioFacade;
 import java.io.IOException;
 
@@ -32,6 +32,8 @@ public class UsuarioController implements Serializable {
 
     @EJB
     private co.com.regimp.operaciones.UsuarioFacade ejbFacade;
+    @EJB
+    EmpleadoFacade ejbEmpleado;
     private List<Usuario> items = null;
     private Usuario selected = new Usuario();
     private String contrasenaEncriptada;
@@ -42,17 +44,21 @@ public class UsuarioController implements Serializable {
     public UsuarioController() {
     }
 
-    public Usuario generarNuevaClave(Empleado e) {
+    public void generarNuevaClave(Usuario id) {
         try {
             String nuevaClave = UUID.randomUUID().toString();
             System.out.println(nuevaClave);
-            selected.setContrasena(Encriptar.encriptaEnMD5(nuevaClave));
-  
-            u = ejbFacade.cambiarClave(selected.getContrasena(),e.getUsuarioidUsuario().getIdUsuario());
         } catch (Exception ex) {
             ex.getMessage();
         }
-        return u;
+    }
+
+    public void recibirUsuario() {
+        try {
+            ejbFacade.cambioContrasena(selected.getNombreUsuario());
+        } catch (Exception e) {
+            e.getStackTrace();
+        }
     }
 
     public String validado() {
