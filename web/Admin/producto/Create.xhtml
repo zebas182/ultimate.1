@@ -37,7 +37,7 @@
                         <p:selectOneMenu id="categoriaidCategoria" value="#{productoController.selected.categoriaidCategoria}" required="true" requiredMessage="#{bundle.EditProductoRequiredMessage_categoriaidCategoria}">
                             <f:selectItems value="#{categoriaController.itemsAvailableSelectOne}"
                                            var="categoriaidCategoriaItem"
-                                           itemValue="#{categoriaidCategoriaItem}"/>
+                                           itemValue="#{nombreCategoria}"/>
                         </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.CreateProductoLabel_marcaidMarca}" for="marcaidMarca" />
                         <p:selectOneMenu id="marcaidMarca" value="#{productoController.selected.marcaidMarca}" required="true" requiredMessage="#{bundle.EditProductoRequiredMessage_marcaidMarca}">

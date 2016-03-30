@@ -13,7 +13,7 @@
                     <p:fieldset legend="Datos Empleado">
                         <h:panelGrid id="list" columns="2" style="left: 10%; position: relative; height: 50px; border-radius: 10px; " >
                             <p:outputLabel value="#{bundle.CreateEmpleadoLabel_nombre}" for="nombreEmpleado" />
-                            <p:inputText id="nombreEmpleado" class="button"  value="#{empleadoController.selected.nombreEmpleado}" validatorMessage="El nombre no puede tener números" title="#{bundle.CreateEmpleadoTitle_nombreEmpleado}" required="true" requiredMessage="#{bundle.CreateEmpleadoRequiredMessage_nombreEmpleado}">
+                            <p:inputText id="nombreEmpleado" class="button"  value="#{empleadoController.selected.nombreEmpleado}" validatorMessage="El nombre es demasiado corto" title="#{bundle.CreateEmpleadoTitle_nombreEmpleado}" required="true" requiredMessage="#{bundle.CreateEmpleadoRequiredMessage_nombreEmpleado}">
                                 <f:validateRegex pattern="[A-Z a-z]{7,50}" />
                             </p:inputText>
                             <p:outputLabel value="#{bundle.CreateEmpleadoLabel_identificacion}" for="identificacion" />
