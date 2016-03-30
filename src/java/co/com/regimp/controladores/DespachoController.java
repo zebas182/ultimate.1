@@ -22,6 +22,8 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.inject.Inject;
+
 
 @ManagedBean(name = "despachoController")
 @SessionScoped
@@ -33,6 +35,8 @@ public class DespachoController implements Serializable {
     private co.com.regimp.operaciones.ProductoFacade ejbProducto;
     @EJB
     private co.com.regimp.operaciones.DetalleDespachoFacade ejbDetalle;
+    @EJB
+    private co.com.regimp.operaciones.EmpleadoFacade ejbEmpleado;
     private List<Despacho> items = null;
     private Despacho selected = new Despacho();
     private List<DetalleDespacho> detalleDespacho = new ArrayList();
@@ -66,7 +70,7 @@ public class DespachoController implements Serializable {
     public void limpiar() {
         ejbProducto.limpiarCon();
         detalleDespacho.clear();
-        UnidadDeMedida = null;
+        UnidadDeMedida = "";
         precioUnidadVenta = 0;
         producto = null;
         cantidadVendidos = 0;
@@ -94,6 +98,7 @@ public class DespachoController implements Serializable {
                     if (result < 0) {
                         FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No se puede despachar más productos de los que hay en el stock");
                         FacesContext.getCurrentInstance().addMessage(null, facesMsg);
+                        ejbProducto.limiteStock(det.getCantidadVendida(), det.getProductoidProducto().getIdProducto());
                     } else {
                         UnidadDeMedida = null;
                         precioUnidadVenta = 0;
@@ -108,9 +113,10 @@ public class DespachoController implements Serializable {
                     FacesContext.getCurrentInstance().addMessage(null, facesMsg);
                 }
             } else {
+                ejbProducto.limiteStock(det.getCantidadVendida(), det.getProductoidProducto().getIdProducto());
                 FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No se puede despachar más productos de los que hay en el stock");
                 FacesContext.getCurrentInstance().addMessage(null, facesMsg);
-
+                
             }
         }
 
@@ -128,10 +134,10 @@ public class DespachoController implements Serializable {
                 ejbProducto.limpiarControl(det.getProductoidProducto().getIdProducto());
             }
             detalleDespacho.clear();
-            UnidadDeMedida = null;
+            UnidadDeMedida = "";
             precioUnidadVenta = 0;
             cantidadVendidos = 0;
-            selected.setEmpleado(null);
+            selected.setEmpleado("");
         } catch (Exception e) {
             e.getStackTrace();
         }
@@ -302,6 +308,7 @@ public class DespachoController implements Serializable {
     public void setAlmacen(int almacen) {
         this.almacen = almacen;
     }
+
 
     @FacesConverter(forClass = Despacho.class)
     public static class DespachoControllerConverter implements Converter {

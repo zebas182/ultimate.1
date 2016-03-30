@@ -24,15 +24,12 @@
                                            itemLabel="#{Emple.nombreEmpleado}"
                                            itemValue="#{Emple.nombreEmpleado}"/>
                         </p:selectOneMenu>
-
-
-
                         <p:outputLabel value="Producto"  />
                         <p:autoComplete id="productoslist" value="#{despachoController.producto}" completeMethod="#{despachoController.completeProducto}"
                                         var="pro" itemLabel="#{pro.nombreProducto}" itemValue="#{pro}"    forceSelection="true" />
 
                         <p:outputLabel value="Unidad De Medida" for="unidadDeMedida" />
-                        <p:selectOneMenu id="unidadDeMedida" value="#{despachoController.unidadDeMedida}" style="width:125px" required="true" requiredMessage="Unidad De Medida Requerida">
+                        <p:selectOneMenu id="unidadDeMedida" value="#{despachoController.unidadDeMedida}" style="width:125px" required="false" requiredMessage="Unidad De Medida Requerida">
                             <f:selectItem itemLabel="Select One" itemValue="" />
                             <f:selectItem itemLabel="Paquete" itemValue="Paquete" />
                             <f:selectItem itemLabel="Libras" itemValue="Libras" />
@@ -72,7 +69,7 @@
                         #{det.precioTotal}
                     </p:column>
                     <f:facet name="footer">
-                        <p:commandButton id="Registrar" icon="ui-icon-disk"  value="Registrar" ajax="#{despachoController.limpiar()}" actionListener="#{despachoController.Registrar()}" update=":growl,Detalle,:ProductoListForm"/>
+                        <p:commandButton id="Registrar" icon="ui-icon-disk"  value="Registrar"  actionListener="#{despachoController.Registrar()}" update=":growl,Detalle" />
                         <p:commandButton id="Cancelar"  icon="ui-icon-closethick" value="Cancelar" actionListener="#{despachoController.limpiar()}" update="Detalle,:ProductoListForm"/>
                     </f:facet>
                 </p:dataTable>

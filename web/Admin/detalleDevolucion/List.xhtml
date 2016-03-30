@@ -24,41 +24,37 @@
                                  rowsPerPageTemplate="10,20,30,40,50"
                                  >
 
-                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
-                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowSelect"   update="viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="viewButton editButton deleteButton"/>
 
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListDetalleDevolucionTitle_idDetalleDevolucion}"/>
+                                <h:outputText value="#{bundle.ListDetalleDevolucionTitle_productoidProducto}"/>
                             </f:facet>
-                            <h:outputText value="#{item.idDetalleDevolucion}"/>
+                            <h:outputText value="#{item.productoidProducto.nombreProducto}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListDetalleDevolucionTitle_cantidadProductos}"/>
+                                <h:outputText value="Cantidad De Productos"/>
                             </f:facet>
                             <h:outputText value="#{item.cantidadProductos}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListDetalleDevolucionTitle_observaciones}"/>
+                                <h:outputText value="Observaciones"/>
                             </f:facet>
                             <h:outputText value="#{item.observaciones}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListDetalleDevolucionTitle_devolucionidDevolucion}"/>
+                                <h:outputText value="Fecha Devolución"/>
                             </f:facet>
-                            <h:outputText value="#{item.devolucionidDevolucion}"/>
+                            <h:outputText value="#{item.devolucionidDevolucion.fechaDevolucion}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
                         </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListDetalleDevolucionTitle_productoidProducto}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.productoidProducto}"/>
-                        </p:column>
+
                         <f:facet name="footer">
-                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{detalleDevolucionController.prepareCreate}" update=":DetalleDevolucionCreateForm" oncomplete="PF('DetalleDevolucionCreateDialog').show()"/>
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":DetalleDevolucionViewForm" oncomplete="PF('DetalleDevolucionViewDialog').show()" disabled="#{empty detalleDevolucionController.selected}"/>
                             <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":DetalleDevolucionEditForm" oncomplete="PF('DetalleDevolucionEditDialog').show()" disabled="#{empty detalleDevolucionController.selected}"/>
                             <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{detalleDevolucionController.destroy}" update=":growl,datalist" disabled="#{empty detalleDevolucionController.selected}"/>
@@ -67,7 +63,6 @@
                 </p:panel>
             </h:form>
 
-            <ui:include src="Create.xhtml"/>
             <ui:include src="Edit.xhtml"/>
             <ui:include src="View.xhtml"/>
         </ui:define>

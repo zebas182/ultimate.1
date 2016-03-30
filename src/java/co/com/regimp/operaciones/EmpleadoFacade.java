@@ -30,6 +30,9 @@ public class EmpleadoFacade extends AbstractFacade<Empleado> {
         super(Empleado.class);
     }
 
-
+   public String EmpleadoLogueado(int id){
+   String nom=(String) em.createQuery("SELECT e.nombreEmpleado FROM Empleado e WHERE e.usuarioidUsuario.idUsuario=:id").setParameter("id", id).getSingleResult();
+   return nom;
+   }
    
 }
