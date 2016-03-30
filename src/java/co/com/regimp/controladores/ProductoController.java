@@ -54,6 +54,7 @@ public class ProductoController implements Serializable {
     private List<Proveedor> listProveedor = null;
 
     public ProductoController() {
+        selected=new Producto();
         reportesRegimp = new ReportesRegimp();
     }
 
@@ -146,6 +147,7 @@ public class ProductoController implements Serializable {
     private void persist(PersistAction persistAction, String successMessage) {
         if (selected != null) {
             selected.setEstado(true);
+            selected.setControl(0);
             setEmbeddableKeys();
             try {
                 if (persistAction != PersistAction.DELETE) {

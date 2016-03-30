@@ -37,17 +37,20 @@
                         <p:selectOneMenu id="categoriaidCategoria" value="#{productoController.selected.categoriaidCategoria}" required="true" requiredMessage="#{bundle.EditProductoRequiredMessage_categoriaidCategoria}">
                             <f:selectItems value="#{categoriaController.itemsAvailableSelectOne}"
                                            var="categoriaidCategoriaItem"
-                                           itemValue="#{nombreCategoria}"/>
+                                           itemValue="#{categoriaidCategoriaItem}"
+                                           itemLabel="#{categoriaidCategoriaItem.nombreCategoria}"/>
                         </p:selectOneMenu>
+                        
                         <p:outputLabel value="#{bundle.CreateProductoLabel_marcaidMarca}" for="marcaidMarca" />
                         <p:selectOneMenu id="marcaidMarca" value="#{productoController.selected.marcaidMarca}" required="true" requiredMessage="#{bundle.EditProductoRequiredMessage_marcaidMarca}">
                             <f:selectItems value="#{marcaController.itemsAvailableSelectOne}"
                                            var="marcaidMarcaItem"
-                                           itemValue="#{marcaidMarcaItem}"/>
+                                           itemValue="#{marcaidMarcaItem}"
+                                           itemLabel="#{marcaidMarcaItem.nombreMarca}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{productoController.create}" value="#{bundle.Save}" update="display,:ProductoListForm:datalist,:growl" oncomplete="handleSubmit(args,'ProductoCreateDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="ProductoCreateDialog.hide()"/>
+                    <p:commandButton actionListener="#{productoController.create}" value="#{bundle.Save}" update="display,:ProductoListForm:datalist,:growl" oncomplete="PF('ProductoCreateDialog').hide();"/>
+                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('ProductoCreateDialog').hide();"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

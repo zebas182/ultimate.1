@@ -20,7 +20,7 @@
                                  selectionMode="single" selection="#{detallePedidoController.selected}"
                                  paginator="true"
                                  rowKey="#{item.idDetallePedido}"
-                                 rows="6"
+                                 rows="4"
                                  rowsPerPageTemplate="6,12,18,36,42"
                                  >
 
@@ -29,19 +29,19 @@
 
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListDetallePedidoTitle_productoidProducto}"/>
+                                <h:outputText value="Producto"/>
                             </f:facet>
                             <h:outputText value="#{item.productoidProducto.nombreProducto}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListDetallePedidoTitle_unidadDeMedida}"/>
+                                <h:outputText value="Unidad De Medida"/>
                             </f:facet>
                             <h:outputText value="#{item.unidadDeMedida}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListDetallePedidoTitle_precioUnidadCompra}"/>
+                                <h:outputText value="Precio De Compra"/>
                             </f:facet>
                             <h:outputText value="#{item.precioUnidadCompra}">
                                 <f:convertNumber currencySymbol="$" type="currency"/>
@@ -49,13 +49,13 @@
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListDetallePedidoTitle_cantidadPedidos}"/>
+                                <h:outputText value="Cantidad Pedidos"/>
                             </f:facet>
                             <h:outputText value="#{item.cantidadPedidos}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListDetallePedidoTitle_fechaDeVencimiento}"/>
+                                <h:outputText value="Fecha De Vencimiento"/>
                             </f:facet>
                             <h:outputText value="#{item.fechaDeVencimiento}">
                                 <f:convertDateTime pattern="MM/dd/yyyy" />
@@ -63,13 +63,13 @@
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListDetallePedidoTitle_cantidadEntregados}"/>
+                                <h:outputText value="Cantidad Entregados"/>
                             </f:facet>
                             <h:outputText value="#{item.cantidadEntregados}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListDetallePedidoTitle_fechaLote}"/>
+                                <h:outputText value="Fecha Lote"/>
                             </f:facet>
                             <h:outputText value="#{item.fechaLote}">
                                 <f:convertDateTime pattern="MM/dd/yyyy" />
@@ -77,7 +77,7 @@
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListDetallePedidoTitle_precioTotal}"/>
+                                <h:outputText value="Precio Pedido"/>
                             </f:facet>
                             <h:outputText value="#{item.precioTotal}">
                                 <f:convertNumber currencySymbol="$" type="currency"/>
@@ -85,15 +85,19 @@
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListDetallePedidoTitle_pedidoidPedido}"/>
+                                <h:outputText value="Fecha Pedido"/>
                             </f:facet>
-                            <h:outputText value="#{item.pedidoidPedido.fechaPedido}"/>
+                            <h:outputText value="#{item.pedidoidPedido.fechaPedido}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="Fecha Entrega"/>
                             </f:facet>
-                            <h:outputText value="#{item.pedidoidPedido.fechaEntrega}"/>
+                            <h:outputText value="#{item.pedidoidPedido.fechaEntrega}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
                         </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":DetallePedidoViewForm" oncomplete="PF('DetallePedidoViewDialog').show()" disabled="#{empty detallePedidoController.selected}"/>

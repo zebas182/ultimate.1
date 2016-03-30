@@ -93,6 +93,7 @@ public class UsuarioController implements Serializable {
             try {
                 ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
                 context.redirect(context.getRequestContextPath() + "/faces/Login.xhtml");
+
             } catch (IOException ex) {
                 Logger.getLogger(UsuarioController.class.getName()).log(Level.SEVERE, null, ex);
             }

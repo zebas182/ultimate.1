@@ -3,10 +3,7 @@ package co.com.regimp.controladores;
 import co.com.regimp.modelos.Devolucion;
 import co.com.regimp.controladores.util.JsfUtil;
 import co.com.regimp.controladores.util.JsfUtil.PersistAction;
-import co.com.regimp.modelos.DetalleDespacho;
 import co.com.regimp.modelos.DetalleDevolucion;
-import co.com.regimp.modelos.DetallePedido;
-import static co.com.regimp.modelos.DetallePedido_.cantidadPedidos;
 import co.com.regimp.modelos.Producto;
 import co.com.regimp.operaciones.DevolucionFacade;
 

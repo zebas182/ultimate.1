@@ -72,7 +72,7 @@ public class Producto implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "iva")
-    private int iva;
+    private double iva;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
@@ -148,11 +148,11 @@ public class Producto implements Serializable {
         this.estado = estado;
     }
 
-    public int getIva() {
+    public double getIva() {
         return iva;
     }
 
-    public void setIva(int iva) {
+    public void setIva(double iva) {
         this.iva = iva;
     }
 

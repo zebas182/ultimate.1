@@ -30,6 +30,12 @@ public class ProductoFacade extends AbstractFacade<Producto> {
         super(Producto.class);
     }
 
+    public void limiteStock(int cantidad, int id) {
+        int control = (int) em.createQuery("select p.control FROM Producto p where p.idProducto=:id").setParameter("id", id).getSingleResult();
+        int total = control - cantidad;
+        em.createQuery("UPDATE Producto p SET P.control=:total WHERE p.idProducto=:id").setParameter("total", total).setParameter("id", id).executeUpdate();
+    }
+
     public int AgregarCantidad(int id, int cantidad, int precio, int cantidadVieja) {
 
         int can = (int) em.createQuery("select p.cantidadStock from Producto p where p.idProducto=:id").setParameter("id", id).getSingleResult();
@@ -53,22 +59,27 @@ public class ProductoFacade extends AbstractFacade<Producto> {
     }
 
     public int QuitarCantidad(int id, int cantidad) {
+        try {
 
-        int can = (int) em.createQuery("select p.cantidadStock from Producto p where p.idProducto=:id").setParameter("id", id).getSingleResult();
-        int precant = can - cantidad;
+            int can = (int) em.createQuery("select p.cantidadStock from Producto p where p.idProducto=:id").setParameter("id", id).getSingleResult();
+            int precant = can - cantidad;
 
-        int canCon = (int) em.createQuery("select p.control from Producto p where p.idProducto=:id").setParameter("id", id).getSingleResult();
-        almacen = canCon;
-        almacen = almacen + cantidad;
-        em.createQuery("Update Producto p set p.control=:control WHERE p.idProducto=:id").setParameter("control", almacen).setParameter("id", id).executeUpdate();
-        almacen = 0;
-        int canControl = (int) em.createQuery("select p.control from Producto p where p.idProducto=:id").setParameter("id", id).getSingleResult();
+            int canCon = (int) em.createQuery("select p.control from Producto p where p.idProducto=:id").setParameter("id", id).getSingleResult();
+            almacen = canCon;
+            almacen = almacen + cantidad;
+            em.createQuery("Update Producto p set p.control=:control WHERE p.idProducto=:id").setParameter("control", almacen).setParameter("id", id).executeUpdate();
+            almacen = 0;
+            int canControl = (int) em.createQuery("select p.control from Producto p where p.idProducto=:id").setParameter("id", id).getSingleResult();
 
-        if (precant < 0) {
-            return -1;
-        } else {
-            return canControl;
+            if (precant < 0) {
+                return -1;
+            } else {
+                return canControl;
+            }
+        } catch (Exception e) {
+            e.getStackTrace();
         }
+        return -2;
     }
 
     public void QuitarCantidaddef(int id, int cantidad) {

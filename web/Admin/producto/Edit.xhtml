@@ -31,13 +31,15 @@
                             <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
                             <f:selectItems value="#{categoriaController.itemsAvailableSelectOne}"
                                            var="categoriaidCategoriaItem"
-                                           itemValue="#{categoriaidCategoriaItem}"/>
+                                           itemValue="#{categoriaidCategoriaItem}"
+                                           itemLabel="#{categoriaidCategoriaItem.nombreCategoria}"/>
                         </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.EditProductoLabel_marcaidMarca}" for="marcaidMarca" />
                         <p:selectOneMenu id="marcaidMarca" value="#{productoController.selected.marcaidMarca}" required="true" requiredMessage="#{bundle.EditProductoRequiredMessage_marcaidMarca}">
                             <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
                             <f:selectItems value="#{marcaController.itemsAvailableSelectOne}"
                                            var="marcaidMarcaItem"
+                                           itemLabel="#{marcaidMarcaItem.nombreMarca}"
                                            itemValue="#{marcaidMarcaItem}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
