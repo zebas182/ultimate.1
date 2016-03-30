@@ -24,8 +24,8 @@
                                  rowsPerPageTemplate="10,20,30,40,50"
                                  >
 
-                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
-                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowSelect"   update="viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="viewButton editButton deleteButton"/>
 
                         
                         <p:column>
@@ -44,7 +44,6 @@
                             <h:outputText value="#{item.empleado}"/>
                         </p:column>
                         <f:facet name="footer">
-                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{despachoController.prepareCreate}" update=":DespachoCreateForm" oncomplete="PF('DespachoCreateDialog').show()"/>
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":DespachoViewForm" oncomplete="PF('DespachoViewDialog').show()" disabled="#{empty despachoController.selected}"/>
                             <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":DespachoEditForm" oncomplete="PF('DespachoEditDialog').show()" disabled="#{empty despachoController.selected}"/>
                             <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{despachoController.destroy}" update=":growl,datalist" disabled="#{empty despachoController.selected}"/>
@@ -53,7 +52,6 @@
                 </p:panel>
             </h:form>
 
-            <ui:include src="Create.xhtml"/>
             <ui:include src="Edit.xhtml"/>
             <ui:include src="View.xhtml"/>
         </ui:define>

@@ -69,7 +69,7 @@
                         #{det.observaciones}
                     </p:column>
                     <f:facet name="footer">
-                        <p:commandButton id="Registrar"  value="Registrar" actionListener="#{devolucionController.Registrar()}" oncomplete="#{devolucionController.limpiar()}" update="Detalle"/>
+                        <p:commandButton id="Registrar"  value="Registrar" actionListener="#{devolucionController.Registrar()}"  update="Detalle"/>
                         <p:commandButton id="Cancelar"  icon="ui-icon-closethick" value="Cancelar" actionListener="#{devolucionController.limpiar()}" update="Detalle"/>
                     </f:facet>
                 </p:dataTable>

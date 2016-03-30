@@ -12,7 +12,7 @@
                 <p:panel id="panel" header="Crear Usuario" style="margin-bottom:30px; width: 500px; height: 490px; position: absolute; left: 35%;">
                     <p:fieldset legend="Datos Empleado">
                         <h:panelGrid id="list" columns="2" style="left: 10%; position: relative; height: 50px; border-radius: 10px; " >
-                            <p:outputLabel value="#{bundle.CreateEmpleadoLabel_nombre}" for="nombreEmpleado" />
+                            <p:outputLabel value="Nombre Completo" for="nombreEmpleado" />
                             <p:inputText id="nombreEmpleado" class="button"  value="#{empleadoController.selected.nombreEmpleado}" validatorMessage="El nombre es demasiado corto" title="#{bundle.CreateEmpleadoTitle_nombreEmpleado}" required="true" requiredMessage="#{bundle.CreateEmpleadoRequiredMessage_nombreEmpleado}">
                                 <f:validateRegex pattern="[A-Z a-z]{7,50}" />
                             </p:inputText>
@@ -48,6 +48,7 @@
                     <f:facet name="footer" >
                         <center> 
                             <p:commandButton actionListener="#{empleadoController.Registrar()}" style="border-radius: 10px;" value="Registrarse" icon="ui-icon-disk"   update=":growl,list,list2" />
+                            <p:commandButton value="Regresar" type="button"  actionListener="#{empleadoController.redireccion()}"><f:ajax /></p:commandButton>
                         </center>
                     </f:facet>
                 </p:panel>

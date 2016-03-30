@@ -12,28 +12,15 @@
             <h:form id="PedidoEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{pedidoController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditPedidoLabel_idPedido}" for="idPedido" />
-                        <p:inputText id="idPedido" value="#{pedidoController.selected.idPedido}" title="#{bundle.EditPedidoTitle_idPedido}" required="true" requiredMessage="#{bundle.EditPedidoRequiredMessage_idPedido}"/>
                         <p:outputLabel value="#{bundle.EditPedidoLabel_fechaPedido}" for="fechaPedido" />
-                        <p:calendar id="fechaPedido" pattern="MM/dd/yyyy HH:mm:ss" value="#{pedidoController.selected.fechaPedido}" title="#{bundle.EditPedidoTitle_fechaPedido}" required="true" requiredMessage="#{bundle.EditPedidoRequiredMessage_fechaPedido}" showOn="button"/>
+                        <p:calendar id="fechaPedido" pattern="MM/dd/yyyy"  readonly="true" value="#{pedidoController.selected.fechaPedido}" title="#{bundle.EditPedidoTitle_fechaPedido}" required="true" requiredMessage="#{bundle.EditPedidoRequiredMessage_fechaPedido}" showOn="button"/>
                         <p:outputLabel value="#{bundle.EditPedidoLabel_fechaEntrega}" for="fechaEntrega" />
-                        <p:calendar id="fechaEntrega" pattern="MM/dd/yyyy" value="#{pedidoController.selected.fechaEntrega}" title="#{bundle.EditPedidoTitle_fechaEntrega}"  showOn="button"/>
-                        <p:outputLabel value="#{bundle.EditPedidoLabel_estado}" for="estado" />
-                        <p:selectBooleanCheckbox id="estado" value="#{pedidoController.selected.estado}" required="true" requiredMessage="#{bundle.EditPedidoRequiredMessage_estado}"/>
+                        <p:calendar id="fechaEntrega" pattern="MM/dd/yyyy" locale="es" mindate="#{pedidoController.actual}" value="#{pedidoController.selected.fechaEntrega}" title="#{bundle.EditPedidoTitle_fechaEntrega}" />
                         <p:outputLabel value="#{bundle.EditPedidoLabel_empleadoidEmpleado}" for="empleadoidEmpleado" />
-                        <p:selectOneMenu id="empleadoidEmpleado" value="#{pedidoController.selected.empleadoidEmpleado}" required="true" requiredMessage="#{bundle.EditPedidoRequiredMessage_empleadoidEmpleado}">
-                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
-                            <f:selectItems value="#{empleadoController.itemsAvailableSelectOne}"
-                                           var="empleadoidEmpleadoItem"
-                                           itemValue="#{empleadoidEmpleadoItem}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.EditPedidoLabel_proveedoridProveedor}" for="proveedoridProveedor" />
-                        <p:selectOneMenu id="proveedoridProveedor" value="#{pedidoController.selected.proveedoridProveedor}" required="true" requiredMessage="#{bundle.EditPedidoRequiredMessage_proveedoridProveedor}">
-                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
-                            <f:selectItems value="#{proveedorController.itemsAvailableSelectOne}"
-                                           var="proveedoridProveedorItem"
-                                           itemValue="#{proveedoridProveedorItem}"/>
-                        </p:selectOneMenu>
+                        <p:inputText id="empleadoidEmpleado" value="#{pedidoController.selected.empleadoidEmpleado.nombreEmpleado}" required="true" requiredMessage="#{bundle.EditPedidoRequiredMessage_empleadoidEmpleado}"/>
+                        <p:outputLabel value="Proveedor" for="proveedoridProveedor" />
+                        <p:inputText id="proveedoridProveedor" readonly="true" value="#{pedidoController.selected.proveedoridProveedor.nombreProveedor}" required="true" requiredMessage="#{bundle.EditPedidoRequiredMessage_proveedoridProveedor}"/>
+                            
                     </p:panelGrid>
                     <p:commandButton actionListener="#{pedidoController.update}" value="#{bundle.Save}" update="display,:PedidoListForm:datalist,:growl" oncomplete="handleSubmit(args, 'PedidoEditDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="PedidoEditDialog.hide()"/>

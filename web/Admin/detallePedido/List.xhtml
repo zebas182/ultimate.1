@@ -101,8 +101,8 @@
                         </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":DetallePedidoViewForm" oncomplete="PF('DetallePedidoViewDialog').show()" disabled="#{empty detallePedidoController.selected}"/>
-                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":DetallePedidoEditForm" oncomplete="PF('DetallePedidoEditDialog').show()" disabled="#{empty detallePedidoController.selected}"/>
-                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{detallePedidoController.destroy}" update=":growl,datalist" disabled="#{empty detallePedidoController.selected}"/>
+                            <p:commandButton id="editButton"  rendered="#{usuarioController.u.rolidRol.idRol eq 1}" icon="ui-icon-pencil" value="#{bundle.Edit}" update=":DetallePedidoEditForm" oncomplete="PF('DetallePedidoEditDialog').show()" disabled="#{empty detallePedidoController.selected}"/>
+                            <p:commandButton id="deleteButton" rendered="#{usuarioController.u.rolidRol.idRol eq 1}" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{detallePedidoController.destroy}" update=":growl,datalist" disabled="#{empty detallePedidoController.selected}"/>
                         </f:facet>
                     </p:dataTable>
                 </p:panel>

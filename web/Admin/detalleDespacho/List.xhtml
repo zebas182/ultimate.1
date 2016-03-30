@@ -24,8 +24,8 @@
                                  rowsPerPageTemplate="10,20,30,40,50"
                                  >
 
-                        <p:ajax event="rowSelect"   update="viewButton editButton deleteButton"/>
-                        <p:ajax event="rowUnselect" update="viewButton editButton deleteButton"/>
+                        <p:ajax event="rowSelect"   update="viewButton  deleteButton"/>
+                        <p:ajax event="rowUnselect" update="viewButton  deleteButton"/>
 
                         <p:column>
                             <f:facet name="header">
@@ -73,14 +73,14 @@
                         </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":DetalleDespachoViewForm" oncomplete="PF('DetalleDespachoViewDialog').show()" disabled="#{empty detalleDespachoController.selected}"/>
-                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":DetalleDespachoEditForm" oncomplete="PF('DetalleDespachoEditDialog').show()" disabled="#{empty detalleDespachoController.selected}"/>
-                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{detalleDespachoController.destroy}" update=":growl,datalist" disabled="#{empty detalleDespachoController.selected}"/>
+                            <p:commandButton id="editButton"  rendered="false" icon="ui-icon-pencil" value="#{bundle.Edit}" update=":DetalleDespachoEditForm" oncomplete="PF('DetalleDespachoEditDialog').show()" disabled="#{empty detalleDespachoController.selected}"/>
+                            <p:commandButton id="deleteButton" rendered="#{usuarioController.u.rolidRol.idRol eq 1}" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{detalleDespachoController.destroy}" update=":growl,datalist" disabled="#{empty detalleDespachoController.selected}"/>
                         </f:facet>
                     </p:dataTable>
                 </p:panel>
             </h:form>
 
-            <ui:include src="Edit.xhtml"/>
+            <!--<ui:include src="Edit.xhtml"/>-->
             <ui:include src="View.xhtml"/>
         </ui:define>
     </ui:composition>

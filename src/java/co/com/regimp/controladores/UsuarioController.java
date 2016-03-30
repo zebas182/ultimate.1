@@ -100,6 +100,11 @@ public class UsuarioController implements Serializable {
         }
     }
 
+      public void redireccion() throws IOException {
+        ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
+        context.redirect(context.getRequestContextPath() + "/faces/Login.xhtml");
+    }
+      
     public void cerrarSesion() {
         FacesContext context = FacesContext.getCurrentInstance();
         ExternalContext externalContext = context.getExternalContext();

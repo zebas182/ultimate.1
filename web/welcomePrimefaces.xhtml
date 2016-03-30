@@ -14,7 +14,7 @@
             <f:metadata>
                 <f:event type="preRenderView" listener="#{usuarioController.validarSesion()}"></f:event>
             </f:metadata>
- 
+            <h:outputScript library="js" name="es.js"/>
         </h:head>
 
         <h:body>
@@ -25,60 +25,60 @@
                 <p:layoutUnit position="north" size="100" resizable="true" closable="true" collapsible="true">
 
                     <h:form>
-                        <table style="right: 400px; top: 10px;  position:absolute;">
+                        <p:graphicImage library="images" name="Regimp.png" style="width: 400px; height: 70px; position: absolute;"/>
+                        <table style="right: 200px; top: 10px;  position:absolute;">
                             <tr>
                                 <td><p:outputLabel  value="Usuario: "/></td>
-                                <td><p:outputLabel  value="#{usuarioController.u.nombreUsuario}"/></td>
+                            <td><p:outputLabel  value="#{usuarioController.u.nombreUsuario}"/></td>
                             </tr>
 
                             <tr>
                                 <td><p:outputLabel  value="Rol: "/></td>
-                                <td><p:outputLabel  value="#{usuarioController.u.rolidRol.nombreRol}"/></td>
+                            <td><p:outputLabel  value="#{usuarioController.u.rolidRol.nombreRol}"/></td>
                             </tr>
 
-                            </table>
-                                <p:commandButton id="cerrar" style="margin: 0px; position: absolute; right:10px; top: 40px;" value="Cerrar Sesión" actionListener="#{usuarioController.cerrarSesion()}"/><br></br>
+                        </table>
+                        <p:commandButton id="cerrar" style="margin: 0px; position: absolute; right:10px; top: 40px;" value="Cerrar Sesión" actionListener="#{usuarioController.cerrarSesion()}"/><br></br>
 
-                                </h:form>
+                    </h:form>
 
-                                </p:layoutUnit>
+                </p:layoutUnit>
 
-                                <p:layoutUnit position="south" size="50" closable="true" collapsible="true">
-                                    Footer
-                                </p:layoutUnit>
+                <p:layoutUnit position="south" size="50" closable="true" collapsible="true">
+                    
+                </p:layoutUnit>
 
-                                <p:layoutUnit position="west" size="175" header="Left" collapsible="true">
-                                    <h:form>
-                                        <p:menu>
-                                            <p:submenu label="Resources">
-                                                <p:menuitem value="Categoria" rendered="#{usuarioController.u.rolidRol.idRol eq 1}" url="/faces/Admin/categoria/List.xhtml" />
-                                                <p:menuitem value="Despacho" rendered="false" url="/faces/Admin/despacho/List.xhtml" />
-                                                <p:menuitem value="Despachos" url="/faces/Admin/detalleDespacho/List.xhtml" />
-                                                <p:menuitem value="Devoluciones" url="/faces/Admin/detalleDevolucion/List.xhtml" />
-                                                <p:menuitem value="Pedidos" url="/faces/Admin/detallePedido/List.xhtml" />
-                                                <p:menuitem value="Devolucion" rendered="#{usuarioController.u.rolidRol.idRol eq 1}" url="/faces/Admin/devolucion/List.xhtml" />
-                                                <p:menuitem url="/faces/Admin/empleado/List.xhtml" rendered="#{usuarioController.u.rolidRol.idRol eq 1}" value=" Empleado "/>
-                                                <p:menuitem url="/faces/Admin/marca/List.xhtml" rendered="#{usuarioController.u.rolidRol.idRol eq 1}" value=" Marca "/>
-                                                <p:menuitem url="/faces/Admin/pedido/List.xhtml" rendered="#{usuarioController.u.rolidRol.idRol eq 1}" value=" Pedido "/>
-                                                <p:menuitem url="/faces/Admin/producto/List.xhtml"  value=" Producto "/>
-                                                <p:menuitem url="/faces/Admin/proveedor/List.xhtml" rendered="#{usuarioController.u.rolidRol.idRol eq 1}" value=" Proveedor "/>
-                                                <p:menuitem url="/faces/Admin/usuario/List.xhtml" rendered="#{usuarioController.u.rolidRol.idRol eq 1}" value=" Usuario "/>
-                                                <p:menuitem url="/faces/Admin/pedido/Carrito.xhtml" rendered="#{usuarioController.u.rolidRol.idRol eq 1}" value="Carrito Pedido"/>
-                                                <p:menuitem url="/faces/Admin/despacho/Carrito.xhtml" value="Carrito Despacho"/>
-                                                <p:menuitem url="/faces/Admin/devolucion/Carrito.xhtml" value="Carrito Devolución"/>
-                                            </p:submenu>
-                                        </p:menu>
-                                    </h:form>
-                                </p:layoutUnit> 
+                <p:layoutUnit position="west" size="175" header="Menú" collapsible="true">
+                    <h:form>
+                        <p:menu>
+                            <p:submenu label="Opciones">
+                                <p:menuitem value="Categoria" rendered="#{usuarioController.u.rolidRol.idRol eq 1}" url="/faces/Admin/categoria/List.xhtml" />
+                                <p:menuitem value="Despacho" rendered="false" url="/faces/Admin/despacho/List.xhtml" />
+                                <p:menuitem value="Despachos" url="/faces/Admin/detalleDespacho/List.xhtml" />
+                                <p:menuitem value="Devoluciones" url="/faces/Admin/detalleDevolucion/List.xhtml" />
+                                <p:menuitem value="Pedidos" url="/faces/Admin/detallePedido/List.xhtml" />
+                                <p:menuitem url="/faces/Admin/empleado/List.xhtml" rendered="#{usuarioController.u.rolidRol.idRol eq 1}" value=" Empleado "/>
+                                <p:menuitem url="/faces/Admin/marca/List.xhtml" rendered="#{usuarioController.u.rolidRol.idRol eq 1}" value=" Marca "/>
+                                <p:menuitem url="/faces/Admin/pedido/List.xhtml" rendered="#{usuarioController.u.rolidRol.idRol eq 1}" value=" Pedido "/>
+                                <p:menuitem url="/faces/Admin/producto/List.xhtml"  value=" Producto "/>
+                                <p:menuitem url="/faces/Admin/proveedor/List.xhtml" rendered="#{usuarioController.u.rolidRol.idRol eq 1}" value=" Proveedor "/>
+                                <p:menuitem url="/faces/Admin/usuario/List.xhtml" rendered="#{usuarioController.u.rolidRol.idRol eq 1}" value=" Usuario "/>
+                                <p:menuitem url="/faces/Admin/pedido/Carrito.xhtml" rendered="#{usuarioController.u.rolidRol.idRol eq 1}" value="Carrito Pedido"/>
+                                <p:menuitem url="/faces/Admin/despacho/Carrito.xhtml" value="Carrito Despacho"/>
+                                <p:menuitem url="/faces/Admin/devolucion/Carrito.xhtml" value="Carrito Devolución"/>
+                            </p:submenu>
+                        </p:menu>
+                    </h:form>
+                </p:layoutUnit> 
 
-                                <p:layoutUnit position="center">
-                                    <ui:insert name="body"/>
-                                </p:layoutUnit>
+                <p:layoutUnit position="center">
+                    <ui:insert name="body"/>
+                </p:layoutUnit>
 
-                                </p:layout>
+            </p:layout>
 
-                                </h:body>
+        </h:body>
 
-                                </f:view>
-                                </html>
+    </f:view>
+</html>
 

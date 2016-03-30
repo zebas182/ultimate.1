@@ -49,7 +49,7 @@ public class PedidoController implements Serializable {
     private Date fechaLote = null;
     private Pedido PedidoSeleccionado;
     private DetallePedido det;
-
+    private Date actual = new Date();
     public PedidoController() {
     }
 
@@ -295,6 +295,14 @@ public class PedidoController implements Serializable {
 
     public void setDet(DetallePedido det) {
         this.det = det;
+    }
+
+    public Date getActual() {
+        return actual;
+    }
+
+    public void setActual(Date actual) {
+        this.actual = actual;
     }
 
 

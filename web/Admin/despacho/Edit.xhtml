@@ -12,10 +12,8 @@
             <h:form id="DespachoEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{despachoController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditDespachoLabel_idDespacho}" for="idDespacho" />
-                        <p:inputText id="idDespacho" value="#{despachoController.selected.idDespacho}" title="#{bundle.EditDespachoTitle_idDespacho}" required="true" requiredMessage="#{bundle.EditDespachoRequiredMessage_idDespacho}"/>
                         <p:outputLabel value="#{bundle.EditDespachoLabel_fechaDespacho}" for="fechaDespacho" />
-                        <p:calendar id="fechaDespacho" pattern="MM/dd/yyyy HH:mm:ss" value="#{despachoController.selected.fechaDespacho}" title="#{bundle.EditDespachoTitle_fechaDespacho}" required="true" requiredMessage="#{bundle.EditDespachoRequiredMessage_fechaDespacho}" showOn="button"/>
+                        <p:calendar id="fechaDespacho" pattern="MM/dd/yyyy" value="#{despachoController.selected.fechaDespacho}" title="#{bundle.EditDespachoTitle_fechaDespacho}" required="true" requiredMessage="#{bundle.EditDespachoRequiredMessage_fechaDespacho}" showOn="button"/>
                         <p:outputLabel value="#{bundle.EditDespachoLabel_estado}" for="estado" />
                         <p:selectBooleanCheckbox id="estado" value="#{despachoController.selected.estado}" required="true" requiredMessage="#{bundle.EditDespachoRequiredMessage_estado}"/>
                         <p:outputLabel value="#{bundle.EditDespachoLabel_empleado}" for="empleado" />
