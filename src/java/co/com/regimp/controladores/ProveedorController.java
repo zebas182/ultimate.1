@@ -134,6 +134,7 @@ public class ProveedorController implements Serializable {
 
     private void persist(PersistAction persistAction, String successMessage) {
         if (selected != null) {
+            selected.setEstado(true);
             setEmbeddableKeys();
             try {
                 if (persistAction != PersistAction.DELETE) {

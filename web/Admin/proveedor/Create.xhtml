@@ -21,8 +21,8 @@
                         <p:outputLabel value="#{bundle.CreateProveedorLabel_direccion}" for="direccion" />
                         <p:inputText id="direccion" value="#{proveedorController.selected.direccion}" title="#{bundle.CreateProveedorTitle_direccion}" required="true" requiredMessage="#{bundle.CreateProveedorRequiredMessage_direccion}"/>
                         </p:panelGrid>
-                    <p:commandButton actionListener="#{proveedorController.create}" value="#{bundle.Save}" update="display,:ProveedorListForm:datalist,:growl" oncomplete="handleSubmit(args,'ProveedorCreateDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="ProveedorCreateDialog.hide()"/>
+                    <p:commandButton actionListener="#{proveedorController.create}" value="#{bundle.Save}" update="display,:ProveedorListForm:datalist,:growl" oncomplete="PF('ProveedorCreateDialog').hide();"/>
+                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('ProveedorCreateDialog').hide();"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

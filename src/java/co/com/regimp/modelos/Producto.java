@@ -39,7 +39,6 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Producto.findByUnidadDeMedida", query = "SELECT p FROM Producto p WHERE p.unidadDeMedida = :unidadDeMedida"),
     @NamedQuery(name = "Producto.findByCantidadStock", query = "SELECT p FROM Producto p WHERE p.cantidadStock = :cantidadStock"),
     @NamedQuery(name = "Producto.findByEstado", query = "SELECT p FROM Producto p WHERE p.estado = :estado"),
-    @NamedQuery(name = "Producto.findByIva", query = "SELECT p FROM Producto p WHERE p.iva = :iva"),
     @NamedQuery(name = "Producto.findByProveedor", query = "SELECT p FROM Producto p WHERE p.proveedor = :proveedor")})
 public class Producto implements Serializable {
 
@@ -71,10 +70,6 @@ public class Producto implements Serializable {
     private boolean estado;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "iva")
-    private double iva;
-    @Basic(optional = false)
-    @NotNull
     @Size(min = 1, max = 45)
     @Column(name = "proveedor")
     private String proveedor;
@@ -104,7 +99,6 @@ public class Producto implements Serializable {
         this.unidadDeMedida = unidadDeMedida;
         this.cantidadStock = cantidadStock;
         this.estado = estado;
-        this.iva = iva;
         this.proveedor = proveedor;
     }
 
@@ -148,13 +142,6 @@ public class Producto implements Serializable {
         this.estado = estado;
     }
 
-    public double getIva() {
-        return iva;
-    }
-
-    public void setIva(double iva) {
-        this.iva = iva;
-    }
 
     public String getProveedor() {
         return proveedor;

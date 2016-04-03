@@ -22,23 +22,18 @@
 
             <p:layout fullPage="true">
 
-                <p:layoutUnit position="north" size="100" resizable="true" closable="true" collapsible="true">
+                <p:layoutUnit position="north" size="60" resizable="true" closable="true" collapsible="true">
 
                     <h:form>
-                        <p:graphicImage library="images" name="Regimp.png" style="width: 400px; height: 70px; position: absolute;"/>
-                        <table style="right: 200px; top: 10px;  position:absolute;">
-                            <tr>
-                                <td><p:outputLabel  value="Usuario: "/></td>
-                            <td><p:outputLabel  value="#{usuarioController.u.nombreUsuario}"/></td>
-                            </tr>
+                        <p:graphicImage library="images" name="Regimp.png" style="width: 170px; height: 40px; position: absolute;"/>
 
-                            <tr>
-                                <td><p:outputLabel  value="Rol: "/></td>
-                            <td><p:outputLabel  value="#{usuarioController.u.rolidRol.nombreRol}"/></td>
-                            </tr>
+                        <p:outputLabel  value="Usuario: "  style=" font-size: 14px; width: 20px; position: absolute; right: 400px; "/>
+                        <p:outputLabel  value="#{usuarioController.u.nombreUsuario}" style="font-size: 14px; width: 20px; position: absolute; right: 330px; "/>
+                        <p:outputLabel  value="Rol: " style=" font-size: 14px; top:20px; width: 20px; position: absolute; right: 400px; "/>
+                        <p:outputLabel  value="#{usuarioController.u.rolidRol.nombreRol}" style="top:20px; font-size: 14px; width: 20px; position: absolute; right: 330px; "/>
 
-                        </table>
-                        <p:commandButton id="cerrar" style="margin: 0px; position: absolute; right:10px; top: 40px;" value="Cerrar Sesión" actionListener="#{usuarioController.cerrarSesion()}"/><br></br>
+
+                        <p:commandButton id="cerrar" style="margin: 0px; font-size: 12px; position: absolute; right:10px; bottom: 0; " value="Cerrar Sesión" actionListener="#{usuarioController.cerrarSesion()}"/><br></br>
 
                     </h:form>
 
@@ -48,10 +43,10 @@
 
                 </p:layoutUnit>
 
-                <p:layoutUnit position="west" size="175" header="Menú" collapsible="true">
+                <p:layoutUnit position="west" size="162" header="Menú"  collapsible="true" style="height: 20px; font-size: 14px">
                     <h:form>
-                        <p:menu>
-                            <p:submenu label="Opciones">
+                        <p:menu style="width: 144px; height: 470px">
+                            <p:submenu label="Opciones" style=" height: 30px">
                                 <p:menuitem value="Categoria" rendered="#{usuarioController.u.rolidRol.idRol eq 1}" url="/faces/Admin/categoria/List.xhtml" />
                                 <p:menuitem value="Despacho" rendered="false" url="/faces/Admin/despacho/List.xhtml" />
                                 <p:menuitem value="Despachos" url="/faces/Admin/detalleDespacho/List.xhtml" />
@@ -63,15 +58,15 @@
                                 <p:menuitem url="/faces/Admin/producto/List.xhtml"  value=" Producto "/>
                                 <p:menuitem url="/faces/Admin/proveedor/List.xhtml" rendered="#{usuarioController.u.rolidRol.idRol eq 1}" value=" Proveedor "/>
                                 <p:menuitem url="/faces/Admin/usuario/List.xhtml" rendered="#{usuarioController.u.rolidRol.idRol eq 1}" value=" Usuario "/>
-                                <p:menuitem url="/faces/Admin/pedido/Carrito.xhtml" rendered="#{usuarioController.u.rolidRol.idRol eq 1}" value="Carrito Pedido"/>
-                                <p:menuitem url="/faces/Admin/despacho/Carrito.xhtml" value="Carrito Despacho"/>
-                                <p:menuitem url="/faces/Admin/devolucion/Carrito.xhtml" value="Carrito Devolución"/>
+                                <p:menuitem icon="ui-icon-cart" url="/faces/Admin/pedido/Carrito.xhtml" rendered="#{usuarioController.u.rolidRol.idRol eq 1}" value="Carrito Pedido"/>
+                                <p:menuitem icon="ui-icon-cart" url="/faces/Admin/despacho/Carrito.xhtml" value="Carrito Despacho"/>
+                                <p:menuitem icon="ui-icon-cart" url="/faces/Admin/devolucion/Carrito.xhtml" value="Carrito Devolución"/>
                             </p:submenu>
                         </p:menu>
                     </h:form>
                 </p:layoutUnit> 
 
-                <p:layoutUnit position="center">
+                <p:layoutUnit position="center" style="font-size: 14px;">
                     <ui:insert name="body"/>
                     <h:form>
                         <p:panel rendered="#{usuarioController.validarContra()==0}">

@@ -15,7 +15,8 @@
         <p:growl id="msj" autoUpdate="true" showDetail="true"/>
         <ui:define name="body">
             <h:form id="ProductoListForm">
-                <p:panelGrid columns="2"  style="left: 35%; position: relative; border-radius: 10px; " rendered="#{usuarioController.validarContra()==1}">
+                <p:panelGrid columns="2"  style="left: 35%; font-size: 14px; position: relative; border-radius: 10px; " rendered="#{usuarioController.validarContra()==1}">
+                    <f:facet name="header"><p:outputLabel value="Registro De Pedidos"/></f:facet>
                     <h:outputText value="Empleado"></h:outputText>
                     <p:selectOneMenu id="Empleado" value="#{pedidoController.selected.empleadoidEmpleado}" converter="omnifaces.SelectItemsConverter" required="true" requiredMessage="#{bundle.EditPedidoRequiredMessage_proveedoridProveedor}">
                         <f:selectItem noSelectionOption="true" itemLabel="Seleccione" itemValue="#{null}"/>
@@ -61,8 +62,8 @@
                 </p:panelGrid>
 
                 <p:separator/>
-                <p:dataTable rendered="#{usuarioController.validarContra()==1}" id="Detalle" value="#{pedidoController.detallePedido}" var="det" paginator="true" rows="10" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                             rowsPerPageTemplate="5,10,15" emptyMessage="No hay productos para hacer pedido">
+                <p:dataTable rendered="#{usuarioController.validarContra()==1}" style="font-size: 14px;" id="Detalle" value="#{pedidoController.detallePedido}" var="det" paginator="true" rows="10" 
+                             rowsPerPageTemplate="5,10,15" emptyMessage="No hay productos para hacer pedido" >
                     <p:column headerText="Producto">
                         #{det.productoidProducto.nombreProducto}
                     </p:column>

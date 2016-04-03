@@ -77,6 +77,15 @@ public class DespachoController implements Serializable {
         selected.setEmpleado(null);
     }
 
+    public void limpiarAgrega() {
+        ejbProducto.limpiarCon();
+        UnidadDeMedida = "";
+        precioUnidadVenta = 0;
+        producto = null;
+        cantidadVendidos = 0;
+        selected.setEmpleado(null);
+    }
+    
     public void Agregar() {
         det = new DetalleDespacho();
         det.setProductoidProducto(producto);

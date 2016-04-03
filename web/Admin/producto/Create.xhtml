@@ -24,8 +24,6 @@
                         </p:selectOneMenu>
                         <p:outputLabel value="Cantidad Stock" for="cantidadStock" />
                         <p:inputText id="cantidadStock" value="#{productoController.selected.cantidadStock}" title="#{bundle.CreateProductoTitle_cantidadStock}" required="true" requiredMessage="#{bundle.CreateProductoRequiredMessage_cantidadStock}"/>
-                        <p:outputLabel value="#{bundle.CreateProductoLabel_iva}" for="iva" />
-                        <p:inputText id="iva" value="#{productoController.selected.iva}" title="#{bundle.CreateProductoTitle_iva}" required="true" requiredMessage="#{bundle.CreateProductoRequiredMessage_iva}"/>
                         <p:outputLabel value="#{bundle.CreateProductoLabel_proveedor}" for="proveedor" />
                         <p:selectOneMenu id="proveedor" value="#{productoController.selected.proveedor}" required="true" requiredMessage="#{bundle.CreateProductoRequiredMessage_proveedor}">
                             <f:selectItems value="#{productoController.itemsAvailableSelectOneProveedor}"
