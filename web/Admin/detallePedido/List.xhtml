@@ -18,7 +18,7 @@
                 <p:panel header="#{bundle.ListDetallePedidoTitle}" rendered="#{usuarioController.validarContra()==1}">
                     <p:dataTable id="datalist" value="#{detallePedidoController.items}" var="item"
                                  selectionMode="single" selection="#{detallePedidoController.selected}"
-                                 paginator="true"
+                                 paginator="true" emptyMessage="No se encontraron resultados"
                                  rowKey="#{item.idDetallePedido}"
                                  rows="4"
                                  rowsPerPageTemplate="6,12,18,36,42"

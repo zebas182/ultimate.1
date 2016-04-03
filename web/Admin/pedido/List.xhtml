@@ -19,6 +19,7 @@
                     <p:dataTable id="datalist" value="#{pedidoController.items}" var="item"
                                  selectionMode="single" selection="#{pedidoController.selected}"
                                  paginator="true"
+                                 emptyMessage="No se encontraron resultados"
                                  rowKey="#{item.idPedido}"
                                  rows="10"
                                  rowsPerPageTemplate="10,20,30,40,50"

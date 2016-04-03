@@ -32,11 +32,11 @@
                                             <br/>
                                             <!-- <h:outputLabel class="label" for="password" value="Contraseña" /> -->
                                             <p:password class="contrasena" id="password" value="#{usuarioController.contrasenaEncriptada}" required="true" label="password" requiredMessage="Contraseña Obligatoria" placeholder="&#128272; ingrese su contraseña"/> <!--feedback="true"--> 
-                                            <p:link value="olvidó su contraseña?" href="recuperarClave.xhtml"  class="link"></p:link>
+                                            <p:link value="¿Olvidó su contraseña?" href="recuperarClave.xhtml"  class="link"></p:link>
                                             <br/>
                                             <p:commandButton class="btn" style="background-image: url(''); background-repeat: no-repeat; background-position: 2px;" value="Ingresar" action="#{usuarioController.validado()}"/>
                                             <br/>
-                                            <p:outputLabel class="label" value="No esta registrado?"/>    
+                                            <p:outputLabel class="label" value="¿No está registrado?"/>    
                                             <p:link value="Registrese" href="Admin/usuario/Registro.xhtml" class="link"></p:link>
                                             
                                         </h:panelGrid> 

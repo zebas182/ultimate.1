@@ -15,10 +15,10 @@
 
         <ui:define name="body">
             <h:form id="ProductoListForm">
-                <p:panel header="#{bundle.ListProductoTitle}" rendered="#{usuarioController.validarContra()!=1}">
+                <p:panel header="#{bundle.ListProductoTitle}" rendered="#{usuarioController.validarContra()==1}">
                     <p:dataTable  value="#{productoController.items}" widgetVar="ProductoTable"
                                   emptyMessage="No se encontraron resultados" filteredValue="#{productoController.filteredProductos}"
-                                  id="datalist"  var="item"
+                                  id="datalist"  var="item" 
                                   selectionMode="single" selection="#{productoController.selected}"
                                   paginator="true"
                                   rowKey="#{item.idProducto}"

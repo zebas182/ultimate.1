@@ -15,10 +15,10 @@
 
         <ui:define name="body">
             <h:form id="ProveedorListForm">
-                <p:panel header="#{bundle.ListProveedorTitle}" rendered="#{usuarioController.validarContra()!=1}">
+                <p:panel header="#{bundle.ListProveedorTitle}" rendered="#{usuarioController.validarContra()==1}">
                     <p:dataTable id="datalist" value="#{proveedorController.items}" var="item"
                                  selectionMode="single" selection="#{proveedorController.selected}"
-                                 paginator="true"
+                                 paginator="true" emptyMessage="No se encontraron resultados"
                                  rowKey="#{item.idProveedor}"
                                  rows="10"
                                  rowsPerPageTemplate="10,20,30,40,50"
