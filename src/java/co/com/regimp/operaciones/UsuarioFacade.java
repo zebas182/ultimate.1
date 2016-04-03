@@ -90,9 +90,13 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
             String asunto="Cambio de contraseña regimp";
             boolean resultado=email.enviarCorreo(de, clave, co, mensaje, asunto);
             String cifrado = Encripcion.Encriptar.encriptaEnMD5(nuevaClave);
-            em.createQuery("UPDATE Usuario U set U.contrasena =':contrasena' where U.nombreUsuario=:nombre").setParameter("contrasena", cifrado).setParameter("nombre", nombre).executeUpdate();
+            em.createQuery("UPDATE Usuario U set U.contrasena =:contrasena where U.nombreUsuario=:nombre").setParameter("contrasena", cifrado).setParameter("nombre", nombre).executeUpdate();
             return 1;
         }
         return 0;
+    }
+    
+    public void cambiar_contrasena(String contrasena, int id){
+    em.createQuery("UPDATE Usuario u set U.contrasena=:contrasena where u.idUsuario=:id").setParameter("contrasena", contrasena).setParameter("id", id).executeUpdate();
     }
 }

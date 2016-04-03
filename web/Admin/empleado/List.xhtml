@@ -15,7 +15,7 @@
 
         <ui:define name="body">
             <h:form id="EmpleadoListForm">
-                <p:panel header="#{bundle.ListEmpleadoTitle}">
+                <p:panel header="#{bundle.ListEmpleadoTitle}" rendered="#{usuarioController.validarContra()!=1}">
                     <p:dataTable id="datalist" value="#{empleadoController.items}" var="item"
                                  selectionMode="single" selection="#{empleadoController.selected}"
                                  paginator="true"

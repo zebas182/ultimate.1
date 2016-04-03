@@ -14,8 +14,8 @@
         </ui:define>
 
         <ui:define name="body">
-            <h:form id="CategoriaListForm">
-                <p:panel header="#{bundle.ListCategoriaTitle}">
+            <h:form id="CategoriaListForm" >
+                <p:panel header="#{bundle.ListCategoriaTitle}" rendered="#{usuarioController.validarContra()==1}">
                     <p:dataTable id="datalist"  value="#{categoriaController.items}" var="item"
                                  selectionMode="single" selection="#{categoriaController.selected}"
                                  paginator="true"

@@ -26,10 +26,14 @@
         <![endif]-->
     </head>
     <body>
+       
+
         <header>
+             <p:growl id="growl" autoUpdate="true"  showDetail="true" life="3000" />
             <div class="container">
                 <div class="row">
                     <div class="col-md-12">
+                        
                         <strong>Email: </strong>info@yourdomain.com
 
                         <strong>Support: </strong>+90-897-678-44
@@ -52,11 +56,11 @@
                             <label for="exampleInputEmail1"> Se le enviara un correo con su nueva contraseña </label>
                             <br></br>
                             <label for="exampleInputEmail1"> Ingrese su usuario: </label>
-                            <p:inputText type="text" value="#{usuarioController.selected.nombreUsuario}" class="form-control" id="nombreUsuario" placeholder="Enter email" />
+                            <p:inputText type="text" value="#{usuarioController.selected.nombreUsuario}" class="form-control" id="nombreUsuario" placeholder="Ingrese Su Usuario" />
                         </div>
-                        <p:commandButton value="Enviar" actionListener="#{usuarioController.recibirUsuario()}"/>
+                        <p:commandButton value="Enviar" actionListener="#{usuarioController.recibirUsuario()}" update=":growl"/>
                         <h:outputText value="&#160;" />
-                        <p:commandButton value="Regresar" type="button"  actionListener="#{usuarioController.redireccion()}"><f:ajax /></p:commandButton>
+                        <p:commandButton value="Regresar" actionListener="#{usuarioController.redireccion()}"><f:ajax /></p:commandButton>
 
                     </h:form>
                 </div>

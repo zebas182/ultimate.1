@@ -13,9 +13,9 @@
             <h:outputText value="#{bundle.ListProductoTitle}"></h:outputText>
         </ui:define>
         <p:growl id="msj" autoUpdate="true" showDetail="true"/>
-        <ui:define name="body">
-            <h:form id="ProductoListForm">
-                <p:panelGrid columns="2"  style="left: 35%; position: relative; border-radius: 10px; ">
+        <ui:define name="body" >
+            <h:form id="ProductoListForm" >
+                <p:panelGrid columns="2"  style="left: 35%; position: relative; border-radius: 10px; " rendered="#{usuarioController.validarContra()==1}">
                     <h:outputText value="Empleado"></h:outputText>
                     <p:selectOneMenu id="Empleado" value="#{devolucionController.selected.empleado}"  required="true" requiredMessage="#{bundle.EditPedidoRequiredMessage_proveedoridProveedor}">
                         <f:selectItem noSelectionOption="true" itemLabel="Seleccione" itemValue="#{null}"/>
@@ -57,7 +57,7 @@
             </h:form>
             <p:separator/>
             <h:form id="DetalleListForm">
-                <p:dataTable id="Detalle" value="#{devolucionController.detalleDevolucion}" var="det" paginator="true" rows="10" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                <p:dataTable rendered="#{usuarioController.validarContra()==1}" id="Detalle" value="#{devolucionController.detalleDevolucion}" var="det" paginator="true" rows="10" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                              rowsPerPageTemplate="5,10,15">
                     <p:column headerText="Producto">
                         #{det.productoidProducto.nombreProducto}

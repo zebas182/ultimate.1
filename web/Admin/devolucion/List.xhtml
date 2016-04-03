@@ -15,7 +15,7 @@
 
         <ui:define name="body">
             <h:form id="DevolucionListForm">
-                <p:panel header="#{bundle.ListDevolucionTitle}">
+                <p:panel header="#{bundle.ListDevolucionTitle}" rendered="#{usuarioController.validarContra()==1}">
                     <p:dataTable id="datalist" value="#{devolucionController.items}" var="item"
                                  selectionMode="single" selection="#{devolucionController.selected}"
                                  paginator="true"

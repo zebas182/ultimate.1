@@ -15,7 +15,7 @@
 
         <ui:define name="body">
             <h:form id="MarcaListForm">
-                <p:panel header="#{bundle.ListMarcaTitle}">
+                <p:panel header="#{bundle.ListMarcaTitle}" rendered="#{usuarioController.validarContra()==1}">
                     <p:dataTable id="datalist" value="#{marcaController.items}" var="item"
                                  selectionMode="single" selection="#{marcaController.selected}"
                                  paginator="true"

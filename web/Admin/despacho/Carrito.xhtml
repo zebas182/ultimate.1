@@ -11,10 +11,10 @@
         <ui:define name="title">
             <h:outputText value="#{bundle.ListProductoTitle}"></h:outputText>
         </ui:define>
-        <ui:define name="body">
-            <h:form id="ProductoListForm">
-                <p:panel visible="true">
-                    <p:panelGrid columns="2"   style="left: 35%; position: relative; border-radius: 10px;">
+        <ui:define name="body" >
+            <h:form id="ProductoListForm" >
+                
+                    <p:panelGrid columns="2"   style="left: 35%; position: relative; border-radius: 10px;" rendered="#{usuarioController.validarContra()==1}">
                         <f:facet name="header"><p:outputLabel value="Registro De Despachos"/></f:facet>
                         <h:outputText value="Empleado"></h:outputText>
                         <p:selectOneMenu id="Empleado" value="#{despachoController.selected.empleado}" converter="omnifaces.SelectItemsConverter" required="true" requiredMessage="#{bundle.EditPedidoRequiredMessage_proveedoridProveedor}">
@@ -51,10 +51,10 @@
                             <p:commandButton value="Agregar" actionListener="#{despachoController.Agregar()}" update="Detalle,ProductoListForm,:growl"/>
                         </f:facet>
                     </p:panelGrid>
-                </p:panel>
+                
                 <p:separator/>
 
-                <p:dataTable id="Detalle" value="#{despachoController.detalleDespacho}" var="det" paginator="true" rows="10" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                <p:dataTable rendered="#{usuarioController.validarContra()==1}" id="Detalle" value="#{despachoController.detalleDespacho}" var="det" paginator="true" rows="10" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                              rowsPerPageTemplate="5,10,15">
                     <p:column headerText="Producto">
                         #{det.productoidProducto.nombreProducto}

@@ -9,6 +9,7 @@ import co.com.regimp.operaciones.UsuarioFacade;
 import java.io.IOException;
 
 import java.io.Serializable;
+import java.security.InvalidAlgorithmParameterException;
 import java.util.List;
 import java.util.UUID;
 import java.util.ResourceBundle;
@@ -38,7 +39,7 @@ public class UsuarioController implements Serializable {
     private Usuario selected = new Usuario();
     private String contrasenaEncriptada;
     private Usuario u = new Usuario();
-    EmpleadoController e = new EmpleadoController();
+    EmpleadoController em = new EmpleadoController();
     private String nuevaClave;
 
     public UsuarioController() {
@@ -53,10 +54,30 @@ public class UsuarioController implements Serializable {
         }
     }
 
+    public void cambiar_contrasena() {
+        u.setContrasena(Encripcion.Encriptar.encriptaEnMD5(contrasenaEncriptada));
+        ejbFacade.cambiar_contrasena(u.getContrasena(), u.getIdUsuario());
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Actualizado!", "Su contraseña ha sido cambiada"));
+        FacesContext context = FacesContext.getCurrentInstance();
+        ExternalContext externalContext = context.getExternalContext();
+        Object session = externalContext.getSession(false);
+        HttpSession httpSession = (HttpSession) session;
+        httpSession.invalidate();
+    }
+
+    public int validarContra() throws InvalidAlgorithmParameterException {
+        String descript = Encripcion.Encriptar.DesencriptaEnMD5(selected.getContrasena());
+        if (descript.length() > 16) {
+            return 0;
+        } else {
+            return 1;
+        }
+    }
+
     public void recibirUsuario() {
         try {
-            int u = ejbFacade.cambioContrasena(selected.getNombreUsuario());
-            if (u == 0) {
+            int usu = ejbFacade.cambioContrasena(selected.getNombreUsuario());
+            if (usu == 0) {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "¡ERROR!", "El usuario o la contraseña no coinciden con ninguna cuenta"));
             } else {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "¡Actualizado!", "Su contraseña ha sido cambiada"));
@@ -100,11 +121,11 @@ public class UsuarioController implements Serializable {
         }
     }
 
-      public void redireccion() throws IOException {
+    public void redireccion() throws IOException {
         ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
         context.redirect(context.getRequestContextPath() + "/faces/Login.xhtml");
     }
-      
+
     public void cerrarSesion() {
         FacesContext context = FacesContext.getCurrentInstance();
         ExternalContext externalContext = context.getExternalContext();

@@ -100,6 +100,8 @@ public class EmpleadoController implements Serializable {
         ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
         context.redirect(context.getRequestContextPath() + "/faces/Login.xhtml");
     }
+    
+    
 
     public void Registrar() {
         try {
