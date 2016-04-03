@@ -5,6 +5,7 @@
  */
 package co.com.regimp.operaciones;
 
+import co.com.regimp.modelos.Email;
 import co.com.regimp.modelos.Usuario;
 import java.util.List;
 import java.util.UUID;
@@ -80,7 +81,15 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
         String co = (String) em.createQuery("Select e.correo from Empleado e where e.usuarioidUsuario.idUsuario=:id ").setParameter("id", u).getSingleResult();
 
         if (u != 0) {
+
             String nuevaClave = UUID.randomUUID().toString();
+            Email email = new Email();
+            String clave = "28032016Regimp";
+            String de = "regimpequipo@outlook.com";
+            String mensaje = "Por solicitud del usuario recibimos una petición de cambio de contraseña, A continuación procederemos a facilitarle su nueva contraseña \n"
+                    + "Contraseña: ".concat(nuevaClave);
+            String asunto="Cambio de contraseña regimp";
+            boolean resultado=email.enviarCorreo(de, clave, co, mensaje, asunto);
             String cifrado = Encripcion.Encriptar.encriptaEnMD5(nuevaClave);
             em.createQuery("UPDATE Usuario U set U.contrasena =':contrasena' where U.nombreUsuario=:nombre").setParameter("contrasena", cifrado).setParameter("nombre", nombre).executeUpdate();
             return 1;

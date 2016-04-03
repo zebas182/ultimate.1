@@ -27,7 +27,6 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRExporter;
@@ -35,8 +34,6 @@ import net.sf.jasperreports.engine.JRExporterParameter;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.export.JRPdfExporter;
-import servlets.reporteProductos;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
@@ -52,7 +49,7 @@ public class ProductoController implements Serializable {
     private List<Producto> items = null;
     private Producto selected;
     private List<Proveedor> listProveedor = null;
-
+    private List<Producto> filteredProductos=null;
     public ProductoController() {
         reportesRegimp = new ReportesRegimp();
     }
@@ -190,6 +187,14 @@ public class ProductoController implements Serializable {
 
     public void setListProveedor(List<Proveedor> listProveedor) {
         this.listProveedor = listProveedor;
+    }
+
+    public List<Producto> getFilteredProductos() {
+        return filteredProductos;
+    }
+
+    public void setFilteredProductos(List<Producto> filteredProductos) {
+        this.filteredProductos = filteredProductos;
     }
 
     @FacesConverter(forClass = Producto.class)

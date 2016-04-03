@@ -25,7 +25,7 @@
                         <p:outputLabel value="#{bundle.EditDetallePedidoLabel_cantidadEntregados}" for="cantidadEntregados" />
                         <p:inputText id="cantidadEntregados"   value="#{detallePedidoController.cantidadNueva}"  title="#{bundle.EditDetallePedidoTitle_cantidadEntregados}" />
                         <p:outputLabel value="#{bundle.EditDetallePedidoLabel_fechaLote}" for="fechaLote" />
-                        <p:calendar id="fechaLote" pattern="MM/dd/yyyy" value="#{detallePedidoController.selected.fechaLote}" title="#{bundle.EditDetallePedidoTitle_fechaLote}"  showOn="button"/>
+                        <p:calendar id="fechaLote" pattern="MM/dd/yyyy" value="#{detallePedidoController.selected.fechaLote}" locale="es" title="#{bundle.EditDetallePedidoTitle_fechaLote}"  showOn="button"/>
                         <p:outputLabel value="#{bundle.EditDetallePedidoLabel_pedidoidPedido}" for="pedidoidPedido" />
                         <p:selectOneMenu id="pedidoidPedido" value="#{detallePedidoController.selected.pedidoidPedido}" required="true" requiredMessage="#{bundle.EditDetallePedidoRequiredMessage_pedidoidPedido}">
                             <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
@@ -48,4 +48,5 @@
         </p:dialog>
 
     </ui:composition>
+    <h:outputScript library="js" name="es.js"/>
 </html>
