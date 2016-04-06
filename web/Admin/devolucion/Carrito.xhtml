@@ -49,8 +49,8 @@
                     </p:panelGrid>
 
                     <f:facet name="footer">
-                        <p:commandButton value="Agregar" actionListener="#{devolucionController.Agregar()}"  update=":DetalleListForm,ProductoListForm"/>
-                        <p:commandButton id="Cancelar"  icon="ui-icon-closethick" value="Cancelar" actionListener="#{devolucionController.limpiarAgrega()}" update=":ProductoListForm"/>
+                        <p:commandButton value="Agregar" actionListener="#{devolucionController.Agregar()}"  update=":DetalleListForm,ProductoListForm" style="background-image: url('../..//resources/images/new.png'); background-repeat: no-repeat; background-position-x: 2%;  width: 75px;"/>
+                        <p:commandButton id="Cancelar"   value="Cancelar" actionListener="#{devolucionController.limpiarAgrega()}" update=":ProductoListForm" style="background-image: url('../..//resources/images/cancel.png'); background-repeat: no-repeat; background-position-x: 2%;  width: 75px;"/>
                     </f:facet>
                 </p:panelGrid>
             </h:form>
@@ -68,8 +68,8 @@
                         #{det.observaciones}
                     </p:column>
                     <f:facet name="footer">
-                        <p:commandButton id="Registrar"  value="Registrar" actionListener="#{devolucionController.Registrar()}"  update="Detalle"/>
-                        <p:commandButton id="Cancelar"  icon="ui-icon-closethick" value="Cancelar" actionListener="#{devolucionController.limpiar()}" update="Detalle"/>
+                        <p:commandButton id="Registrar"  value="Registrar" actionListener="#{devolucionController.Registrar()}"  update="Detalle" style="background-image: url('../..//resources/images/save.png'); background-repeat: no-repeat; background-position-x: 2%;  width: 75px;"/>
+                        <p:commandButton id="Cancelar"   value="Cancelar" actionListener="#{devolucionController.limpiar()}" update="Detalle" style="background-image: url('../..//resources/images/cancel.png'); background-repeat: no-repeat; background-position-x: 2%;  width: 75px;"/>
                     </f:facet>
                 </p:dataTable>
             </h:form>

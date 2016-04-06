@@ -44,8 +44,8 @@
                         <p:spinner id="preciounidad" prefix="$" min="0"  value="#{despachoController.precioUnidadVenta}"   title="Precio Unidad De Compra" required="true" requiredMessage="El campo precio Por Unidad Es Obligatorio"/>
                     </h:panelGrid>
                     <f:facet name="footer">
-                        <p:commandButton value="Agregar" actionListener="#{despachoController.Agregar()}" update="Detalle,ProductoListForm,:growl"/>
-                        <p:commandButton id="Cancelar"  icon="ui-icon-closethick" value="Cancelar" actionListener="#{despachoController.limpiarAgrega()}" update=":ProductoListForm"/>
+                        <p:commandButton value="Agregar" actionListener="#{despachoController.Agregar()}" update="Detalle,ProductoListForm,:growl" style="background-image: url('../..//resources/images/new.png'); background-repeat: no-repeat; background-position-x: 2%;  width: 75px;"/>
+                        <p:commandButton id="Cancelar"   value="Cancelar" actionListener="#{despachoController.limpiarAgrega()}" update=":ProductoListForm" style="background-image: url('../..//resources/images/cancel.png'); background-repeat: no-repeat; background-position-x: 2%;  width: 75px;"/>
                     </f:facet>
                 </p:panelGrid>
 
@@ -66,8 +66,8 @@
                         #{det.precioTotal}
                     </p:column>
                     <f:facet name="footer">
-                        <p:commandButton id="Registrar" icon="ui-icon-disk"  value="Registrar"  actionListener="#{despachoController.Registrar()}" update=":growl,Detalle" />
-                        <p:commandButton id="Cancelar"  icon="ui-icon-closethick" value="Cancelar" actionListener="#{despachoController.limpiar()}" update="Detalle,:ProductoListForm"/>
+                        <p:commandButton id="Registrar"   value="Registrar"  actionListener="#{despachoController.Registrar()}" update=":growl,Detalle" style="background-image: url('../..//resources/images/save.png'); background-repeat: no-repeat; background-position-x: 2%;  width: 75px;"/>
+                        <p:commandButton id="Cancelar"    value="Cancelar" actionListener="#{despachoController.limpiar()}" update="Detalle,:ProductoListForm" style="background-image: url('../..//resources/images/cancel.png'); background-repeat: no-repeat; background-position-x: 2%;  width: 75px;"/>
                     </f:facet>
                 </p:dataTable>
             </h:form>
