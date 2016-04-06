@@ -15,8 +15,8 @@
                         <p:outputLabel value="#{bundle.EditMarcaLabel_nombreMarca}" for="nombreMarca" />
                         <p:inputText id="nombreMarca" value="#{marcaController.selected.nombreMarca}" title="#{bundle.EditMarcaTitle_nombreMarca}" required="true" requiredMessage="#{bundle.EditMarcaRequiredMessage_nombreMarca}"/>
                         </p:panelGrid>
-                    <p:commandButton actionListener="#{marcaController.update}" value="#{bundle.Save}" update="display,:MarcaListForm:datalist,:growl" oncomplete="handleSubmit(args, 'MarcaEditDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="MarcaEditDialog.hide()"/>
+                    <p:commandButton actionListener="#{marcaController.update}" value="#{bundle.Save}" update="display,:MarcaListForm:datalist,:growl" oncomplete="PF('MarcaEditDialog').hide();"/>
+                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('MarcaEditDialog').hide();"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

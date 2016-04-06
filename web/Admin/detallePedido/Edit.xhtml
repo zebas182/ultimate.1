@@ -12,34 +12,17 @@
             <h:form id="DetallePedidoEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{detallePedidoController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditDetallePedidoLabel_idDetallePedido}" for="idDetallePedido" />
-                        <p:inputText id="idDetallePedido" value="#{detallePedidoController.selected.idDetallePedido}" title="#{bundle.EditDetallePedidoTitle_idDetallePedido}" required="true" requiredMessage="#{bundle.EditDetallePedidoRequiredMessage_idDetallePedido}"/>
-                        <p:outputLabel value="#{bundle.EditDetallePedidoLabel_unidadDeMedida}" for="unidadDeMedida" />
-                        <p:inputText id="unidadDeMedida" value="#{detallePedidoController.selected.unidadDeMedida}" title="#{bundle.EditDetallePedidoTitle_unidadDeMedida}" required="true" requiredMessage="#{bundle.EditDetallePedidoRequiredMessage_unidadDeMedida}"/>
-                        <p:outputLabel value="#{bundle.EditDetallePedidoLabel_precioUnidadCompra}" for="precioUnidadCompra" />
-                        <p:inputText id="precioUnidadCompra" value="#{detallePedidoController.selected.precioUnidadCompra}" title="#{bundle.EditDetallePedidoTitle_precioUnidadCompra}" required="true" requiredMessage="#{bundle.EditDetallePedidoRequiredMessage_precioUnidadCompra}"/>
                         <p:outputLabel value="#{bundle.EditDetallePedidoLabel_cantidadPedidos}" for="cantidadPedidos" />
-                        <p:inputText id="cantidadPedidos" value="#{detallePedidoController.selected.cantidadPedidos}" title="#{bundle.EditDetallePedidoTitle_cantidadPedidos}" required="true" requiredMessage="#{bundle.EditDetallePedidoRequiredMessage_cantidadPedidos}"/>
+                        <p:inputText id="cantidadPedidos" readonly="true" value="#{detallePedidoController.selected.cantidadPedidos}" title="#{bundle.EditDetallePedidoTitle_cantidadPedidos}" required="true" requiredMessage="#{bundle.EditDetallePedidoRequiredMessage_cantidadPedidos}"/>
                         <p:outputLabel value="#{bundle.EditDetallePedidoLabel_fechaDeVencimiento}" for="fechaDeVencimiento" />
-                        <p:calendar id="fechaDeVencimiento" pattern="MM/dd/yyyy" value="#{detallePedidoController.selected.fechaDeVencimiento}" title="#{bundle.EditDetallePedidoTitle_fechaDeVencimiento}"  showOn="button"/>
+                        <p:calendar id="fechaDeVencimiento" locale="es" mindate="#{detallePedidoController.horaActual}" pattern="MM/dd/yyyy" value="#{detallePedidoController.selected.fechaDeVencimiento}" title="#{bundle.EditDetallePedidoTitle_fechaDeVencimiento}"  showOn="button"/>
                         <p:outputLabel value="#{bundle.EditDetallePedidoLabel_cantidadEntregados}" for="cantidadEntregados" />
                         <p:inputText id="cantidadEntregados"   value="#{detallePedidoController.cantidadNueva}"  title="#{bundle.EditDetallePedidoTitle_cantidadEntregados}" />
                         <p:outputLabel value="#{bundle.EditDetallePedidoLabel_fechaLote}" for="fechaLote" />
-                        <p:calendar id="fechaLote" pattern="MM/dd/yyyy" value="#{detallePedidoController.selected.fechaLote}" locale="es" title="#{bundle.EditDetallePedidoTitle_fechaLote}"  showOn="button"/>
-                        <p:outputLabel value="#{bundle.EditDetallePedidoLabel_pedidoidPedido}" for="pedidoidPedido" />
-                        <p:selectOneMenu id="pedidoidPedido" value="#{detallePedidoController.selected.pedidoidPedido}" required="true" requiredMessage="#{bundle.EditDetallePedidoRequiredMessage_pedidoidPedido}">
-                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
-                            <f:selectItems value="#{pedidoController.itemsAvailableSelectOne}"
-                                           var="pedidoidPedidoItem"
-                                           itemValue="#{pedidoidPedidoItem}"/>
-                        </p:selectOneMenu>
+                        <p:calendar id="fechaLote" pattern="MM/dd/yyyy" locale="es" maxdate="#{detallePedidoController.horaActual}" value="#{detallePedidoController.selected.fechaLote}" title="#{bundle.EditDetallePedidoTitle_fechaLote}"  showOn="button"/>
                         <p:outputLabel value="#{bundle.EditDetallePedidoLabel_productoidProducto}" for="productoidProducto" />
-                        <p:selectOneMenu id="productoidProducto" value="#{detallePedidoController.selected.productoidProducto}" required="true" requiredMessage="#{bundle.EditDetallePedidoRequiredMessage_productoidProducto}">
-                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
-                            <f:selectItems value="#{productoController.itemsAvailableSelectOne}"
-                                           var="productoidProductoItem"
-                                           itemValue="#{productoidProductoItem}"/>
-                        </p:selectOneMenu>
+                        <p:inputText id="productoidProducto" readonly="true" value="#{detallePedidoController.selected.productoidProducto.nombreProducto}" required="true" requiredMessage="#{bundle.EditDetallePedidoRequiredMessage_productoidProducto}"/>
+                            
                     </p:panelGrid>
                     <p:commandButton actionListener="#{detallePedidoController.update}" value="#{bundle.Save}" update="display,:DetallePedidoListForm:datalist,:growl" ajax="true" oncomplete="handleSubmit(args, 'DetallePedidoEditDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="DetallePedidoEditDialog.hide()"/>

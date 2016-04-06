@@ -15,10 +15,10 @@
 
         <ui:define name="body">
             <h:form id="UsuarioListForm">
-                <p:panel header="#{bundle.ListUsuarioTitle}">
+                <p:panel header="#{bundle.ListUsuarioTitle}" rendered="#{usuarioController.validarContra()==1}"> 
                     <p:dataTable id="datalist" value="#{usuarioController.items}" var="item"
                                  selectionMode="single" selection="#{usuarioController.selected}"
-                                 paginator="true"
+                                 paginator="true" emptyMessage="No se encontraron resultados"
                                  rowKey="#{item.idUsuario}"
                                  rows="10"
                                  rowsPerPageTemplate="10,20,30,40,50"

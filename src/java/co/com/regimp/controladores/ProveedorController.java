@@ -1,11 +1,16 @@
 package co.com.regimp.controladores;
 
+import Reportes.ReportesRegimp;
 import co.com.regimp.modelos.Proveedor;
 import co.com.regimp.controladores.util.JsfUtil;
 import co.com.regimp.controladores.util.JsfUtil.PersistAction;
+import co.com.regimp.modelos.Producto;
 import co.com.regimp.operaciones.ProveedorFacade;
+import java.io.IOException;
 
 import java.io.Serializable;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -18,6 +23,18 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
+import javax.sql.DataSource;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRExporter;
+import net.sf.jasperreports.engine.JRExporterParameter;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.export.JRPdfExporter;
 
 @ManagedBean(name = "proveedorController")
 @SessionScoped
@@ -29,6 +46,40 @@ public class ProveedorController implements Serializable {
     private Proveedor selected;
 
     public ProveedorController() {
+        selected=new Proveedor ();
+    }
+    
+    
+    public void ReporteProveedor () throws SQLException, JRException, IOException, NamingException {
+        //Fill Map with params values
+        FacesContext context = FacesContext.getCurrentInstance();
+        HttpServletResponse response = (HttpServletResponse) context.getExternalContext().getResponse();
+        ServletOutputStream out = response.getOutputStream();
+        
+        //Connect with local datasource
+        Context ctx = new InitialContext();
+        DataSource ds = (DataSource) ctx.lookup("jdbc_Regimp");
+        Connection conexion = null;
+        conexion = ds.getConnection();
+        conexion.setAutoCommit(true);
+//        JasperReport reporte = null;
+//        reporte = (JasperReport) JRLoader.loadObjectFromFile("C:\\Users\\alber\\Documents\\NetBeansProjects\\UltimatePrueba\\ultimate.1\\web\\WEB-INF\\StockProducto.jasper");
+//        
+        response.addHeader("Content-disposition",
+                "attachment; filename=reporte.pdf");
+        response.setContentType("application/pdf");
+
+        JasperPrint jasperPrint = JasperFillManager.fillReport("C:\\Users\\alber\\Documents\\NetBeansProjects\\UltimatePrueba\\ultimate.1\\src\\java\\Reportes\\Proveedor.jasper", null, conexion);
+        JRExporter exporter = new JRPdfExporter();
+        exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+        exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, out);
+        exporter.exportReport();
+        
+        System.out.println("cosa");
+     
+        
+        FacesContext.getCurrentInstance().responseComplete();
+        
     }
 
     public Proveedor getSelected() {
@@ -83,6 +134,7 @@ public class ProveedorController implements Serializable {
 
     private void persist(PersistAction persistAction, String successMessage) {
         if (selected != null) {
+            selected.setEstado(true);
             setEmbeddableKeys();
             try {
                 if (persistAction != PersistAction.DELETE) {

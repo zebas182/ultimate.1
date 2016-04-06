@@ -15,10 +15,10 @@
 
         <ui:define name="body">
             <h:form id="DetallePedidoListForm">
-                <p:panel header="#{bundle.ListDetallePedidoTitle}">
+                <p:panel header="#{bundle.ListDetallePedidoTitle}" rendered="#{usuarioController.validarContra()==1}">
                     <p:dataTable id="datalist" value="#{detallePedidoController.items}" var="item"
                                  selectionMode="single" selection="#{detallePedidoController.selected}"
-                                 paginator="true"
+                                 paginator="true" emptyMessage="No se encontraron resultados"
                                  rowKey="#{item.idDetallePedido}"
                                  rows="4"
                                  rowsPerPageTemplate="6,12,18,36,42"
@@ -101,8 +101,8 @@
                         </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":DetallePedidoViewForm" oncomplete="PF('DetallePedidoViewDialog').show()" disabled="#{empty detallePedidoController.selected}"/>
-                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":DetallePedidoEditForm" oncomplete="PF('DetallePedidoEditDialog').show()" disabled="#{empty detallePedidoController.selected}"/>
-                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{detallePedidoController.destroy}" update=":growl,datalist" disabled="#{empty detallePedidoController.selected}"/>
+                            <p:commandButton id="editButton"  rendered="#{usuarioController.u.rolidRol.idRol eq 1}" icon="ui-icon-pencil" value="#{bundle.Edit}" update=":DetallePedidoEditForm" oncomplete="PF('DetallePedidoEditDialog').show()" disabled="#{empty detallePedidoController.selected}"/>
+                            <p:commandButton id="deleteButton" rendered="#{usuarioController.u.rolidRol.idRol eq 1}" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{detallePedidoController.destroy}" update=":growl,datalist" disabled="#{empty detallePedidoController.selected}"/>
                         </f:facet>
                     </p:dataTable>
                 </p:panel>

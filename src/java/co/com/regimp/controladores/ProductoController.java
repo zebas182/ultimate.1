@@ -50,7 +50,9 @@ public class ProductoController implements Serializable {
     private Producto selected;
     private List<Proveedor> listProveedor = null;
     private List<Producto> filteredProductos=null;
+    
     public ProductoController() {
+        selected=new Producto();
         reportesRegimp = new ReportesRegimp();
     }
 
@@ -74,7 +76,7 @@ public class ProductoController implements Serializable {
                 "attachment; filename=reporte.pdf");
         response.setContentType("application/pdf");
 
-        JasperPrint jasperPrint = JasperFillManager.fillReport("C:\\Users\\Brayan\\Documents\\NetBeansProjects\\RegimpUltimate\\ultimate.1\\src\\java\\Reportes\\StockProducto.jasper", null, conexion);
+        JasperPrint jasperPrint = JasperFillManager.fillReport("C:\\Users\\alber\\Documents\\NetBeansProjects\\UltimatePrueba\\ultimate.1\\src\\java\\Reportes\\StockProducto.jasper", null, conexion);
         JRExporter exporter = new JRPdfExporter();
         exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
         exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, out);
@@ -143,6 +145,7 @@ public class ProductoController implements Serializable {
     private void persist(PersistAction persistAction, String successMessage) {
         if (selected != null) {
             selected.setEstado(true);
+            selected.setControl(0);
             setEmbeddableKeys();
             try {
                 if (persistAction != PersistAction.DELETE) {

@@ -9,8 +9,11 @@ import co.com.regimp.modelos.Usuario;
 import co.com.regimp.operaciones.EmpleadoFacade;
 import co.com.regimp.operaciones.RolFacade;
 import co.com.regimp.operaciones.UsuarioFacade;
+import java.io.IOException;
 
 import java.io.Serializable;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -21,9 +24,22 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIComponent;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
+import javax.sql.DataSource;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRExporter;
+import net.sf.jasperreports.engine.JRExporterParameter;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.export.JRPdfExporter;
 
 @ManagedBean(name = "empleadoController")
 @SessionScoped
@@ -49,7 +65,44 @@ public class EmpleadoController implements Serializable {
         rol = new Rol();
     }
 
-   
+    public void ReporteEmpleadoVenta() throws SQLException, JRException, IOException, NamingException {
+        //Fill Map with params values
+        FacesContext context = FacesContext.getCurrentInstance();
+        HttpServletResponse response = (HttpServletResponse) context.getExternalContext().getResponse();
+        ServletOutputStream out = response.getOutputStream();
+
+        //Connect with local datasource
+        Context ctx = new InitialContext();
+        DataSource ds = (DataSource) ctx.lookup("jdbc_Regimp");
+        Connection conexion = null;
+        conexion = ds.getConnection();
+        conexion.setAutoCommit(true);
+//        JasperReport reporte = null;
+//        reporte = (JasperReport) JRLoader.loadObjectFromFile("C:\\Users\\alber\\Documents\\NetBeansProjects\\UltimatePrueba\\ultimate.1\\web\\WEB-INF\\StockProducto.jasper");
+//        
+        response.addHeader("Content-disposition",
+                "attachment; filename=reporte.pdf");
+        response.setContentType("application/pdf");
+
+        JasperPrint jasperPrint = JasperFillManager.fillReport("C:\\Users\\alber\\Documents\\NetBeansProjects\\UltimatePrueba\\ultimate.1\\src\\java\\Reportes\\VentaPorEmpleado.jasper", null, conexion);
+        JRExporter exporter = new JRPdfExporter();
+        exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+        exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, out);
+        exporter.exportReport();
+
+        System.out.println("cosa");
+
+        FacesContext.getCurrentInstance().responseComplete();
+
+    }
+
+    public void redireccion() throws IOException {
+        ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
+        context.redirect(context.getRequestContextPath() + "/faces/Login.xhtml");
+    }
+    
+    
+
     public void Registrar() {
         try {
             Usuario u = ejbUsuario.registrar(usuario.getNombreUsuario());

@@ -7,6 +7,7 @@ import co.com.regimp.operaciones.DetallePedidoFacade;
 import co.com.regimp.operaciones.ProductoFacade;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -33,7 +34,7 @@ public class DetallePedidoController implements Serializable {
     private int cantidadNueva = 0;
     private int total = 0;
     private int viejo = 0;
-
+    private Date horaActual =new Date();
     public DetallePedidoController() {
 
     }
@@ -155,6 +156,14 @@ public class DetallePedidoController implements Serializable {
 
     public void setCantidadNueva(int cantidadNueva) {
         this.cantidadNueva = cantidadNueva;
+    }
+
+    public Date getHoraActual() {
+        return horaActual;
+    }
+
+    public void setHoraActual(Date horaActual) {
+        this.horaActual = horaActual;
     }
 
     @FacesConverter(forClass = DetallePedido.class)

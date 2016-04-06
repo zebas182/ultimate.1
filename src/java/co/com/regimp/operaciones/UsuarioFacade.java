@@ -6,6 +6,7 @@
 package co.com.regimp.operaciones;
 
 import co.com.regimp.modelos.Email;
+import co.com.regimp.modelos.Empleado;
 import co.com.regimp.modelos.Usuario;
 import java.util.List;
 import java.util.UUID;
@@ -38,6 +39,17 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
             if (u != null) {
                 return u;
             }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public Empleado consultarEmpleado(Usuario u) {
+        try {
+
+            return (Empleado) em.createQuery("SELECT e FROM Empleado e WHERE e.usuarioidUsuario.idUsuario = :id").setParameter("id", u.getIdUsuario()).getSingleResult();
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -88,12 +100,16 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
             String de = "regimpequipo@outlook.com";
             String mensaje = "Por solicitud del usuario recibimos una petición de cambio de contraseña, A continuación procederemos a facilitarle su nueva contraseña \n"
                     + "Contraseña: ".concat(nuevaClave);
-            String asunto="Cambio de contraseña regimp";
-            boolean resultado=email.enviarCorreo(de, clave, co, mensaje, asunto);
+            String asunto = "Cambio de contraseña regimp";
+            boolean resultado = email.enviarCorreo(de, clave, co, mensaje, asunto);
             String cifrado = Encripcion.Encriptar.encriptaEnMD5(nuevaClave);
-            em.createQuery("UPDATE Usuario U set U.contrasena =':contrasena' where U.nombreUsuario=:nombre").setParameter("contrasena", cifrado).setParameter("nombre", nombre).executeUpdate();
+            em.createQuery("UPDATE Usuario U set U.contrasena =:contrasena where U.nombreUsuario=:nombre").setParameter("contrasena", cifrado).setParameter("nombre", nombre).executeUpdate();
             return 1;
         }
         return 0;
+    }
+
+    public void cambiar_contrasena(String contrasena, int id) {
+        em.createQuery("UPDATE Usuario u set U.contrasena=:contrasena where u.idUsuario=:id").setParameter("contrasena", contrasena).setParameter("id", id).executeUpdate();
     }
 }

@@ -114,7 +114,14 @@ public class DevolucionController implements Serializable {
         det = null;
     }
 
-    
+    public void limpiarAgrega() {
+        ejbProducto.limpiarCon();
+        UnidadDeMedida = "";
+        cantidadDevueltos = 0;
+        producto = null;
+        cantidadDevueltos = 0;
+        selected.setEmpleado(null);
+    }
     public void Registrar() {
         try {
             selected.setEstado(true);

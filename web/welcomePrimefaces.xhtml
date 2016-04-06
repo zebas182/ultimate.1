@@ -15,7 +15,6 @@
                 <f:event type="preRenderView" listener="#{usuarioController.validarSesion()}"></f:event>
             </f:metadata>
             <h:outputScript library="js" name="es.js"/>
-
         </h:head>
 
         <h:body>
@@ -23,57 +22,74 @@
 
             <p:layout fullPage="true">
 
-                <p:layoutUnit position="north" size="100" resizable="true" closable="true" collapsible="true">
+                <p:layoutUnit position="north" size="60" resizable="true" closable="true" collapsible="true">
 
                     <h:form>
-                        <table style="right: 400px; top: 10px;  position:absolute;">
-                            <tr>
-                                <td><p:outputLabel  value="Usuario: "/></td>
-                            <td><p:outputLabel  value="#{usuarioController.u.nombreUsuario}"/></td>
-                            </tr>
+                        <p:graphicImage library="images" name="Regimp.png" style="width: 200px; height: 45px; position: absolute;"/>
 
-                            <tr>
-                                <td><p:outputLabel  value="Rol: "/></td>
-                            <td><p:outputLabel  value="#{usuarioController.u.rolidRol.nombreRol}"/></td>
-                            </tr>
+                        <p:outputLabel  value="Usuario: "  style="font: bold; left: 80%; top: 40%; position: absolute; font-size: 12px; color: #FF7F00;"/>
+                        <p:outputLabel  value="#{usuarioController.u.nombreUsuario}" style="font: bold; left: 85%; top: 40%; position: absolute; font-size: 12px; color: grey;"/>
+                        <p:outputLabel  value="Rol: " style="font: bold; left: 80%; top:70%; position: absolute; font-size: 12px; color: #FF7F00;"/>
+                        <p:outputLabel  value="#{usuarioController.u.rolidRol.nombreRol}" style="font: bold; left: 85%; top: 70%; position: absolute; font-size: 12px; color: grey;"/>
 
-                        </table>
-                        <p:commandButton id="cerrar" style="margin: 0px; position: absolute; right:10px; top: 40px;" value="Cerrar Sesión" actionListener="#{usuarioController.cerrarSesion()}"/><br></br>
+
+                        <p:commandButton id="cerrar" style="margin: 0px; font-size: 12px; position: absolute; right:10px; bottom: 0;  " value="Cerrar Sesión" actionListener="#{usuarioController.cerrarSesion()}"/><br></br>
 
                     </h:form>
 
                 </p:layoutUnit>
 
                 <p:layoutUnit position="south" size="50" closable="true" collapsible="true">
-                    Footer
+
                 </p:layoutUnit>
 
-                <p:layoutUnit position="west" size="175" header="Left" collapsible="true">
+                <p:layoutUnit position="west" size="160" header="Menú"  collapsible="true" style="height: 20px; font-size: 13px">
                     <h:form>
-                        <p:menu>
-                            <p:submenu label="Resources">
+                        <p:menu style="width: 140px; height: 450px">
+                            <p:submenu label="Opciones" style=" height: 30px">
                                 <p:menuitem value="Categoria" rendered="#{usuarioController.u.rolidRol.idRol eq 1}" url="/faces/Admin/categoria/List.xhtml" />
                                 <p:menuitem value="Despacho" rendered="false" url="/faces/Admin/despacho/List.xhtml" />
                                 <p:menuitem value="Despachos" url="/faces/Admin/detalleDespacho/List.xhtml" />
                                 <p:menuitem value="Devoluciones" url="/faces/Admin/detalleDevolucion/List.xhtml" />
                                 <p:menuitem value="Pedidos" url="/faces/Admin/detallePedido/List.xhtml" />
-                                <p:menuitem value="Devolucion" rendered="#{usuarioController.u.rolidRol.idRol eq 1}" url="/faces/Admin/devolucion/List.xhtml" />
-                                <p:menuitem url="/faces/Admin/empleado/List.xhtml" rendered="##{usuarioController.u.rolidRol.idRol eq 1}" value=" Empleado "/>
-                                <p:menuitem url="/faces/Admin/marca/List.xhtml" rendered="##{usuarioController.u.rolidRol.idRol eq 1}" value=" Marca "/>
+                                <p:menuitem url="/faces/Admin/empleado/List.xhtml" rendered="#{usuarioController.u.rolidRol.idRol eq 1}" value=" Empleado "/>
+                                <p:menuitem url="/faces/Admin/marca/List.xhtml" rendered="#{usuarioController.u.rolidRol.idRol eq 1}" value=" Marca "/>
                                 <p:menuitem url="/faces/Admin/pedido/List.xhtml" rendered="#{usuarioController.u.rolidRol.idRol eq 1}" value=" Pedido "/>
                                 <p:menuitem url="/faces/Admin/producto/List.xhtml"  value=" Producto "/>
-                                <p:menuitem url="/faces/Admin/proveedor/List.xhtml" rendered="##{usuarioController.u.rolidRol.idRol eq 1}" value=" Proveedor "/>
-                                <p:menuitem url="/faces/Admin/usuario/List.xhtml" rendered="##{usuarioController.u.rolidRol.idRol eq 1}" value=" Usuario "/>
-                                <p:menuitem url="/faces/Admin/pedido/Carrito.xhtml" rendered="##{usuarioController.u.rolidRol.idRol eq 1}" value="Carrito Pedido"/>
-                                <p:menuitem url="/faces/Admin/despacho/Carrito.xhtml" value="Carrito Despacho"/>
-                                <p:menuitem url="/faces/Admin/devolucion/Carrito.xhtml" value="Carrito Devolución"/>
+                                <p:menuitem url="/faces/Admin/proveedor/List.xhtml" rendered="#{usuarioController.u.rolidRol.idRol eq 1}" value=" Proveedor "/>
+                                <p:menuitem url="/faces/Admin/usuario/List.xhtml" rendered="#{usuarioController.u.rolidRol.idRol eq 1}" value=" Usuario "/>
+                                <p:menuitem icon="ui-icon-cart" url="/faces/Admin/pedido/Carrito.xhtml" rendered="#{usuarioController.u.rolidRol.idRol eq 1}" value="Carrito Pedido"/>
+                                <p:menuitem icon="ui-icon-cart" url="/faces/Admin/despacho/Carrito.xhtml" value="Carrito Despacho"/>
+                                <p:menuitem icon="ui-icon-cart" url="/faces/Admin/devolucion/Carrito.xhtml" value="Carrito Devolución"/>
                             </p:submenu>
                         </p:menu>
                     </h:form>
                 </p:layoutUnit> 
 
-                <p:layoutUnit position="center">
+                <p:layoutUnit position="center" style="font-size: 14px;">
                     <ui:insert name="body"/>
+                    <h:form>
+                        <p:panel rendered="#{usuarioController.validarContra()==0}">
+                            <h:outputText value="Cambie la contraseña"></h:outputText>
+                            <br></br>
+                            <h:outputText value="Usuario: "></h:outputText>
+                            <h:outputText value="#{usuarioController.u.nombreUsuario}"></h:outputText>
+                            <p:panelGrid columns="2">
+                                <p:outputLabel value="Nueva Contraseña" for="contrasena" />
+                                <p:password id="contrasena" class="button" value="#{usuarioController.contrasenaEncriptada}" match="contrasena2" feedback="true" goodLabel="Aceptable" promptLabel="Ingrese su contraseña" weakLabel="Insegura" strongLabel="Segura" validatorMessage="La contraseñas no cionciden, El minimo es de 6 y el maximo de 16"  title="#{bundle.CreateUsuarioTitle_contrasena}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_contrasena}">
+                                    <f:validateLength minimum="6" maximum="16" />
+                                    <p:clientValidator/>
+                                </p:password>
+                                <p:outputLabel value="Confirmar Contraseña: " for="contrasena2" />
+                                <p:password id="contrasena2" class="button" value="#{usuarioController.contrasenaEncriptada}" title="#{bundle.CreateUsuarioTitle_contrasena}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_contrasena}"/>
+                                <f:facet name="footer" >
+                                    <center> 
+                                        <p:commandButton actionListener="#{usuarioController.cambiar_contrasena()}"  style="border-radius: 10px;" value="Cambiar" icon="ui-icon-pen"   update=":growl" />
+                                    </center>
+                                </f:facet>
+                            </p:panelGrid>
+                        </p:panel>
+                    </h:form>
                 </p:layoutUnit>
 
             </p:layout>

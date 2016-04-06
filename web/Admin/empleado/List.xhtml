@@ -15,10 +15,10 @@
 
         <ui:define name="body">
             <h:form id="EmpleadoListForm">
-                <p:panel header="#{bundle.ListEmpleadoTitle}">
+                <p:panel header="#{bundle.ListEmpleadoTitle}" rendered="#{usuarioController.validarContra()==1}">
                     <p:dataTable id="datalist" value="#{empleadoController.items}" var="item"
                                  selectionMode="single" selection="#{empleadoController.selected}"
-                                 paginator="true"
+                                 paginator="true" emptyMessage="No se encontraron resultados"
                                  rowKey="#{item.idEmpleado}"
                                  rows="10"
                                  rowsPerPageTemplate="10,20,30,40,50"
@@ -66,6 +66,7 @@
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":EmpleadoViewForm" oncomplete="PF('EmpleadoViewDialog').show()" disabled="#{empty empleadoController.selected}"/>
                             <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":EmpleadoEditForm" oncomplete="PF('EmpleadoEditDialog').show()" disabled="#{empty empleadoController.selected}"/>
                             <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{empleadoController.destroy}" update=":growl,datalist" disabled="#{empty empleadoController.selected}"/>
+                            <h:commandButton id="ReporteEmpleado"  value="Reporte Venta"   actionListener="#{empleadoController.ReporteEmpleadoVenta}"/>
                         </f:facet>
                     </p:dataTable>
                 </p:panel>

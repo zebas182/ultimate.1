@@ -49,6 +49,7 @@ public class PedidoController implements Serializable {
     private Date fechaLote = null;
     private Pedido PedidoSeleccionado;
     private DetallePedido det;
+    private Date actual = new Date();
 
     public PedidoController() {
     }
@@ -70,6 +71,17 @@ public class PedidoController implements Serializable {
     public void PorIdPedido(ValueChangeEvent value) {
         PedidoSeleccionado = (Pedido) value.getNewValue();
         detallePedido2 = ejbFacade.PorIdPedido(PedidoSeleccionado);
+    }
+
+    public void limpiarAgrega() {
+        ejbProducto.limpiarCon();
+        UnidadDeMedida = "";
+        precioUnidad = 0;
+        producto = null;
+        cantidadPedidos = 0;
+        selected.setEmpleadoidEmpleado(null);
+        selected.setProveedoridProveedor(null);
+        selected.setProveedoridProveedor(null);
     }
 
     public void Agregar() {
@@ -107,6 +119,16 @@ public class PedidoController implements Serializable {
         } catch (Exception e) {
             e.getStackTrace();
         }
+    }
+
+    public void limpiar() {
+        ejbProducto.limpiarCon();
+        detallePedido.clear();
+        UnidadDeMedida = "";
+        precioUnidad = 0;
+        producto = null;
+        cantidadPedidos = 0;
+        selected.setEmpleadoidEmpleado(null);
     }
 
     public Pedido getSelected() {
@@ -153,7 +175,7 @@ public class PedidoController implements Serializable {
     }
 
     public List<Pedido> getItems() {
-            items = getFacade().findAll();
+        items = getFacade().findAll();
         return items;
     }
 
@@ -297,7 +319,13 @@ public class PedidoController implements Serializable {
         this.det = det;
     }
 
+    public Date getActual() {
+        return actual;
+    }
 
+    public void setActual(Date actual) {
+        this.actual = actual;
+    }
 
     @FacesConverter(forClass = Pedido.class)
     public static class PedidoControllerConverter implements Converter {

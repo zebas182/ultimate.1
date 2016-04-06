@@ -13,17 +13,15 @@
             <h:outputText value="#{bundle.ListProductoTitle}"></h:outputText>
         </ui:define>
         <p:growl id="msj" autoUpdate="true" showDetail="true"/>
-        <ui:define name="body">
-            <h:form id="ProductoListForm">
-                <p:panelGrid columns="2"  style="left: 35%; position: relative; border-radius: 10px; ">
+        <ui:define name="body" >
+            <h:form id="ProductoListForm" >
+                <p:panelGrid columns="2"  style="left: 35%; position: relative; border-radius: 10px; " rendered="#{usuarioController.validarContra()==1}">
+                    <f:facet name="header"><p:outputLabel value="Registro De Devoluciones"/></f:facet>
                     <h:outputText value="Empleado"></h:outputText>
-                    <p:selectOneMenu id="Empleado" value="#{devolucionController.selected.empleado}"  required="true" requiredMessage="#{bundle.EditPedidoRequiredMessage_proveedoridProveedor}">
-                        <f:selectItem noSelectionOption="true" itemLabel="Seleccione" itemValue="#{null}"/>
-                        <f:selectItems value="#{empleadoController.itemsAvailableSelectOne}"
-                                       var="Emple"
-                                       itemLabel="#{Emple.nombreEmpleado}"
-                                       itemValue="#{Emple.nombreEmpleado}"/>
+                    <p:selectOneMenu id="Empleado" value="#{devolucionController.selected.empleado}" converter="omnifaces.SelectItemsConverter" required="true" requiredMessage="#{bundle.EditPedidoRequiredMessage_proveedoridProveedor}">
+                        <f:selectItem itemLabel="#{usuarioController.empleado.nombreEmpleado}" itemValue="#{usuarioController.empleado}"/>
                     </p:selectOneMenu>
+
 
 
                     <p:outputLabel value="Producto"  />
@@ -52,13 +50,14 @@
 
                     <f:facet name="footer">
                         <p:commandButton value="Agregar" actionListener="#{devolucionController.Agregar()}"  update=":DetalleListForm,ProductoListForm"/>
+                        <p:commandButton id="Cancelar"  icon="ui-icon-closethick" value="Cancelar" actionListener="#{devolucionController.limpiarAgrega()}" update=":ProductoListForm"/>
                     </f:facet>
                 </p:panelGrid>
             </h:form>
             <p:separator/>
             <h:form id="DetalleListForm">
-                <p:dataTable id="Detalle" value="#{devolucionController.detalleDevolucion}" var="det" paginator="true" rows="10" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                             rowsPerPageTemplate="5,10,15">
+                <p:dataTable rendered="#{usuarioController.validarContra()==1}" id="Detalle" value="#{devolucionController.detalleDevolucion}" var="det" paginator="true" rows="10" 
+                             rowsPerPageTemplate="5,10,15" emptyMessage="No hay productos para devolver">
                     <p:column headerText="Producto">
                         #{det.productoidProducto.nombreProducto}
                     </p:column>
@@ -69,7 +68,7 @@
                         #{det.observaciones}
                     </p:column>
                     <f:facet name="footer">
-                        <p:commandButton id="Registrar"  value="Registrar" actionListener="#{devolucionController.Registrar()}" oncomplete="#{devolucionController.limpiar()}" update="Detalle"/>
+                        <p:commandButton id="Registrar"  value="Registrar" actionListener="#{devolucionController.Registrar()}"  update="Detalle"/>
                         <p:commandButton id="Cancelar"  icon="ui-icon-closethick" value="Cancelar" actionListener="#{devolucionController.limpiar()}" update="Detalle"/>
                     </f:facet>
                 </p:dataTable>

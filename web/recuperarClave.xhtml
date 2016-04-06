@@ -1,7 +1,8 @@
 ﻿<!DOCTYPE html>
 <html  xmlns="http://www.w3.org/1999/xhtml"
        xmlns:h="http://xmlns.jcp.org/jsf/html"
-       xmlns:p="http://primefaces.org/ui">
+       xmlns:p="http://primefaces.org/ui"
+       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
@@ -25,10 +26,14 @@
         <![endif]-->
     </head>
     <body>
+       
+
         <header>
+             <p:growl id="growl" autoUpdate="true"  showDetail="true" life="3000" />
             <div class="container">
                 <div class="row">
                     <div class="col-md-12">
+                        
                         <strong>Email: </strong>info@yourdomain.com
 
                         <strong>Support: </strong>+90-897-678-44
@@ -48,10 +53,15 @@
                 <div class="panel-body" style="align-self: center ">
                     <h:form>
                         <div class="form-group1">
-                            <label for="exampleInputEmail1"> Ingrese su correo electronico </label>
-                            <p:inputText type="text" value="#{usuarioController.selected.nombreUsuario}" class="form-control" id="nombreUsuario" placeholder="Enter email" />
+                            <label for="exampleInputEmail1"> Se le enviara un correo con su nueva contraseña </label>
+                            <br></br>
+                            <label for="exampleInputEmail1"> Ingrese su usuario: </label>
+                            <p:inputText type="text" value="#{usuarioController.selected.nombreUsuario}" class="form-control" id="nombreUsuario" placeholder="Ingrese Su Usuario" />
                         </div>
-                        <p:commandButton value="Siguiente" actionListener="#{usuarioController.recibirUsuario()}"/>
+                        <p:commandButton value="Enviar" actionListener="#{usuarioController.recibirUsuario()}" update=":growl"/>
+                        <h:outputText value="&#160;" />
+                        <p:commandButton value="Regresar" actionListener="#{usuarioController.redireccion()}"><f:ajax /></p:commandButton>
+
                     </h:form>
                 </div>
             </div>
