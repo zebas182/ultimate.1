@@ -24,7 +24,6 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.inject.Inject;
 
-
 @ManagedBean(name = "despachoController")
 @SessionScoped
 public class DespachoController implements Serializable {
@@ -49,7 +48,7 @@ public class DespachoController implements Serializable {
     private Producto productoSeleccionado;
     private int result = 0;
     private int almacen = 0;
-    
+
     public DespachoController() {
     }
 
@@ -85,7 +84,7 @@ public class DespachoController implements Serializable {
         cantidadVendidos = 0;
         selected.setEmpleado(null);
     }
-    
+
     public void Agregar() {
         det = new DetalleDespacho();
         det.setProductoidProducto(producto);
@@ -125,7 +124,7 @@ public class DespachoController implements Serializable {
                 ejbProducto.limiteStock(det.getCantidadVendida(), det.getProductoidProducto().getIdProducto());
                 FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No se puede despachar más productos de los que hay en el stock");
                 FacesContext.getCurrentInstance().addMessage(null, facesMsg);
-                
+
             }
         }
 
@@ -142,6 +141,8 @@ public class DespachoController implements Serializable {
                 ejbProducto.QuitarCantidaddef(det.getProductoidProducto().getIdProducto(), det.getCantidadVendida());
                 ejbProducto.limpiarControl(det.getProductoidProducto().getIdProducto());
             }
+            FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Productos Despachados  Exitosamente", "");
+            FacesContext.getCurrentInstance().addMessage("successInfo", facesMsg);
             detalleDespacho.clear();
             UnidadDeMedida = "";
             precioUnidadVenta = 0;
@@ -317,7 +318,6 @@ public class DespachoController implements Serializable {
     public void setAlmacen(int almacen) {
         this.almacen = almacen;
     }
-
 
     @FacesConverter(forClass = Despacho.class)
     public static class DespachoControllerConverter implements Converter {

@@ -17,8 +17,8 @@
                 <p:panelGrid columns="2"   style="left: 35%; position: relative; border-radius: 10px;" rendered="#{usuarioController.validarContra()==1}">
                     <f:facet name="header"><p:outputLabel value="Registro De Despachos"/></f:facet>
                     <h:outputText value="Empleado"></h:outputText>
-                    <p:selectOneMenu  id="Empleado" value="#{pedidoController.selected.empleadoidEmpleado}" converter="omnifaces.SelectItemsConverter" required="true" requiredMessage="#{bundle.EditPedidoRequiredMessage_proveedoridProveedor}">
-                        <f:selectItem itemLabel="#{usuarioController.empleado.nombreEmpleado}" itemValue="#{usuarioController.empleado}"/>
+                    <p:selectOneMenu  id="Empleado" value="#{despachoController.selected.empleado}"  required="true" requiredMessage="#{bundle.EditPedidoRequiredMessage_proveedoridProveedor}">
+                        <f:selectItem itemLabel="#{usuarioController.empleado.nombreEmpleado}" itemValue="#{usuarioController.empleado.nombreEmpleado}"/>
                     </p:selectOneMenu>
                     
                     <p:outputLabel value="Producto"  />
