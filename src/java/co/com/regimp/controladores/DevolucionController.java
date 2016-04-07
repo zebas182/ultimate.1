@@ -6,6 +6,7 @@ import co.com.regimp.controladores.util.JsfUtil.PersistAction;
 import co.com.regimp.modelos.DetalleDevolucion;
 import co.com.regimp.modelos.Producto;
 import co.com.regimp.operaciones.DevolucionFacade;
+import java.io.IOException;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIComponent;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
@@ -31,8 +33,9 @@ public class DevolucionController implements Serializable {
     private co.com.regimp.operaciones.DevolucionFacade ejbFacade;
     @EJB
     private co.com.regimp.operaciones.ProductoFacade ejbProducto;
-        @EJB
+    @EJB
     private co.com.regimp.operaciones.DetalleDevolucionFacade ejbDetalle;
+    private  co.com.regimp.controladores.UsuarioController usucontroller;
     private List<Devolucion> items = null;
     private Devolucion selected = new Devolucion();
     private Producto producto;
@@ -40,23 +43,25 @@ public class DevolucionController implements Serializable {
     private String UnidadDeMedida = null;
     private String observaciones = null;
     private DetalleDevolucion det;
-    private int cantidadDevueltos=0;
+    private int cantidadDevueltos = 0;
     private int result = 0;
     private int almacen = 0;
-    
+    private int idUsuario = 0;
+
     public DevolucionController() {
+        this.usucontroller = new UsuarioController();
     }
 
-        public void limpiar() {
+    public void limpiar() {
         ejbProducto.limpiarCon();
         detalleDevolucion.clear();
         UnidadDeMedida = null;
         producto = null;
         cantidadDevueltos = 0;
-        observaciones=null;
+        observaciones = null;
         selected.setEmpleado(null);
     }
-    
+
     public List<Producto> completeProducto(String query) {
         List<Producto> allProducto = ejbProducto.findAll();
         List<Producto> filteredProducto = new ArrayList<>();
@@ -71,6 +76,11 @@ public class DevolucionController implements Serializable {
         return filteredProducto;
     }
 
+    public void carrito() throws IOException{
+    ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
+        context.redirect(context.getRequestContextPath() + "/faces/Admin/devolucion/Carrito.xhtml");
+    }
+    
     public void Agregar() {
         det = new DetalleDevolucion();
         det.setProductoidProducto(producto);
@@ -87,7 +97,7 @@ public class DevolucionController implements Serializable {
             result = ejbProducto.QuitarCantidad(det.getProductoidProducto().getIdProducto(), det.getCantidadProductos());
             if (result <= almacen) {
 
-                if (det.getCantidadProductos()> 0) {
+                if (det.getCantidadProductos() > 0) {
                     if (result < 0) {
                         FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No se puede devolver más productos de los que hay en el stock");
                         FacesContext.getCurrentInstance().addMessage(null, facesMsg);
@@ -95,7 +105,7 @@ public class DevolucionController implements Serializable {
                         UnidadDeMedida = null;
                         producto = null;
                         cantidadDevueltos = 0;
-                        observaciones=null;
+                        observaciones = null;
                         detalleDevolucion.add(det);
                         FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Producto Agregado Exitosamente", "");
                         FacesContext.getCurrentInstance().addMessage("successInfo", facesMsg);
@@ -114,7 +124,6 @@ public class DevolucionController implements Serializable {
         det = null;
     }
 
-    
     public void Registrar() {
         try {
             selected.setEstado(true);
@@ -133,7 +142,7 @@ public class DevolucionController implements Serializable {
             e.getStackTrace();
         }
     }
-    
+
     public Devolucion getSelected() {
         return selected;
     }
@@ -266,6 +275,14 @@ public class DevolucionController implements Serializable {
 
     public void setDetalleDevolucion(List<DetalleDevolucion> detalleDevolucion) {
         this.detalleDevolucion = detalleDevolucion;
+    }
+
+    public int getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(int idUsuario) {
+        this.idUsuario = idUsuario;
     }
 
     @FacesConverter(forClass = Devolucion.class)

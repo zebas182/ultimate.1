@@ -4,6 +4,7 @@ import Encripcion.Encriptar;
 import co.com.regimp.modelos.Usuario;
 import co.com.regimp.controladores.util.JsfUtil;
 import co.com.regimp.controladores.util.JsfUtil.PersistAction;
+import co.com.regimp.modelos.Empleado;
 import co.com.regimp.operaciones.EmpleadoFacade;
 import co.com.regimp.operaciones.UsuarioFacade;
 import java.io.IOException;
@@ -39,9 +40,9 @@ public class UsuarioController implements Serializable {
     private Usuario selected = new Usuario();
     private String contrasenaEncriptada;
     private Usuario u = new Usuario();
-    EmpleadoController em = new EmpleadoController();
     private String nuevaClave;
-
+    private Empleado empleado;
+    
     public UsuarioController() {
     }
 
@@ -93,6 +94,7 @@ public class UsuarioController implements Serializable {
             contrasenaEncriptada = null;
             u = ejbFacade.listaDeUsuario(selected.getNombreUsuario(), selected.getContrasena());
             if (u != null) {
+                empleado = ejbFacade.consultarEmpleado(u);
                 if (u.getRolidRol().getIdRol().equals(1)) {
                     return "welcomePrimefaces?faces-redirect=true";
                 }
@@ -238,6 +240,14 @@ public class UsuarioController implements Serializable {
 
     public void setU(Usuario u) {
         this.u = u;
+    }
+
+    public Empleado getEmpleado() {
+        return empleado;
+    }
+
+    public void setEmpleado(Empleado empleado) {
+        this.empleado = empleado;
     }
 
     @FacesConverter(forClass = Usuario.class)

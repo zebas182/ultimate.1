@@ -18,12 +18,8 @@
                 <p:panelGrid columns="2"  style="left: 35%; font-size: 14px; position: relative; border-radius: 10px; " rendered="#{usuarioController.validarContra()==1}">
                     <f:facet name="header"><p:outputLabel value="Registro De Pedidos"/></f:facet>
                     <h:outputText value="Empleado"></h:outputText>
-                    <p:selectOneMenu id="Empleado" value="#{pedidoController.selected.empleadoidEmpleado}" converter="omnifaces.SelectItemsConverter" required="true" requiredMessage="#{bundle.EditPedidoRequiredMessage_proveedoridProveedor}">
-                        <f:selectItem noSelectionOption="true" itemLabel="Seleccione" itemValue="#{null}"/>
-                        <f:selectItems value="#{empleadoController.itemsAvailableSelectOne}"
-                                       var="Emple"
-                                       itemLabel="#{Emple.nombreEmpleado}"
-                                       itemValue="#{Emple}"/>
+                    <p:selectOneMenu  id="Empleado" value="#{pedidoController.selected.empleadoidEmpleado}" converter="omnifaces.SelectItemsConverter" required="true" requiredMessage="#{bundle.EditPedidoRequiredMessage_proveedoridProveedor}">
+                        <f:selectItem itemLabel="#{usuarioController.empleado.nombreEmpleado}" itemValue="#{usuarioController.empleado}"/>
                     </p:selectOneMenu>
                     <h:outputText value="Proveedor"></h:outputText>
                     <p:selectOneMenu id="Proveedor" value="#{pedidoController.selected.proveedoridProveedor}" converter="omnifaces.SelectItemsConverter" required="true" requiredMessage="#{bundle.EditPedidoRequiredMessage_proveedoridProveedor}">
@@ -48,8 +44,9 @@
                         <f:selectItem itemLabel="Arroba" itemValue="Arroba" />
                     </p:selectOneMenu>
                     <h:outputLabel value="Precio Por Unidad" for="preciounidad" />
-                    <p:inputText id="preciounidad" value="#{pedidoController.precioUnidad}" title="Precio Unidad De Compra" required="true" requiredMessage="El campo precio Por Unidad Es Obligatorio"/>
-
+                    <h:panelGrid columns="1" cellpadding="5">
+                        <p:spinner id="preciounidad" prefix="$" min="0"  value="#{pedidoController.precioUnidad}"   title="Precio Unidad" required="true" requiredMessage="El campo precio Por Unidad Es Obligatorio"/>
+                    </h:panelGrid>
                     <h:outputLabel value="Cantidad De Productos Pedidos" for="CantidadPedidos" />
                     <p:panelGrid columns="1"  >
                         <p:inputText id="CantidadPedidos" value="#{pedidoController.cantidadPedidos}" title="Cantidad De Productos Pedidos" required="true" requiredMessage="El campo Cantidad De Productos Pedidos Es Obligatorio"/>

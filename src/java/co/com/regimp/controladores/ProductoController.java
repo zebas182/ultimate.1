@@ -27,7 +27,6 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRExporter;
@@ -35,8 +34,6 @@ import net.sf.jasperreports.engine.JRExporterParameter;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.export.JRPdfExporter;
-import servlets.reporteProductos;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
@@ -79,7 +76,7 @@ public class ProductoController implements Serializable {
                 "attachment; filename=reporte.pdf");
         response.setContentType("application/pdf");
 
-        JasperPrint jasperPrint = JasperFillManager.fillReport("C:\\Users\\alber\\Documents\\NetBeansProjects\\UltimatePrueba\\ultimate.1\\src\\java\\Reportes\\StockProducto.jasper", null, conexion);
+        JasperPrint jasperPrint = JasperFillManager.fillReport("C:\\Users\\Admin\\Documents\\NetBeansProjects\\UltimeGit\\ultimate.1\\src\\java\\Reportes\\StockProducto.jasper", null, conexion);
         JRExporter exporter = new JRPdfExporter();
         exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
         exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, out);

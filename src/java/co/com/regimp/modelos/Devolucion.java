@@ -58,6 +58,9 @@ public class Devolucion implements Serializable {
     @Size(min = 1, max = 70)
     @Column(name = "empleado")
     private String empleado;
+    @Size(min = 1, max = 45)
+    @Column(name = "proveedor")
+    private String proveedor;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "devolucionidDevolucion")
     private Collection<DetalleDevolucion> detalleDevolucionCollection;
 
@@ -93,6 +96,23 @@ public class Devolucion implements Serializable {
     public boolean getEstado() {
         return estado;
     }
+
+        public String getEmpleado() {
+        return empleado;
+    }
+
+    public void setEmpleado(String empleado) {
+        this.empleado = empleado;
+    }
+
+    public String getProveedor() {
+        return proveedor;
+    }
+
+    public void setProveedor(String proveedor) {
+        this.proveedor = proveedor;
+    }
+
 
     public void setEstado(boolean estado) {
         this.estado = estado;
@@ -130,14 +150,6 @@ public class Devolucion implements Serializable {
     @Override
     public String toString() {
         return "co.com.regimp.modelos.Devolucion[ idDevolucion=" + idDevolucion + " ]";
-    }
-
-    public String getEmpleado() {
-        return empleado;
-    }
-
-    public void setEmpleado(String empleado) {
-        this.empleado = empleado;
     }
 
 }

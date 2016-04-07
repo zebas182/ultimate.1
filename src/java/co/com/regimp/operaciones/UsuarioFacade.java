@@ -6,6 +6,7 @@
 package co.com.regimp.operaciones;
 
 import co.com.regimp.modelos.Email;
+import co.com.regimp.modelos.Empleado;
 import co.com.regimp.modelos.Usuario;
 import java.util.List;
 import java.util.UUID;
@@ -98,5 +99,16 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
     
     public void cambiar_contrasena(String contrasena, int id){
     em.createQuery("UPDATE Usuario u set U.contrasena=:contrasena where u.idUsuario=:id").setParameter("contrasena", contrasena).setParameter("id", id).executeUpdate();
+    }
+    
+     public Empleado consultarEmpleado(Usuario u) {
+        try {
+            
+            return (Empleado) em.createQuery("SELECT e FROM Empleado e WHERE e.usuarioidUsuario.idUsuario = :id").setParameter("id", u.getIdUsuario()).getSingleResult();
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

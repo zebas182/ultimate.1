@@ -17,18 +17,9 @@
             <h:form id="ProductoListForm" >
                 <p:panelGrid columns="2"  style="left: 35%; position: relative; border-radius: 10px; " rendered="#{usuarioController.validarContra()==1}">
                     <f:facet name="header"><p:outputLabel value="Registro De Devoluciones"/></f:facet>
-                    <h:outputText value="Empleado"></h:outputText>
+
                     <p:selectOneMenu  id="Empleado" value="#{pedidoController.selected.empleadoidEmpleado}" converter="omnifaces.SelectItemsConverter" required="true" requiredMessage="#{bundle.EditPedidoRequiredMessage_proveedoridProveedor}">
                         <f:selectItem itemLabel="#{usuarioController.empleado.nombreEmpleado}" itemValue="#{usuarioController.empleado}"/>
-                    </p:selectOneMenu>
-
-                    <h:outputText value="Proveedor"></h:outputText>
-                    <p:selectOneMenu id="Proveedor" value="#{devolucionController.selected.proveedor}" converter="omnifaces.SelectItemsConverter" required="true" requiredMessage="#{bundle.EditPedidoRequiredMessage_proveedoridProveedor}">
-                        <f:selectItem noSelectionOption="true" itemLabel="Seleccione" itemValue="#{null}"/>
-                        <f:selectItems value="#{proveedorController.itemsAvailableSelectOne}"
-                                       var="prove"
-                                       itemLabel="#{prove.nombreProveedor}"
-                                       itemValue="#{prove.nombreProveedor}"/>
                     </p:selectOneMenu>
 
                     <p:outputLabel value="Producto"  />
@@ -76,6 +67,8 @@
                     <f:facet name="footer">
                         <p:commandButton id="Registrar"  value="Registrar" actionListener="#{devolucionController.Registrar()}"  update="Detalle"/>
                         <p:commandButton id="Cancelar"  icon="ui-icon-closethick" value="Cancelar" actionListener="#{devolucionController.limpiar()}" update="Detalle"/>
+                        <p:commandButton id="CarritoDevolucion" icon="ui-icon-cart"  value="#{bundle.Delete}" actionListener="#{devolucionController.carrito}" update=":growl,datalist" disabled="#{empty devolucionController.selected}"/>
+
                     </f:facet>
                 </p:dataTable>
             </h:form>

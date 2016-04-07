@@ -6,6 +6,7 @@ import co.com.regimp.controladores.util.JsfUtil.PersistAction;
 import co.com.regimp.modelos.DetallePedido;
 import co.com.regimp.modelos.Producto;
 import co.com.regimp.operaciones.PedidoFacade;
+import java.io.IOException;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ import javax.ejb.EJBException;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIComponent;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
@@ -72,6 +74,12 @@ public class PedidoController implements Serializable {
         detallePedido2 = ejbFacade.PorIdPedido(PedidoSeleccionado);
     }
 
+    
+    public void carrito() throws IOException{
+    ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
+        context.redirect(context.getRequestContextPath() + "/faces/Admin/pedido/Carrito.xhtml");
+    }
+    
     public void Agregar() {
         det = new DetallePedido();
         det.setProductoidProducto(producto);

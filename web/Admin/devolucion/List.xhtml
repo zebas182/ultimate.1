@@ -41,6 +41,7 @@
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":DevolucionViewForm" oncomplete="PF('DevolucionViewDialog').show()" disabled="#{empty devolucionController.selected}"/>
                             <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":DevolucionEditForm" oncomplete="PF('DevolucionEditDialog').show()" disabled="#{empty devolucionController.selected}"/>
                             <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{devolucionController.destroy}" update=":growl,datalist" disabled="#{empty devolucionController.selected}"/>
+                            <p:commandButton id="CarritoDevolucion" icon="ui-icon-cart"  value="Realizar Devolución" actionListener="#{devolucionController.carrito}" update=":growl,datalist"/>
                         </f:facet>
                     </p:dataTable>
                 </p:panel>
