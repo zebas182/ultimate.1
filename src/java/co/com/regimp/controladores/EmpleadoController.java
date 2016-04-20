@@ -84,7 +84,7 @@ public class EmpleadoController implements Serializable {
                 "attachment; filename=reporte.pdf");
         response.setContentType("application/pdf");
 
-        JasperPrint jasperPrint = JasperFillManager.fillReport("C:\\Users\\alber\\Documents\\NetBeansProjects\\UltimatePrueba\\ultimate.1\\src\\java\\Reportes\\VentaPorEmpleado.jasper", null, conexion);
+        JasperPrint jasperPrint = JasperFillManager.fillReport("D:\\Cristian\\Documents\\NetBeansProjects\\ultimate.1\\src\\java\\Reportes\\VentaPorEmpleado.jasper", null, conexion);
         JRExporter exporter = new JRPdfExporter();
         exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
         exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, out);
