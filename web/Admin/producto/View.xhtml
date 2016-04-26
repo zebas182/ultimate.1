@@ -12,22 +12,18 @@
             <h:form id="ProductoViewForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{productoController.selected != null}">
-                        <h:outputText value="#{bundle.ViewProductoLabel_idProducto}"/>
-                        <h:outputText value="#{productoController.selected.idProducto}" title="#{bundle.ViewProductoTitle_idProducto}"/>
                         <h:outputText value="#{bundle.ViewProductoLabel_nombreProducto}"/>
                         <h:outputText value="#{productoController.selected.nombreProducto}" title="#{bundle.ViewProductoTitle_nombreProducto}"/>
                         <h:outputText value="#{bundle.ViewProductoLabel_unidadDeMedida}"/>
                         <h:outputText value="#{productoController.selected.unidadDeMedida}" title="#{bundle.ViewProductoTitle_unidadDeMedida}"/>
                         <h:outputText value="#{bundle.ViewProductoLabel_cantidadStock}"/>
                         <h:outputText value="#{productoController.selected.cantidadStock}" title="#{bundle.ViewProductoTitle_cantidadStock}"/>
-                        <h:outputText value="#{bundle.ViewProductoLabel_estado}"/>
-                        <p:selectBooleanCheckbox value="#{productoController.selected.estado}" disabled="true"/>
                         <h:outputText value="#{bundle.ViewProductoLabel_proveedor}"/>
                         <h:outputText value="#{productoController.selected.proveedor}" title="#{bundle.ViewProductoTitle_proveedor}"/>
-                        <h:outputText value="#{bundle.ViewProductoLabel_categoriaidCategoria}"/>
-                        <h:outputText value="#{productoController.selected.categoriaidCategoria}" title="#{bundle.ViewProductoTitle_categoriaidCategoria}"/>
-                        <h:outputText value="#{bundle.ViewProductoLabel_marcaidMarca}"/>
-                        <h:outputText value="#{productoController.selected.marcaidMarca}" title="#{bundle.ViewProductoTitle_marcaidMarca}"/>
+                        <h:outputText value="Categoria"/>
+                        <h:outputText value="#{productoController.selected.categoriaidCategoria.nombreCategoria}" title="#{bundle.ViewProductoTitle_categoriaidCategoria}"/>
+                        <h:outputText value="Marca"/>
+                        <h:outputText value="#{productoController.selected.marcaidMarca.nombreMarca}" title="#{bundle.ViewProductoTitle_marcaidMarca}"/>
                     </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="ProductoViewDialog.hide()"/>
                 </h:panelGroup>

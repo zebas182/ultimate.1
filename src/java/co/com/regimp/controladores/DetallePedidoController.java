@@ -3,6 +3,7 @@ package co.com.regimp.controladores;
 import co.com.regimp.modelos.DetallePedido;
 import co.com.regimp.controladores.util.JsfUtil;
 import co.com.regimp.controladores.util.JsfUtil.PersistAction;
+import co.com.regimp.modelos.Pedido;
 import co.com.regimp.operaciones.DetallePedidoFacade;
 import co.com.regimp.operaciones.ProductoFacade;
 
@@ -30,11 +31,13 @@ public class DetallePedidoController implements Serializable {
     @EJB
     private co.com.regimp.operaciones.ProductoFacade ejbProducto = new ProductoFacade();
     private List<DetallePedido> items = null;
+    private List<DetallePedido> filtered = null;
     private DetallePedido selected = new DetallePedido();
     private int cantidadNueva = 0;
     private int total = 0;
     private int viejo = 0;
-    private Date horaActual =new Date();
+    private Pedido pedido;
+    private Date horaActual = new Date();
     public DetallePedidoController() {
 
     }
@@ -71,7 +74,6 @@ public class DetallePedidoController implements Serializable {
     }
 
     public void update() {
-        
             if (selected.getCantidadEntregados() == null) {
                 selected.setCantidadEntregados(0);
                 System.out.println(selected.getProductoidProducto().getIdProducto() + " " + cantidadNueva + " " + selected.getPrecioUnidadCompra() + " " + selected.getCantidadEntregados());
@@ -164,6 +166,22 @@ public class DetallePedidoController implements Serializable {
 
     public void setHoraActual(Date horaActual) {
         this.horaActual = horaActual;
+    }
+
+    public Pedido getPedido() {
+        return pedido;
+    }
+
+    public void setPedido(Pedido pedido) {
+        this.pedido = pedido;
+    }
+
+    public List<DetallePedido> getFiltered() {
+        return filtered;
+    }
+
+    public void setFiltered(List<DetallePedido> filtered) {
+        this.filtered = filtered;
     }
 
     @FacesConverter(forClass = DetallePedido.class)

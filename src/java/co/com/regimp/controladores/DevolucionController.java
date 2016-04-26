@@ -24,6 +24,7 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.faces.event.ValueChangeEvent;
 
 @ManagedBean(name = "devolucionController")
 @SessionScoped
@@ -35,10 +36,10 @@ public class DevolucionController implements Serializable {
     private co.com.regimp.operaciones.ProductoFacade ejbProducto;
     @EJB
     private co.com.regimp.operaciones.DetalleDevolucionFacade ejbDetalle;
-    private  co.com.regimp.controladores.UsuarioController usucontroller;
+    private co.com.regimp.controladores.UsuarioController usucontroller;
     private List<Devolucion> items = null;
     private Devolucion selected = new Devolucion();
-    private Producto producto;
+    private Producto producto=new Producto();
     private List<DetalleDevolucion> detalleDevolucion = new ArrayList();
     private String UnidadDeMedida = null;
     private String observaciones = null;
@@ -47,6 +48,10 @@ public class DevolucionController implements Serializable {
     private int result = 0;
     private int almacen = 0;
     private int idUsuario = 0;
+    private String proveedor;
+    private List<Producto> productos = null;
+    private List<Producto> medida;
+    private int cantidadStock = 0;
 
     public DevolucionController() {
         this.usucontroller = new UsuarioController();
@@ -58,8 +63,20 @@ public class DevolucionController implements Serializable {
         UnidadDeMedida = null;
         producto = null;
         cantidadDevueltos = 0;
+        cantidadStock=0;
         observaciones = null;
         selected.setEmpleado(null);
+    }
+
+    public void cargarCantidad(ValueChangeEvent value) {
+        producto = (Producto) value.getNewValue();
+        cantidadStock = ejbProducto.stock(producto.getIdProducto());
+        medida = ejbProducto.UnidadesDeMedida(producto);
+    }
+
+    public void cargarProducto(ValueChangeEvent value) {
+        proveedor = (String) value.getNewValue();
+        productos = ejbProducto.ProductosString(proveedor);
     }
 
     public List<Producto> completeProducto(String query) {
@@ -76,11 +93,52 @@ public class DevolucionController implements Serializable {
         return filteredProducto;
     }
 
-    public void carrito() throws IOException{
-    ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
+    public void carrito() throws IOException {
+        ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
         context.redirect(context.getRequestContextPath() + "/faces/Admin/devolucion/Carrito.xhtml");
     }
-    
+
+    public void carritoCliente() throws IOException {
+        ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
+        context.redirect(context.getRequestContextPath() + "/faces/Admin/devolucion/CarritoCliente.xhtml");
+    }
+
+    public void AgregarDevCliente() {
+        det = new DetalleDevolucion();
+        det.setProductoidProducto(producto);
+        det.setUnidadDeMedida(UnidadDeMedida);
+        det.setCantidadProductos(cantidadDevueltos);
+        det.setObservaciones(observaciones);
+        UnidadDeMedida = "";
+        cantidadDevueltos = 0;
+        observaciones = null;
+        cantidadStock=0;
+        producto = null;
+        detalleDevolucion.add(det);
+        det = null;
+    }
+
+    public void RegistrarCliente() {
+        try {
+            selected.setEstado(true);
+            ejbFacade.create(selected);
+            for (DetalleDevolucion det : detalleDevolucion) {
+                det.setDevolucionidDevolucion(selected);
+                ejbDetalle.create(det);
+                ejbProducto.AgregarCantidadProducto(det.getProductoidProducto().getIdProducto(), det.getCantidadProductos());
+            }
+            detalleDevolucion.clear();
+            UnidadDeMedida = "";
+            UnidadDeMedida = "";
+            cantidadDevueltos = 0;
+            observaciones = null;
+            cantidadStock=0;
+            producto = null;
+        } catch (Exception e) {
+            e.getStackTrace();
+        }
+    }
+
     public void Agregar() {
         det = new DetalleDevolucion();
         det.setProductoidProducto(producto);
@@ -124,6 +182,16 @@ public class DevolucionController implements Serializable {
         det = null;
     }
 
+    public void limpiarAgrega() {
+        ejbProducto.limpiarCon();
+        UnidadDeMedida = "";
+        cantidadDevueltos = 0;
+        producto = null;
+        cantidadStock=0;
+        cantidadDevueltos = 0;
+        observaciones = null;
+    }
+
     public void Registrar() {
         try {
             selected.setEstado(true);
@@ -134,9 +202,12 @@ public class DevolucionController implements Serializable {
                 ejbProducto.QuitarCantidaddef(det.getProductoidProducto().getIdProducto(), det.getCantidadProductos());
                 ejbProducto.limpiarControl(det.getProductoidProducto().getIdProducto());
             }
+            FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Productos Devueltos Exitosamente", "");
+            FacesContext.getCurrentInstance().addMessage("successInfo", facesMsg);
             detalleDevolucion.clear();
             UnidadDeMedida = null;
             cantidadDevueltos = 0;
+            cantidadStock=0;
             selected.setEmpleado(null);
         } catch (Exception e) {
             e.getStackTrace();
@@ -187,9 +258,7 @@ public class DevolucionController implements Serializable {
     }
 
     public List<Devolucion> getItems() {
-        if (items == null) {
-            items = getFacade().findAll();
-        }
+        items = getFacade().findAll();
         return items;
     }
 
@@ -283,6 +352,38 @@ public class DevolucionController implements Serializable {
 
     public void setIdUsuario(int idUsuario) {
         this.idUsuario = idUsuario;
+    }
+
+    public String getProveedor() {
+        return proveedor;
+    }
+
+    public void setProveedor(String proveedor) {
+        this.proveedor = proveedor;
+    }
+
+    public List<Producto> getProductos() {
+        return productos;
+    }
+
+    public void setProductos(List<Producto> productos) {
+        this.productos = productos;
+    }
+
+    public List<Producto> getMedida() {
+        return medida;
+    }
+
+    public void setMedida(List<Producto> medida) {
+        this.medida = medida;
+    }
+
+    public int getCantidadStock() {
+        return cantidadStock;
+    }
+
+    public void setCantidadStock(int cantidadStock) {
+        this.cantidadStock = cantidadStock;
     }
 
     @FacesConverter(forClass = Devolucion.class)

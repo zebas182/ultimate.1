@@ -81,6 +81,7 @@ public class Despacho implements Serializable {
 
     public void setIdDespacho(Integer idDespacho) {
         this.idDespacho = idDespacho;
+        
     }
 
     public Date getFechaDespacho() {

@@ -46,6 +46,15 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
         return null;
     }
 
+    public Empleado consultarEmpleado(Usuario u) {
+        try {
+            return (Empleado) em.createQuery("SELECT e FROM Empleado e WHERE e.usuarioidUsuario.idUsuario = :id").setParameter("id", u.getIdUsuario()).getSingleResult();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public List<Usuario> ListaUsuariosDisponibles() {
         try {
             List<Usuario> lista = em.createQuery("SELECT u FROM Usuario u where u.estado=true").getResultList();
@@ -82,33 +91,25 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
         String co = (String) em.createQuery("Select e.correo from Empleado e where e.usuarioidUsuario.idUsuario=:id ").setParameter("id", u).getSingleResult();
 
         if (u != 0) {
+
             String nuevaClave = UUID.randomUUID().toString();
             Email email = new Email();
             String clave = "28032016Regimp";
             String de = "regimpequipo@outlook.com";
             String mensaje = "Por solicitud del usuario recibimos una petición de cambio de contraseña, A continuación procederemos a facilitarle su nueva contraseña \n"
                     + "Contraseña: ".concat(nuevaClave);
-            String asunto="Cambio de contraseña regimp";
-            boolean resultado=email.enviarCorreo(de, clave, co, mensaje, asunto);
+            String asunto = "Cambio de contraseña regimp";
+            boolean resultado = email.enviarCorreo(de, clave, co, mensaje, asunto);
             String cifrado = Encripcion.Encriptar.encriptaEnMD5(nuevaClave);
             em.createQuery("UPDATE Usuario U set U.contrasena =:contrasena where U.nombreUsuario=:nombre").setParameter("contrasena", cifrado).setParameter("nombre", nombre).executeUpdate();
             return 1;
         }
         return 0;
     }
-    
-    public void cambiar_contrasena(String contrasena, int id){
-    em.createQuery("UPDATE Usuario u set U.contrasena=:contrasena where u.idUsuario=:id").setParameter("contrasena", contrasena).setParameter("id", id).executeUpdate();
+
+    public void cambiar_contrasena(String contrasena, int id) {
+        em.createQuery("UPDATE Usuario u set U.contrasena=:contrasena where u.idUsuario=:id").setParameter("contrasena", contrasena).setParameter("id", id).executeUpdate();
     }
     
-     public Empleado consultarEmpleado(Usuario u) {
-        try {
-            
-            return (Empleado) em.createQuery("SELECT e FROM Empleado e WHERE e.usuarioidUsuario.idUsuario = :id").setParameter("id", u.getIdUsuario()).getSingleResult();
-            
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
+
 }

@@ -13,10 +13,11 @@
         <servlet-name>Faces Servlet</servlet-name>
         <url-pattern>/faces/*</url-pattern>
     </servlet-mapping>
+
     <context-param>
         <param-name>primefaces.THEME</param-name>
-        <param-value>sunny</param-value>
-</context-param>
+        <param-value>afterwork</param-value>
+    </context-param>
     <mime-mapping>
         <extension>xhtml</extension>
         <mime-type>application/xml</mime-type>

@@ -1,0 +1,93 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <body>
+
+        <ui:composition template="./../../Plantilla.xhtml">
+
+            <ui:define name="title">
+                <h:outputText value="Despachos"></h:outputText>
+            </ui:define>
+
+            <ui:define name="content">
+                <h:form id="DetalleDespachoListForm">
+                    <p:panel header="#{bundle.ListDetalleDespachoTitle}" rendered="#{usuarioController.validarContra()==1}">
+                        <p:dataTable id="datalist" value="#{detalleDespachoController.items}" var="item"
+                                     selectionMode="single" selection="#{detalleDespachoController.selected}"
+                                     paginator="true" emptyMessage="No se encontraron resultados"
+                                     rowKey="#{item.idDetalleDespacho}"
+                                     rows="3"
+                                     rowsPerPageTemplate="10,20,30,40,50"
+                                     >
+
+                            <p:ajax event="rowSelect"   update="viewButton  deleteButton"/>
+                            <p:ajax event="rowUnselect" update="viewButton  deleteButton"/>
+
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Producto"/>
+                                </f:facet>
+                                <h:outputText value="#{item.productoidProducto.nombreProducto}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Unidad De Medida"/>
+                                </f:facet>
+                                <h:outputText value="#{item.unidadDeMedida}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Precio Por Unidad"/>
+                                </f:facet>
+                                <h:outputText value="#{item.precioVentaUnidad}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Cantidad Vendida"/>
+                                </f:facet>
+                                <h:outputText value="#{item.cantidadVendida}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Valor Despacho"/>
+                                </f:facet>
+                                <h:outputText value="#{item.precioTotal}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Fecha Despacho"/>
+                                </f:facet>
+                                <h:outputText value="#{item.despachoidDespacho.fechaDespacho}">
+                                    <f:convertDateTime pattern="MM/dd/yyyy" />
+                                </h:outputText>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Empleado"/>
+                                </f:facet>
+                                <h:outputText value="#{item.despachoidDespacho.empleado}"/>
+                            </p:column>
+                            <f:facet name="footer">
+                                <p:commandButton id="viewButton"   style="background-image: url('../..//resources/images/Consultar.gif'); background-repeat: no-repeat; background-position-x: 2%;  width: 75px;" value="#{bundle.View}" update=":DetalleDespachoViewForm" oncomplete="PF('DetalleDespachoViewDialog').show()" disabled="#{empty detalleDespachoController.selected}"/>
+                                <p:commandButton id="editButton"  rendered="false"  value="#{bundle.Edit}" update=":DetalleDespachoEditForm" oncomplete="PF('DetalleDespachoEditDialog').show()" disabled="#{empty detalleDespachoController.selected}"/>
+                                <p:commandButton id="deleteButton" rendered="#{usuarioController.u.rolidRol.idRol eq 1}" style="background-image: url('../..//resources/images/delete.png'); background-repeat: no-repeat; background-position-x: 2%;  width: 80px;"  value="#{bundle.Delete}" actionListener="#{detalleDespachoController.destroy}" update=":growl,datalist" disabled="#{empty detalleDespachoController.selected}"/>
+                                <p:commandButton id="CarritoDespacho" icon="ui-icon-cart"  value="Realizar Despacho" actionListener="#{despachoController.carrito()}" />
+
+                            </f:facet>
+                        </p:dataTable>
+                    </p:panel>
+                </h:form>
+
+                <!--<ui:include src="Edit.xhtml"/>-->
+                <ui:include src="View.xhtml"/>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

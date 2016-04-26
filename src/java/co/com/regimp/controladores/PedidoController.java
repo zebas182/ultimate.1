@@ -5,18 +5,26 @@ import co.com.regimp.controladores.util.JsfUtil;
 import co.com.regimp.controladores.util.JsfUtil.PersistAction;
 import co.com.regimp.modelos.DetallePedido;
 import co.com.regimp.modelos.Producto;
+import co.com.regimp.modelos.Proveedor;
 import co.com.regimp.operaciones.PedidoFacade;
+import java.io.File;
 import java.io.IOException;
 
 import java.io.Serializable;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIComponent;
@@ -25,6 +33,18 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.faces.event.ValueChangeEvent;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
+import javax.sql.DataSource;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRExporter;
+import net.sf.jasperreports.engine.JRExporterParameter;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.export.JRPdfExporter;
 
 @ManagedBean(name = "pedidoController")
 @SessionScoped
@@ -37,6 +57,7 @@ public class PedidoController implements Serializable {
     @EJB
     private co.com.regimp.operaciones.DetallePedidoFacade ejbDetalle;
     private List<Pedido> items = null;
+    private List<Pedido> filtered = null;
     private Pedido selected = new Pedido();
     private Producto producto;
     private List<Producto> listProductos = null;
@@ -52,7 +73,13 @@ public class PedidoController implements Serializable {
     private Pedido PedidoSeleccionado;
     private DetallePedido det;
     private Date actual = new Date();
+    private int cantidadStock = 0;
+    private List<Producto> productoSeleccionado;
+    private List<Producto> medida;
+    private Proveedor proveedor=null; 
+
     public PedidoController() {
+
     }
 
     public List<Producto> completeProducto(String query) {
@@ -69,17 +96,72 @@ public class PedidoController implements Serializable {
         return filteredProducto;
     }
 
+    public void cargarCantidad(ValueChangeEvent value) {
+        producto = (Producto) value.getNewValue();
+        cantidadStock = ejbProducto.stock(producto.getIdProducto());
+        medida = ejbProducto.UnidadesDeMedida(producto);
+    }
+
+        public void cargarProducto(ValueChangeEvent value) {
+        proveedor = (Proveedor) value.getNewValue();
+        productoSeleccionado = ejbProducto.Productos(proveedor);
+    }
+    
     public void PorIdPedido(ValueChangeEvent value) {
         PedidoSeleccionado = (Pedido) value.getNewValue();
         detallePedido2 = ejbFacade.PorIdPedido(PedidoSeleccionado);
     }
 
-    
-    public void carrito() throws IOException{
-    ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
+    public void limpiarAgrega() {
+        ejbProducto.limpiarCon();
+        UnidadDeMedida = "";
+        precioUnidad = 0;
+        producto = null;
+        cantidadPedidos = 0;
+        selected.setEmpleadoidEmpleado(null);
+        selected.setProveedoridProveedor(null);
+        selected.setProveedoridProveedor(null);
+    }
+
+    public void reportePedido() throws SQLException, JRException, IOException, NamingException {
+        //Fill Map with params values
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+
+        FacesContext context = FacesContext.getCurrentInstance();
+        HttpServletResponse response = (HttpServletResponse) context.getExternalContext().getResponse();
+        ServletOutputStream out = response.getOutputStream();
+
+        //Connect with local datasource
+        Context ctx = new InitialContext();
+        DataSource ds = (DataSource) ctx.lookup("jdbc_Regimp");
+        Connection conexion = null;
+        conexion = ds.getConnection();
+        conexion.setAutoCommit(true);
+        Map<String,Object> parametro = new HashMap<String,Object>();
+        parametro.put("Fecha", format.format(actual));
+//        JasperReport reporte = null;
+//        reporte = (JasperReport) JRLoader.loadObjectFromFile("C:\\Users\\alber\\Documents\\NetBeansProjects\\UltimatePrueba\\ultimate.1\\web\\WEB-INF\\StockProducto.jasper");
+        response.addHeader("Content-disposition",
+                "attachment; filename=reporte.pdf");
+        response.setContentType("application/pdf");
+        File file = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("/Admin/jasper/Pedidos.jasper"));
+        JasperPrint jasperPrint = JasperFillManager.fillReport(file.getPath(), parametro, conexion);
+        JRExporter exporter = new JRPdfExporter();
+        exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+        exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, out);
+        exporter.exportReport();
+
+        System.out.println("cosa");
+
+        FacesContext.getCurrentInstance().responseComplete();
+
+    }
+
+    public void carrito() throws IOException {
+        ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
         context.redirect(context.getRequestContextPath() + "/faces/Admin/pedido/Carrito.xhtml");
     }
-    
+
     public void Agregar() {
         det = new DetallePedido();
         det.setProductoidProducto(producto);
@@ -95,7 +177,6 @@ public class PedidoController implements Serializable {
         cantidadPedidos = 0;
         detallePedido.add(det);
         det = null;
-
     }
 
     public void Registrar() {
@@ -105,16 +186,30 @@ public class PedidoController implements Serializable {
             for (DetallePedido det : detallePedido) {
                 det.setPedidoidPedido(selected);
                 ejbDetalle.create(det);
+
             }
+            FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Pedido Registrado Exitosamente", "");
+            FacesContext.getCurrentInstance().addMessage("successInfo", facesMsg);
             detallePedido.clear();
             UnidadDeMedida = "";
             precioUnidad = 0;
             cantidadPedidos = 0;
-            selected.setEmpleadoidEmpleado(null);
+            selected.setProveedoridProveedor(null);
             selected.setProveedoridProveedor(null);
         } catch (Exception e) {
             e.getStackTrace();
         }
+    }
+
+    public void limpiar() {
+        ejbProducto.limpiarCon();
+        detallePedido.clear();
+        proveedor =null;
+        UnidadDeMedida = "";
+        precioUnidad = 0;
+        producto = null;
+        cantidadPedidos = 0;
+        selected.setEmpleadoidEmpleado(null);
     }
 
     public Pedido getSelected() {
@@ -149,6 +244,7 @@ public class PedidoController implements Serializable {
     }
 
     public void update() {
+
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("PedidoUpdated"));
     }
 
@@ -161,7 +257,7 @@ public class PedidoController implements Serializable {
     }
 
     public List<Pedido> getItems() {
-            items = getFacade().findAll();
+        items = getFacade().findAll();
         return items;
     }
 
@@ -311,6 +407,30 @@ public class PedidoController implements Serializable {
 
     public void setActual(Date actual) {
         this.actual = actual;
+    }
+
+    public int getCantidadStock() {
+        return cantidadStock;
+    }
+
+    public void setCantidadStock(int cantidadStock) {
+        this.cantidadStock = cantidadStock;
+    }
+
+    public List<Producto> getMedida() {
+        return medida;
+    }
+
+    public void setMedida(List<Producto> medida) {
+        this.medida = medida;
+    }
+
+    public List<Producto> getProductoSeleccionado() {
+        return productoSeleccionado;
+    }
+
+    public void setProductoSeleccionado(List<Producto> productoSeleccionado) {
+        this.productoSeleccionado = productoSeleccionado;
     }
 
 

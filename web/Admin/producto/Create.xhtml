@@ -26,21 +26,24 @@
                         <p:inputText id="cantidadStock" value="#{productoController.selected.cantidadStock}" title="#{bundle.CreateProductoTitle_cantidadStock}" required="true" requiredMessage="#{bundle.CreateProductoRequiredMessage_cantidadStock}"/>
                         <p:outputLabel value="#{bundle.CreateProductoLabel_proveedor}" for="proveedor" />
                         <p:selectOneMenu id="proveedor" value="#{productoController.selected.proveedor}" required="true" requiredMessage="#{bundle.CreateProductoRequiredMessage_proveedor}">
+                            <f:selectItem itemLabel="Seleccione uno" itemValue="#{null}"/>
                             <f:selectItems value="#{productoController.itemsAvailableSelectOneProveedor}"
                                            var="listaitems"
                                            itemLabel="#{listaitems.nombreProveedor}"
                                            itemValue="#{listaitems.nombreProveedor}"/>
                         </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.CreateProductoLabel_categoriaidCategoria}" for="categoriaidCategoria" />
+                        <p:outputLabel value="Categoria" for="categoriaidCategoria" />
                         <p:selectOneMenu id="categoriaidCategoria" value="#{productoController.selected.categoriaidCategoria}" required="true" requiredMessage="#{bundle.EditProductoRequiredMessage_categoriaidCategoria}">
+                            <f:selectItem itemLabel="Seleccione uno" itemValue="#{null}"/>
                             <f:selectItems value="#{categoriaController.itemsAvailableSelectOne}"
                                            var="categoriaidCategoriaItem"
                                            itemValue="#{categoriaidCategoriaItem}"
                                            itemLabel="#{categoriaidCategoriaItem.nombreCategoria}"/>
                         </p:selectOneMenu>
-                        
-                        <p:outputLabel value="#{bundle.CreateProductoLabel_marcaidMarca}" for="marcaidMarca" />
+
+                        <p:outputLabel value="Marca" for="marcaidMarca" />
                         <p:selectOneMenu id="marcaidMarca" value="#{productoController.selected.marcaidMarca}" required="true" requiredMessage="#{bundle.EditProductoRequiredMessage_marcaidMarca}">
+                            <f:selectItem itemLabel="Seleccione uno" itemValue="#{null}"/>
                             <f:selectItems value="#{marcaController.itemsAvailableSelectOne}"
                                            var="marcaidMarcaItem"
                                            itemValue="#{marcaidMarcaItem}"

@@ -36,10 +36,10 @@
                         </p:column>
 
                         <f:facet name="footer">
-                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{marcaController.prepareCreate}" update=":MarcaCreateForm" oncomplete="PF('MarcaCreateDialog').show()"/>
-                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":MarcaViewForm" oncomplete="PF('MarcaViewDialog').show()" disabled="#{empty marcaController.selected}"/>
-                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":MarcaEditForm" oncomplete="PF('MarcaEditDialog').show()" disabled="#{empty marcaController.selected}"/>
-                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{marcaController.destroy}" update=":growl,datalist" disabled="#{empty marcaController.selected}"/>
+                            <p:commandButton id="createButton" style="background-image: url('../..//resources/images/new.png'); background-repeat: no-repeat; background-position-x: 2%;  width: 75px;"   value="#{bundle.Create}" actionListener="#{marcaController.prepareCreate}" update=":MarcaCreateForm" oncomplete="PF('MarcaCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   style="background-image: url('../..//resources/images/Consultar.gif'); background-repeat: no-repeat; background-position-x: 2%;  width: 75px;" value="#{bundle.View}" update=":MarcaViewForm" oncomplete="PF('MarcaViewDialog').show()" disabled="#{empty marcaController.selected}"/>
+                            <p:commandButton id="editButton"   style="background-image: url('../..//resources/images/edit.png'); background-repeat: no-repeat; background-position-x: 2%;  width: 75px;" value="#{bundle.Edit}" update=":MarcaEditForm" oncomplete="PF('MarcaEditDialog').show()" disabled="#{empty marcaController.selected}"/>
+                            <p:commandButton id="deleteButton" style="background-image: url('../..//resources/images/delete.png'); background-repeat: no-repeat; background-position-x: 2%;  width: 80px;"   value="#{bundle.Delete}" actionListener="#{marcaController.destroy}" update=":growl,datalist" disabled="#{empty marcaController.selected}"/>
                         </f:facet>
                     </p:dataTable>
                 </p:panel>

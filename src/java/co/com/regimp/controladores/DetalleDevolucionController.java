@@ -75,9 +75,9 @@ public class DetalleDevolucionController implements Serializable {
     }
 
     public List<DetalleDevolucion> getItems() {
-        if (items == null) {
+        
             items = getFacade().findAll();
-        }
+        
         return items;
     }
 

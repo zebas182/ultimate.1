@@ -1,6 +1,5 @@
 package co.com.regimp.controladores;
 
-import Reportes.ReportesRegimp;
 import co.com.regimp.modelos.Proveedor;
 import co.com.regimp.controladores.util.JsfUtil;
 import co.com.regimp.controladores.util.JsfUtil.PersistAction;

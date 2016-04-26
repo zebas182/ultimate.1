@@ -4,17 +4,23 @@ import Encripcion.Encriptar;
 import co.com.regimp.modelos.Empleado;
 import co.com.regimp.controladores.util.JsfUtil;
 import co.com.regimp.controladores.util.JsfUtil.PersistAction;
+import co.com.regimp.modelos.Producto;
 import co.com.regimp.modelos.Rol;
 import co.com.regimp.modelos.Usuario;
 import co.com.regimp.operaciones.EmpleadoFacade;
 import co.com.regimp.operaciones.RolFacade;
 import co.com.regimp.operaciones.UsuarioFacade;
+import java.io.File;
 import java.io.IOException;
 
 import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -48,6 +54,8 @@ public class EmpleadoController implements Serializable {
     @EJB
     private co.com.regimp.operaciones.EmpleadoFacade ejbFacade;
     @EJB
+    private co.com.regimp.operaciones.ProductoFacade ejbProducto;
+    @EJB
     private UsuarioFacade ejbUsuario;
     @EJB
     private RolFacade ejbRol;
@@ -58,6 +66,9 @@ public class EmpleadoController implements Serializable {
     private String contrasenaEncriptada;
     private Rol rol;
     private Empleado e = new Empleado();
+    private Date FechaDespacho;
+    private Date Actual = new Date();
+    private Empleado empleado;
 
     public EmpleadoController() {
         selected = new Empleado();
@@ -67,41 +78,48 @@ public class EmpleadoController implements Serializable {
 
     public void ReporteEmpleadoVenta() throws SQLException, JRException, IOException, NamingException {
         //Fill Map with params values
-        FacesContext context = FacesContext.getCurrentInstance();
-        HttpServletResponse response = (HttpServletResponse) context.getExternalContext().getResponse();
-        ServletOutputStream out = response.getOutputStream();
+        SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+        List<String> prod = ejbProducto.verificarReporteEmpleado(formato.format(FechaDespacho),empleado.getNombreEmpleado());
 
-        //Connect with local datasource
-        Context ctx = new InitialContext();
-        DataSource ds = (DataSource) ctx.lookup("jdbc_Regimp");
-        Connection conexion = null;
-        conexion = ds.getConnection();
-        conexion.setAutoCommit(true);
+        if (prod!=null) {
+            FacesContext context = FacesContext.getCurrentInstance();
+            HttpServletResponse response = (HttpServletResponse) context.getExternalContext().getResponse();
+            ServletOutputStream out = response.getOutputStream();
+
+            //Connect with local datasource
+            Context ctx = new InitialContext();
+            DataSource ds = (DataSource) ctx.lookup("jdbc_Regimp");
+            Connection conexion = null;
+            conexion = ds.getConnection();
+            conexion.setAutoCommit(true);
+            Map<String, Object> parametro = new HashMap<String, Object>();
+
+            parametro.put("Fecha", formato.format(Actual));
+            parametro.put("Empleado", empleado.getNombreEmpleado());
 //        JasperReport reporte = null;
 //        reporte = (JasperReport) JRLoader.loadObjectFromFile("C:\\Users\\alber\\Documents\\NetBeansProjects\\UltimatePrueba\\ultimate.1\\web\\WEB-INF\\StockProducto.jasper");
 //        
-        response.addHeader("Content-disposition",
-                "attachment; filename=reporte.pdf");
-        response.setContentType("application/pdf");
+            response.addHeader("Content-disposition",
+                    "attachment; filename=reporte.pdf");
+            response.setContentType("application/pdf");
+            File file = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("/Admin/jasper/VentaEmpleado.jasper"));
+            JasperPrint jasperPrint = JasperFillManager.fillReport(file.getPath(), parametro, conexion);
+            JRExporter exporter = new JRPdfExporter();
+            exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+            exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, out);
+            exporter.exportReport();
 
-        JasperPrint jasperPrint = JasperFillManager.fillReport("C:\\Users\\alber\\Documents\\NetBeansProjects\\UltimatePrueba\\ultimate.1\\src\\java\\Reportes\\VentaPorEmpleado.jasper", null, conexion);
-        JRExporter exporter = new JRPdfExporter();
-        exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
-        exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, out);
-        exporter.exportReport();
+            FacesContext.getCurrentInstance().responseComplete();
 
-        System.out.println("cosa");
-
-        FacesContext.getCurrentInstance().responseComplete();
-
+        } else {
+             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error","No hay datos para el reporte"));
+        }
     }
 
     public void redireccion() throws IOException {
         ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
         context.redirect(context.getRequestContextPath() + "/faces/Login.xhtml");
     }
-    
-    
 
     public void Registrar() {
         try {
@@ -247,6 +265,40 @@ public class EmpleadoController implements Serializable {
     public void setCorreo(String correo) {
         this.correo = correo;
     }
+
+    public Date getFechaDespacho() {
+        return FechaDespacho;
+    }
+
+    public void setFechaDespacho(Date FechaDespacho) {
+        this.FechaDespacho = FechaDespacho;
+    }
+
+    public Empleado getE() {
+        return e;
+    }
+
+    public void setE(Empleado e) {
+        this.e = e;
+    }
+
+    public Empleado getEmpleado() {
+        return empleado;
+    }
+
+    public void setEmpleado(Empleado empleado) {
+        this.empleado = empleado;
+    }
+
+    public Date getActual() {
+        return Actual;
+    }
+
+    public void setActual(Date Actual) {
+        this.Actual = Actual;
+    }
+
+
 
     @FacesConverter(forClass = Empleado.class)
     public static class EmpleadoControllerConverter implements Converter {

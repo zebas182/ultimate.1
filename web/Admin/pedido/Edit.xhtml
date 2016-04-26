@@ -23,7 +23,7 @@
                             
                     </p:panelGrid>
                     <p:commandButton actionListener="#{pedidoController.update}" value="#{bundle.Save}" update="display,:PedidoListForm:datalist,:growl" oncomplete="handleSubmit(args, 'PedidoEditDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="PedidoEditDialog.hide()"/>
+                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('PedidoEditDialog').hide()"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

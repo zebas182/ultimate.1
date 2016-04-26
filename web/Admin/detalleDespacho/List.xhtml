@@ -6,14 +6,14 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 
-    <ui:composition template="/welcomePrimefaces.xhtml">
+    <ui:composition template="./../../Plantilla.xhtml">
 
 
         <ui:define name="title">
             <h:outputText value="#{bundle.ListDetalleDespachoTitle}"></h:outputText>
         </ui:define>
 
-        <ui:define name="body">
+        <ui:define name="content">
             <h:form id="DetalleDespachoListForm">
                 <p:panel header="#{bundle.ListDetalleDespachoTitle}" rendered="#{usuarioController.validarContra()==1}">
                     <p:dataTable id="datalist" value="#{detalleDespachoController.items}" var="item"
@@ -72,9 +72,11 @@
                             <h:outputText value="#{item.despachoidDespacho.empleado}"/>
                         </p:column>
                         <f:facet name="footer">
-                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":DetalleDespachoViewForm" oncomplete="PF('DetalleDespachoViewDialog').show()" disabled="#{empty detalleDespachoController.selected}"/>
-                            <p:commandButton id="editButton"  rendered="false" icon="ui-icon-pencil" value="#{bundle.Edit}" update=":DetalleDespachoEditForm" oncomplete="PF('DetalleDespachoEditDialog').show()" disabled="#{empty detalleDespachoController.selected}"/>
-                            <p:commandButton id="deleteButton" rendered="#{usuarioController.u.rolidRol.idRol eq 1}" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{detalleDespachoController.destroy}" update=":growl,datalist" disabled="#{empty detalleDespachoController.selected}"/>
+                            <p:commandButton id="viewButton"   style="background-image: url('../..//resources/images/Consultar.gif'); background-repeat: no-repeat; background-position-x: 2%;  width: 75px;" value="#{bundle.View}" update=":DetalleDespachoViewForm" oncomplete="PF('DetalleDespachoViewDialog').show()" disabled="#{empty detalleDespachoController.selected}"/>
+                            <p:commandButton id="editButton"  rendered="false"  value="#{bundle.Edit}" update=":DetalleDespachoEditForm" oncomplete="PF('DetalleDespachoEditDialog').show()" disabled="#{empty detalleDespachoController.selected}"/>
+                            <p:commandButton id="deleteButton" rendered="#{usuarioController.u.rolidRol.idRol eq 1}" style="background-image: url('../..//resources/images/delete.png'); background-repeat: no-repeat; background-position-x: 2%;  width: 80px;"  value="#{bundle.Delete}" actionListener="#{detalleDespachoController.destroy}" update=":growl,datalist" disabled="#{empty detalleDespachoController.selected}"/>
+                            <p:commandButton id="CarritoDespacho" icon="ui-icon-cart"  value="Realizar Despacho" actionListener="#{despachoController.carrito()}" />
+
                         </f:facet>
                     </p:dataTable>
                 </p:panel>

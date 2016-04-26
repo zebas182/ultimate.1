@@ -20,8 +20,6 @@
                         <p:inputText id="unidadDeMedida" value="#{productoController.selected.unidadDeMedida}" title="#{bundle.EditProductoTitle_unidadDeMedida}" required="true" requiredMessage="#{bundle.EditProductoRequiredMessage_unidadDeMedida}"/>
                         <p:outputLabel value="#{bundle.EditProductoLabel_cantidadStock}" for="cantidadStock" />
                         <p:inputText id="cantidadStock" value="#{productoController.selected.cantidadStock}" title="#{bundle.EditProductoTitle_cantidadStock}" required="true" requiredMessage="#{bundle.EditProductoRequiredMessage_cantidadStock}"/>
-                        <p:outputLabel value="#{bundle.EditProductoLabel_estado}" for="estado" />
-                        <p:selectBooleanCheckbox id="estado" value="#{productoController.selected.estado}" required="true" requiredMessage="#{bundle.EditProductoRequiredMessage_estado}"/>
                         <p:outputLabel value="#{bundle.EditProductoLabel_proveedor}" for="proveedor" />
                         <p:inputText id="proveedor" value="#{productoController.selected.proveedor}" title="#{bundle.EditProductoTitle_proveedor}" required="true" requiredMessage="#{bundle.EditProductoRequiredMessage_proveedor}"/>
                         <p:outputLabel value="#{bundle.EditProductoLabel_categoriaidCategoria}" for="categoriaidCategoria" />
@@ -41,8 +39,8 @@
                                            itemValue="#{marcaidMarcaItem}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{productoController.update}" value="#{bundle.Save}" update="display,:ProductoListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ProductoEditDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="ProductoEditDialog.hide()"/>
+                    <p:commandButton actionListener="#{productoController.update}" value="#{bundle.Save}" update="display,:ProductoListForm:datalist,:growl" oncomplete="PF('ProductoEditDialog').hide();"/>
+                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('ProductoEditDialog').hide();"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

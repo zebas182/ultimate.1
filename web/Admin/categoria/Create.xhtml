@@ -16,7 +16,7 @@
                         <p:inputText id="nombreCategoria" value="#{categoriaController.selected.nombreCategoria}" title="#{bundle.CreateCategoriaTitle_nombreCategoria}" required="true" requiredMessage="#{bundle.CreateCategoriaRequiredMessage_nombreCategoria}"/>
                         </p:panelGrid>
                     <p:commandButton actionListener="#{categoriaController.create}" value="#{bundle.Save}" update="display,:CategoriaListForm:datalist,:growl" oncomplete="PF('CategoriaCreateDialog').hide();"/>
-                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('CategoriaCreateDialog').hide();"/>
+                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('CategoriaCreateDialog').hide()"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

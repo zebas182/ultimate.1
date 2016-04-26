@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="555" pageHeight="802" columnWidth="535" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="c501cabd-3031-45f6-b5e9-9a438fa1354e">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#DCDCDC">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#FFBFBF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean($V{REPORT_COUNT}.intValue()%2==0)]]></conditionExpression>
+			<style backcolor="#FFEFEF"/>
+		</conditionalStyle>
+	</style>
+	<subDataset name="Table Dataset 1" uuid="6a284b1a-441d-4b19-9ecc-99f2e9ac857c"/>
+	<parameter name="Fecha" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+     proveedor.`nombre_Proveedor` AS proveedor_nombre_Proveedor,
+     pedido.`fecha_Pedido` AS pedido_fecha_Pedido,
+     detalle_pedido.`cantidad_Pedidos` AS detalle_pedido_cantidad_Pedidos,
+     producto.`nombre_Producto` AS producto_nombre_Producto,
+     empleado.`nombre_Empleado` AS empleado_nombre_Empleado
+FROM
+     `proveedor` proveedor INNER JOIN `pedido` pedido ON proveedor.`idProveedor` = pedido.`Proveedor_idProveedor`
+     INNER JOIN `detalle_pedido` detalle_pedido ON pedido.`idPedido` = detalle_pedido.`Pedido_idPedido`
+     INNER JOIN `empleado` empleado ON pedido.`Empleado_idEmpleado` = empleado.`idEmpleado`
+     INNER JOIN `producto` producto ON detalle_pedido.`Producto_idProducto` = producto.`idProducto` WHERE pedido.`fecha_Pedido` LIKE "$P!{Fecha}%"]]>
+	</queryString>
+	<field name="proveedor_nombre_Proveedor" class="java.lang.String"/>
+	<field name="pedido_fecha_Pedido" class="java.sql.Timestamp"/>
+	<field name="detalle_pedido_cantidad_Pedidos" class="java.lang.Integer"/>
+	<field name="producto_nombre_Producto" class="java.lang.String"/>
+	<field name="empleado_nombre_Empleado" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="95" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="50" width="409" height="33" uuid="14b1aaed-3e38-4181-9743-814477777b70"/>
+				<textElement textAlignment="Center">
+					<font size="24" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["REPORTE DE PEDIDOS DIARIOS"]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="36" splitType="Stretch">
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="12" y="0" width="100" height="20" uuid="0ccdd4f7-a0e0-4a18-a06e-9d7ef9073c2a"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Fecha "+$P{Fecha}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="426" y="-159" width="80" height="20" uuid="d096c714-c3ec-418f-9a77-9b4e4e13c66d"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Pagina "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="506" y="-159" width="40" height="20" uuid="0395c28c-89c4-4394-be67-84405cb56177"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="426" y="0" width="80" height="20" uuid="95a6267e-4bed-4a12-b236-b0f2c3efae36"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Pagina "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="506" y="0" width="40" height="20" uuid="20e645b1-4c4f-4aa2-b460-dd3bd5d4cfa5"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="58" splitType="Stretch">
+			<rectangle radius="5">
+				<reportElement x="12" y="5" width="534" height="40" forecolor="#FF9900" backcolor="#999999" uuid="b0b6b21d-826f-49e3-806a-ea63b86a3923"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="24" y="15" width="88" height="20" uuid="801f550e-3165-4241-831a-ae9ab79a3fc0"/>
+				<text><![CDATA[Empleado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="130" y="15" width="100" height="20" uuid="3de53469-a3d3-4dbf-91bc-42e186e21de1"/>
+				<text><![CDATA[Fecha Del Pedido]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="241" y="15" width="100" height="20" uuid="23574256-068b-41ff-b634-ea0df58e8079"/>
+				<text><![CDATA[Producto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="353" y="15" width="100" height="20" uuid="fa6776b7-f245-4d97-aaa6-03674dbe6fc5"/>
+				<text><![CDATA[Cantidad Productos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="467" y="15" width="100" height="20" uuid="01526ef8-f351-46c7-8216-36566f5b6f57"/>
+				<text><![CDATA[Proveedor]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="37" splitType="Stretch">
+			<rectangle>
+				<reportElement x="12" y="0" width="534" height="30" forecolor="#CCCCCC" backcolor="#CCCCCC" uuid="5009855b-765d-4048-b6f0-38d6a66ae8c0"/>
+			</rectangle>
+			<textField>
+				<reportElement x="24" y="0" width="100" height="20" uuid="d1ae7971-0f3c-4d6b-adf1-3b7c81798614"/>
+				<textFieldExpression><![CDATA[$F{empleado_nombre_Empleado}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="241" y="0" width="100" height="20" uuid="d706d45f-4b69-42ad-a254-2c813bf3422e"/>
+				<textFieldExpression><![CDATA[$F{producto_nombre_Producto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="353" y="0" width="100" height="20" uuid="9b812720-ec01-46bb-a63a-f5122bf72edd"/>
+				<textFieldExpression><![CDATA[$F{detalle_pedido_cantidad_Pedidos}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="467" y="0" width="79" height="20" uuid="6083b03e-c6a6-4727-ac93-eb65ce462f4e"/>
+				<textFieldExpression><![CDATA[$F{proveedor_nombre_Proveedor}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="130" y="0" width="100" height="20" uuid="51c1ba8c-6f95-42a0-9df4-863af8ead22b"/>
+				<textFieldExpression><![CDATA[$F{pedido_fecha_Pedido}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

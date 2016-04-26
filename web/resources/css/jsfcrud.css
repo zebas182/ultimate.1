@@ -9,6 +9,7 @@
     overflow: visible !important;
 }
 .ui-widget-header {
+    background-color: yellow;
     text-align: center;
     text-transform: uppercase;
 }

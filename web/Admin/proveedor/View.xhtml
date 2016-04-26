@@ -12,8 +12,6 @@
             <h:form id="ProveedorViewForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{proveedorController.selected != null}">
-                        <h:outputText value="#{bundle.ViewProveedorLabel_idProveedor}"/>
-                        <h:outputText value="#{proveedorController.selected.idProveedor}" title="#{bundle.ViewProveedorTitle_idProveedor}"/>
                         <h:outputText value="#{bundle.ViewProveedorLabel_nombreProveedor}"/>
                         <h:outputText value="#{proveedorController.selected.nombreProveedor}" title="#{bundle.ViewProveedorTitle_nombreProveedor}"/>
                         <h:outputText value="#{bundle.ViewProveedorLabel_telefono}"/>
@@ -22,9 +20,7 @@
                         <h:outputText value="#{proveedorController.selected.nombreContacto}" title="#{bundle.ViewProveedorTitle_nombreContacto}"/>
                         <h:outputText value="#{bundle.ViewProveedorLabel_direccion}"/>
                         <h:outputText value="#{proveedorController.selected.direccion}" title="#{bundle.ViewProveedorTitle_direccion}"/>
-                        <h:outputText value="#{bundle.ViewProveedorLabel_estado}"/>
-                        <p:selectBooleanCheckbox value="#{proveedorController.selected.estado}" disabled="true"/>
-                    </p:panelGrid>
+                        </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="ProveedorViewDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

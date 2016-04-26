@@ -1,3 +1,4 @@
+
 package co.com.regimp.controladores;
 
 import co.com.regimp.modelos.Producto;
@@ -5,7 +6,6 @@ import co.com.regimp.controladores.util.JsfUtil;
 import co.com.regimp.controladores.util.JsfUtil.PersistAction;
 import co.com.regimp.modelos.Proveedor;
 import co.com.regimp.operaciones.ProductoFacade;
-import Reportes.ReportesRegimp;
 import java.io.IOException;
 
 import java.io.Serializable;
@@ -45,7 +45,6 @@ public class ProductoController implements Serializable {
     private co.com.regimp.operaciones.ProductoFacade ejbFacade;
     @EJB
     private co.com.regimp.operaciones.ProveedorFacade ejbProveedor;
-    private Reportes.ReportesRegimp reportesRegimp;
     private List<Producto> items = null;
     private Producto selected;
     private List<Proveedor> listProveedor = null;
@@ -53,7 +52,6 @@ public class ProductoController implements Serializable {
     
     public ProductoController() {
         selected=new Producto();
-        reportesRegimp = new ReportesRegimp();
     }
 
    
@@ -76,7 +74,7 @@ public class ProductoController implements Serializable {
                 "attachment; filename=reporte.pdf");
         response.setContentType("application/pdf");
 
-        JasperPrint jasperPrint = JasperFillManager.fillReport("C:\\Users\\Admin\\Documents\\NetBeansProjects\\UltimeGit\\ultimate.1\\src\\java\\Reportes\\StockProducto.jasper", null, conexion);
+        JasperPrint jasperPrint = JasperFillManager.fillReport("C:\\Users\\Brayan\\Desktop\\Steven\\SENA\\ultimate.1\\src\\java\\Reportes\\StockProducto.jasper", null, conexion);
         JRExporter exporter = new JRPdfExporter();
         exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
         exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, out);

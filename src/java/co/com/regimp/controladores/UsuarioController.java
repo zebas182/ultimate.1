@@ -41,7 +41,8 @@ public class UsuarioController implements Serializable {
     private String contrasenaEncriptada;
     private Usuario u = new Usuario();
     private String nuevaClave;
-    private Empleado empleado;
+    private Empleado empleado =new Empleado();
+
     
     public UsuarioController() {
     }
@@ -55,6 +56,10 @@ public class UsuarioController implements Serializable {
         }
     }
 
+    public void limpiarUsuario(){
+    selected=null;
+    }
+    
     public void cambiar_contrasena() {
         u.setContrasena(Encripcion.Encriptar.encriptaEnMD5(contrasenaEncriptada));
         ejbFacade.cambiar_contrasena(u.getContrasena(), u.getIdUsuario());
@@ -67,7 +72,7 @@ public class UsuarioController implements Serializable {
     }
 
     public int validarContra() throws InvalidAlgorithmParameterException {
-        String descript = Encripcion.Encriptar.DesencriptaEnMD5(selected.getContrasena());
+        String descript = Encripcion.Encriptar.DesencriptaEnMD5(u.getContrasena());
         if (descript.length() > 16) {
             return 0;
         } else {
@@ -96,12 +101,11 @@ public class UsuarioController implements Serializable {
             if (u != null) {
                 empleado = ejbFacade.consultarEmpleado(u);
                 if (u.getRolidRol().getIdRol().equals(1)) {
-                    return "welcomePrimefaces?faces-redirect=true";
+                    return "Plantilla?faces-redirect=true";
                 }
                 if (u.getRolidRol().getIdRol().equals(2)) {
-                    return "welcomePrimefaces?faces-redirect=true";
+                    return "Plantilla?faces-redirect=true";
                 }
-
             }
         } catch (Exception e) {
             throw e;

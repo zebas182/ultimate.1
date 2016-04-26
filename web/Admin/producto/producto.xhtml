@@ -1,0 +1,93 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <body>
+
+        <ui:composition template="./../../Plantilla.xhtml">
+
+            <ui:define name="title">
+                <h:outputText value="Productos"></h:outputText>
+            </ui:define>
+
+            <ui:define name="content">
+                <h:form id="ProductoListForm">
+                    <p:panel header="#{bundle.ListProductoTitle}" rendered="#{usuarioController.validarContra()==1}">
+                        <p:dataTable  value="#{productoController.items}" widgetVar="ProductoTable"
+                                      emptyMessage="No se encontraron resultados" filteredValue="#{productoController.filteredProductos}"
+                                      id="datalist"  var="item" 
+                                      selectionMode="single" selection="#{productoController.selected}"
+                                      paginator="true"
+                                      rowKey="#{item.idProducto}"
+                                      rows="10"
+                                      rowsPerPageTemplate="10,20,30,40,50"
+                                      >
+
+                            <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                            <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+                            <f:facet name="header">
+                                <p:outputPanel>
+                                    <h:outputText value="Buscar" />
+                                    <p:inputText id="globalFilter" onkeyup="PF('ProductoTable').filter()" style="width:150px" placeholder="Ingresar Nombre"/>
+                                </p:outputPanel>
+                            </f:facet>
+
+                            <p:column filterBy="#{item.nombreProducto}">
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListProductoTitle_nombreProducto}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.nombreProducto}"/>
+                            </p:column>
+                            <p:column filterBy="#{item.unidadDeMedida}">
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListProductoTitle_unidadDeMedida}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.unidadDeMedida}"/>
+                            </p:column>
+                            <p:column filterBy="#{item.cantidadStock}">
+                                <f:facet name="header">
+                                    <h:outputText value="Cantidad Stock"/>
+                                </f:facet>
+                                <h:outputText value="#{item.cantidadStock}"/>
+                            </p:column>
+                            <p:column filterBy="#{item.proveedor}">
+                                <f:facet name="header">
+                                    <h:outputText value="Proveedor"/>
+                                </f:facet>
+                                <h:outputText value="#{item.proveedor}"/>
+                            </p:column>
+                            <p:column filterBy="#{item.categoriaidCategoria.nombreCategoria}">
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListProductoTitle_categoriaidCategoria}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.categoriaidCategoria.nombreCategoria}"/>
+                            </p:column>
+                            <p:column filterBy="#{item.marcaidMarca.nombreMarca}">
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListProductoTitle_marcaidMarca}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.marcaidMarca.nombreMarca}"/>
+                            </p:column>
+                            <f:facet name="footer">
+                                <p:commandButton id="createButton" rendered="#{usuarioController.u.rolidRol.idRol eq 1}"    value="#{bundle.Create}" actionListener="#{productoController.prepareCreate}" update=":ProductoCreateForm" oncomplete="PF('ProductoCreateDialog').show()"/>
+                                <p:commandButton id="viewButton" value="#{bundle.View}" update=":ProductoViewForm" oncomplete="PF('ProductoViewDialog').show()" disabled="#{empty productoController.selected}"/>
+                                <p:commandButton id="editButton"  rendered="#{usuarioController.u.rolidRol.idRol eq 1}"  value="#{bundle.Edit}" update=":ProductoEditForm" oncomplete="PF('ProductoEditDialog').show()" disabled="#{empty productoController.selected}"/>
+                                <p:commandButton id="deleteButton" rendered="#{usuarioController.u.rolidRol.idRol eq 1}"   value="#{bundle.Delete}" actionListener="#{productoController.destroy}" update=":growl,datalist" disabled="#{empty productoController.selected}"/>
+                                <h:commandButton id="ReporteStock"  value="Reporte de Stock"   actionListener="#{productoController.ReporteStockProducto()}"/>
+                            </f:facet>
+                        </p:dataTable>
+                    </p:panel> 
+                </h:form>
+                <ui:include src="Create.xhtml"/>
+                <ui:include src="Edit.xhtml"/>
+                <ui:include src="View.xhtml"/>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

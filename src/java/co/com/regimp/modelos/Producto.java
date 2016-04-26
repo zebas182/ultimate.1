@@ -104,10 +104,13 @@ public class Producto implements Serializable {
 
     public Integer getIdProducto() {
         return idProducto;
+       
     }
 
     public void setIdProducto(Integer idProducto) {
         this.idProducto = idProducto;
+        this.cantidadStock=this.getCantidadStock();
+        
     }
 
     public String getNombreProducto() {
@@ -132,6 +135,8 @@ public class Producto implements Serializable {
 
     public void setCantidadStock(int cantidadStock) {
         this.cantidadStock = cantidadStock;
+        
+        
     }
 
     public boolean getEstado() {

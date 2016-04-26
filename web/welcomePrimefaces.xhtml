@@ -7,9 +7,9 @@
 
     <f:view contentType="text/html">
         <h:head>
-            <f:facet name="first">
+            <f:facet name="title">
                 <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
-                <title>PrimeFaces</title>
+                <title>Página Principal</title>
             </f:facet>
             <f:metadata>
                 <f:event type="preRenderView" listener="#{usuarioController.validarSesion()}"></f:event>
@@ -25,15 +25,15 @@
                 <p:layoutUnit position="north" size="60" resizable="true" closable="true" collapsible="true">
 
                     <h:form>
-                        <p:graphicImage library="images" name="Regimp.png" style="width: 170px; height: 40px; position: absolute;"/>
+                        <p:graphicImage library="images" name="Regimp.png" style="width: 200px; height: 45px; position: absolute;"/>
 
-                        <p:outputLabel  value="Usuario: "  style=" font-size: 14px; width: 20px; position: absolute; right: 400px; "/>
-                        <p:outputLabel  value="#{usuarioController.u.nombreUsuario}" style="font-size: 14px; width: 20px; position: absolute; right: 330px; "/>
-                        <p:outputLabel  value="Rol: " style=" font-size: 14px; top:20px; width: 20px; position: absolute; right: 400px; "/>
-                        <p:outputLabel  value="#{usuarioController.u.rolidRol.nombreRol}" style="top:20px; font-size: 14px; width: 20px; position: absolute; right: 330px; "/>
+                        <p:outputLabel  value="Usuario: "  style="font: bold; left: 80%; top: 40%; position: absolute; font-size: 12px; color: #FF7F00;"/>
+                        <p:outputLabel  value="#{usuarioController.u.nombreUsuario}" style="font: bold; left: 85%; top: 40%; position: absolute; font-size: 12px; color: grey;"/>
+                        <p:outputLabel  value="Rol: " style="font: bold; left: 80%; top:70%; position: absolute; font-size: 12px; color: #FF7F00;"/>
+                        <p:outputLabel  value="#{usuarioController.u.rolidRol.nombreRol}" style="font: bold; left: 85%; top: 70%; position: absolute; font-size: 12px; color: grey;"/>
 
 
-                        <p:commandButton id="cerrar" style="margin: 0px; font-size: 12px; position: absolute; right:10px; bottom: 0; " value="Cerrar Sesión" actionListener="#{usuarioController.cerrarSesion()}"/><br></br>
+                        <p:commandButton id="cerrar" style="margin: 0px; font-size: 12px; position: absolute; right:10px; bottom: 0;  " value="Cerrar Sesión" actionListener="#{usuarioController.cerrarSesion()}"/><br></br>
 
                     </h:form>
 
@@ -58,9 +58,7 @@
                                 <p:menuitem url="/faces/Admin/producto/List.xhtml"  value=" Producto "/>
                                 <p:menuitem url="/faces/Admin/proveedor/List.xhtml" rendered="#{usuarioController.u.rolidRol.idRol eq 1}" value=" Proveedor "/>
                                 <p:menuitem url="/faces/Admin/usuario/List.xhtml" rendered="#{usuarioController.u.rolidRol.idRol eq 1}" value=" Usuario "/>
-                                <p:menuitem icon="ui-icon-cart" url="/faces/Admin/pedido/Carrito.xhtml" rendered="#{usuarioController.u.rolidRol.idRol eq 1}" value="Carrito Pedido"/>
-                                <p:menuitem icon="ui-icon-cart" url="/faces/Admin/despacho/Carrito.xhtml" value="Carrito Despacho"/>
-                                <p:menuitem icon="ui-icon-cart" url="/faces/Admin/devolucion/Carrito.xhtml" value="Carrito Devolución"/>
+                                <p:menuitem url="/faces/Admin/pedido/Carrito.xhtml" icon="ui-icon-car" rendered="#{usuarioController.u.rolidRol.idRol eq 1}" value="Carrito Pedido "/>
                             </p:submenu>
                         </p:menu>
                     </h:form>
@@ -74,6 +72,8 @@
                             <br></br>
                             <h:outputText value="Usuario: "></h:outputText>
                             <h:outputText value="#{usuarioController.u.nombreUsuario}"></h:outputText>
+                            <h:outputText value="contraseña "></h:outputText>
+                            <h:outputText value="#{usuarioController.u.contrasena}"></h:outputText>
                             <p:panelGrid columns="2">
                                 <p:outputLabel value="Nueva Contraseña" for="contrasena" />
                                 <p:password id="contrasena" class="button" value="#{usuarioController.contrasenaEncriptada}" match="contrasena2" feedback="true" goodLabel="Aceptable" promptLabel="Ingrese su contraseña" weakLabel="Insegura" strongLabel="Segura" validatorMessage="La contraseñas no cionciden, El minimo es de 6 y el maximo de 16"  title="#{bundle.CreateUsuarioTitle_contrasena}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_contrasena}">

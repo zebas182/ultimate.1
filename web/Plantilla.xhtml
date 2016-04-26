@@ -1,0 +1,199 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <f:metadata>
+            <f:event type="preRenderView" listener="#{usuarioController.validarSesion()}"></f:event>
+        </f:metadata>
+        <h:outputScript library="js" name="es.js"/>
+        <h:outputStylesheet name="./css/default.css"/>
+        <h:outputStylesheet name="./css/cssLayout.css"/>
+        <title>
+            <ui:insert name="title">
+                Página Principal
+            </ui:insert>
+        </title>
+        <h:outputStylesheet  name="./css/bootstrap.min.css" />
+        <h:outputStylesheet name="./css/bootstrap-responsive.min.css"/>
+        <h:outputStylesheet name="./css/theme.css" />
+        <h:outputStylesheet  name="./css/font-awesome.css" />
+        <link type="text/css" href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600'
+              rel='stylesheet'/>
+    </h:head>
+    <h:body style="background-color: #CCC;">
+        <p:growl id="growl" autoUpdate="true"  showDetail="true" life="3000" />
+        <div class="navbar navbar-fixed-top" >
+            <div class="navbar-inner" style="background: #F3F2EE;">
+                <div class="container" >
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".navbar-inverse-collapse">
+                        <i class="icon-reorder shaded"></i></a><h:form><p:commandLink  action="#{usuarioController.redireccion()}"><p:graphicImage library="img" style="width: 150px; position: absolute; top: 1px;" name="Regimp1.png"/></p:commandLink></h:form>
+                    <div class="nav-collapse collapse navbar-inverse-collapse">
+                        <h:form><p:commandLink  title="Cerrar Sesión"  style="color: #000; position: absolute; top: 10px; left: 1015px; "  actionListener="#{usuarioController.cerrarSesion()}"  ><p:graphicImage library="img" name="CerrarSesion.jpg" style="width: 25px;" /></p:commandLink><p:commandLink  title="Cerrar Sesión"  style="color: #000; position: absolute; top: 15px; left: 1040px; " value="Cerrar Sesión" actionListener="#{usuarioController.cerrarSesion()}" ></p:commandLink></h:form>
+                    </div>
+                    <!-- /.nav-collapse -->
+                </div>
+            </div>
+            <!-- /navbar-inner -->
+            <p:outputLabel  value="Usuario: "  style="font-family: sans-serif; font: bold; left: 68%; top: 1px;; position: absolute; font-size: 11px; color: #FF7F00;"/>
+            <p:outputLabel  value="#{usuarioController.u.nombreUsuario}" style="font: bold; left: 72%; top: 1px;; position: absolute; font-size: 11px; color: grey;"/>
+            <p:outputLabel  value="Rol: " style="font: bold; left: 68%; top:17px; position: absolute; font-size: 11px; color: #FF7F00;"/>
+            <p:outputLabel  value="#{usuarioController.u.rolidRol.nombreRol}" style="font: bold; left: 72%; top: 17px; position: absolute; font-size: 11px; color: grey;"/>
+        </div>
+        <br></br>
+        <div class="span3">
+            <div class="sidebar">
+                <h:form> 
+                    <ul class="widget widget-menu unstyled">
+                        <li>
+                            <h:commandLink action="/faces/Admin/marca/marca" style="text-align: left;" value="Ver Marcas">
+                                <i class="icon-tags pull-left" style="width: 25px;"></i>
+                            </h:commandLink>
+                        </li>
+                    </ul>
+                    <ul class="widget widget-menu unstyled" id="categoria">
+                        <li>
+                            <h:commandLink action="/faces/Admin/categoria/categoria"  value="Ver Categorias">
+                                <i class="icon-th-list pull-left" style="width: 25px;"></i>
+                            </h:commandLink>
+                        </li>
+                    </ul>
+                    <ul class="widget widget-menu unstyled">
+                        <li>
+                            <h:commandLink action="/faces/Admin/proveedor/proveedor" style="text-align: left;" value="Ver Proveedores">
+                                <i class="icon-briefcase pull-left" style="width: 25px;"></i>
+                            </h:commandLink>
+                        </li>
+                    </ul>
+                    <ul class="widget widget-menu unstyled">
+                        <li>
+                            <h:commandLink action="/faces/Admin/producto/producto" style="text-align: left;" value="Ver Productos">
+                                <i class="icon-glass pull-left" style="width: 25px;"></i>
+                            </h:commandLink>
+                        </li>
+                    </ul>
+                    <ul class="widget widget-menu unstyled" id="Devolucion">
+                        <li><a class="collapsed" data-toggle="collapse" href="#Devoluciones"><i class="menu-icon icon-repeat">
+                                </i><i class="icon-chevron-down pull-right"></i><i class="icon-chevron-up pull-right">
+                                </i>Devoluciónes</a>
+                            <ul id="Devoluciones" class="collapse unstyled">
+                                <li><h:commandLink action="/faces/Admin/detalleDevolucion/detalleDevolucion"  value="Devoluciones">
+                                        <i class="icon-list pull-left" style="width: 25px;"></i>
+                                    </h:commandLink></li>
+                                <li><h:commandLink action="/faces/Admin/devolucion/Carrito"  value="Devolución A Proveedor">
+                                        <i class="icon-briefcase pull-left"></i>
+                                        <i class="icon-arrow-right pull-left" style="width: 25px;"></i>
+                                    </h:commandLink></li>
+                                <li><h:commandLink action="/faces/Admin/devolucion/CarritoCliente"  value="Devolución De Cliente">
+                                        <i class="icon-arrow-left pull-left" ></i>
+                                        <i class="icon-user pull-left" style="width: 25px;"></i>
+                                    </h:commandLink></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <ul class="widget widget-menu unstyled">
+                        <li><a class="collapsed" data-toggle="collapse" href="#Despacho"><i class="menu-icon icon-share">
+                                </i><i class="icon-chevron-down pull-right"></i><i class="icon-chevron-up pull-right">
+                                </i>Despacho </a>
+                            <ul id="Despacho" class="collapse unstyled">
+                                <li><h:commandLink action="/faces/Admin/detalleDespacho/detalleDespacho"  value="Despachos">
+                                        <i class="icon-list pull-left" style="width: 25px;"></i>
+                                    </h:commandLink></li>
+                                <li><h:commandLink action="/faces/Admin/despacho/Carrito"  value="Carrito De Despacho">
+                                        <i class="icon-shopping-cart pull-left" style="width: 25px;"></i>
+                                    </h:commandLink></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <ul class="widget widget-menu unstyled">
+                        <li><a class="collapsed" data-toggle="collapse" href="#Pedido"><i class="menu-icon icon-book">
+                                </i><i class="icon-chevron-down pull-right"></i><i class="icon-chevron-up pull-right">
+                                </i>Pedidos </a>
+                            <ul id="Pedido" class="collapse unstyled">
+                                <li><h:commandLink action="/faces/Admin/detallePedido/detallePedido"  value="Pedidos">
+                                        <i class="icon-list pull-left" style="width: 25px;"></i>
+                                    </h:commandLink></li>
+                                <li><h:commandLink action="/faces/Admin/pedido/Carrito"  value="Carrito De Pedido">
+                                        <i class="icon-shopping pull-left" style="width: 25px;"></i>
+                                    </h:commandLink></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <!--/.widget-nav-->
+                    <ul class="widget widget-menu unstyled">
+                        <li><a class="collapsed" data-toggle="collapse" href="#Empleado"><i class="menu-icon icon-user">
+                                </i><i class="icon-chevron-down pull-right"></i><i class="icon-chevron-up pull-right">
+                                </i>Personal</a>
+                            <ul id="Empleado" class="collapse unstyled">
+                                <li><h:commandLink action="/faces/Admin/empleado/empleado"  value="Empleados">
+                                        <i class="icon-list pull-left" style="width: 25px;"></i>
+                                    </h:commandLink></li>
+                                <li><h:commandLink action="/faces/Admin/usuario/usuario"  value="Usuarios">
+                                        <i class="icon-user pull-left" style="width: 25px;"></i>
+                                    </h:commandLink></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <ul class="widget widget-menu unstyled">
+                        <li><a class="collapsed" data-toggle="collapse" href="#Reportes"><i class="menu-icon icon-file">
+                                </i><i class="icon-chevron-down pull-right"></i><i class="icon-chevron-up pull-right">
+                                </i>Reportes</a>
+                            <ul id="Reportes" class="collapse unstyled">
+                                <li><h:commandLink  action="/faces/Admin/reportes/reporteVentas"  value="Venta Por Empleados">
+                                        <i class="icon-list pull-left" style="width: 25px;"></i>
+                                    </h:commandLink></li>
+                                <li><h:commandLink action="#{pedidoController.reportePedido()}"  value="Reporte Pedidos diarios">
+                                        <i class="icon-download pull-left" style="width: 25px;"></i>
+                                    </h:commandLink></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </h:form>
+            </div>
+            <!--/.sidebar-->
+        </div>
+        <div  style="width: 1000px; font-size: 12px;  position: absolute;  height: 556px; border-radius: 10px; left: 330px;">
+            <ui:insert name="content">
+                <h:form>
+                    <p:panel rendered="#{usuarioController.validarContra()==0}">
+                        <h:outputText value="Cambie la contraseña"></h:outputText>
+                        <br></br>
+                        <h:outputText value="Usuario: "></h:outputText>
+                        <h:outputText value="#{usuarioController.u.nombreUsuario}"></h:outputText>
+                        <p:panelGrid columns="2">
+                            <p:outputLabel value="Nueva Contraseña" for="contrasena" />
+                            <p:password id="contrasena" class="button" value="#{usuarioController.contrasenaEncriptada}" match="contrasena2" feedback="true" goodLabel="Aceptable" promptLabel="Ingrese su contraseña" weakLabel="Insegura" strongLabel="Segura" validatorMessage="La contraseñas no cionciden, El minimo es de 6 y el maximo de 16"  title="#{bundle.CreateUsuarioTitle_contrasena}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_contrasena}">
+                                <f:validateLength minimum="6" maximum="16" />
+                                <p:clientValidator/>
+                            </p:password>
+                            <p:outputLabel value="Confirmar Contraseña: " for="contrasena2" />
+                            <p:password id="contrasena2" class="button" value="#{usuarioController.contrasenaEncriptada}" title="#{bundle.CreateUsuarioTitle_contrasena}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_contrasena}"/>
+                            <f:facet name="footer" >
+                                <center> 
+                                    <p:commandButton actionListener="#{usuarioController.cambiar_contrasena()}"  style="border-radius: 10px;" value="Cambiar" icon="ui-icon-pen"   update=":growl" />
+                                </center>
+                            </f:facet>
+                        </p:panelGrid>
+                    </p:panel>
+                </h:form>
+            </ui:insert>
+        </div>
+
+        <div  style="position: absolute; width: 300px;  font-size: 11px;  left: 600px;  top: 700px; ">
+            <b class="copyright">&copy; 2016 Regimp - Regimp.com </b>All rights reserved.
+        </div>
+        <!--<h:outputScript library="js" name="jquery-1.9.1.min.js"/>
+        <h:outputScript library="js" name="jquery-ui-1.10.1.custom.min.js"/>
+        <h:outputScript library="js" name="common.js"/>-->
+        <h:outputScript library="js" name="bootstrap.min.js"/>
+        <h:outputScript library="js" name="flot/jquery.flot.js"/>
+        <h:outputScript library="js" name="datatables/jquery.dataTables.js"/>
+        <h:outputScript library="js" name="flot/jquery.flot.resize.js"/>
+    </h:body>
+</html>

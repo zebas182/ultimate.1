@@ -6,59 +6,69 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 
-    <ui:composition template="/welcomePrimefaces.xhtml">
-
-
+    <ui:composition template="./../../Plantilla.xhtml">
         <ui:define name="title">
-            <h:outputText value="#{bundle.ListProductoTitle}"></h:outputText>
+            <h:outputText value="Carrito De Pedidos"></h:outputText>
         </ui:define>
         <p:growl id="msj" autoUpdate="true" showDetail="true"/>
-        <ui:define name="body">
+        <ui:define name="content">
             <h:form id="ProductoListForm">
                 <p:panelGrid columns="2"  style="left: 35%; font-size: 14px; position: relative; border-radius: 10px; " rendered="#{usuarioController.validarContra()==1}">
                     <f:facet name="header"><p:outputLabel value="Registro De Pedidos"/></f:facet>
                     <h:outputText value="Empleado"></h:outputText>
-                    <p:selectOneMenu  id="Empleado" value="#{pedidoController.selected.empleadoidEmpleado}" converter="omnifaces.SelectItemsConverter" required="true" requiredMessage="#{bundle.EditPedidoRequiredMessage_proveedoridProveedor}">
-                        <f:selectItem itemLabel="#{usuarioController.empleado.nombreEmpleado}" itemValue="#{usuarioController.empleado}"/>
+                    <p:selectOneMenu  id="Empleado" value="#{pedidoController.selected.empleadoidEmpleado}"  required="true" requiredMessage="#{bundle.EditPedidoRequiredMessage_proveedoridProveedor}">
+                        <f:selectItem itemValue="#{usuarioController.empleado}" itemLabel="#{usuarioController.empleado.nombreEmpleado}"/>
                     </p:selectOneMenu>
                     <h:outputText value="Proveedor"></h:outputText>
-                    <p:selectOneMenu id="Proveedor" value="#{pedidoController.selected.proveedoridProveedor}" converter="omnifaces.SelectItemsConverter" required="true" requiredMessage="#{bundle.EditPedidoRequiredMessage_proveedoridProveedor}">
+                    <p:selectOneMenu id="Proveedor" value="#{pedidoController.selected.proveedoridProveedor}" filter="true" valueChangeListener="#{pedidoController.cargarProducto}" converter="omnifaces.SelectItemsConverter" required="true" requiredMessage="#{bundle.EditPedidoRequiredMessage_proveedoridProveedor}">
                         <f:selectItem noSelectionOption="true" itemLabel="Seleccione" itemValue="#{null}"/>
                         <f:selectItems value="#{proveedorController.itemsAvailableSelectOne}"
                                        var="prove"
                                        itemLabel="#{prove.nombreProveedor}"
                                        itemValue="#{prove}"/>
+                        <p:ajax update="productoSeleccionado"/>
                     </p:selectOneMenu>
 
-
                     <p:outputLabel value="Producto"  />
-                    <p:autoComplete id="productoslist" value="#{pedidoController.producto}" completeMethod="#{pedidoController.completeProducto}"
-                                    var="pro" itemLabel="#{pro.nombreProducto}" itemValue="#{pro}"  forceSelection="true" />
+                    <p:selectOneMenu id="productoSeleccionado" filter="true"  value="#{pedidoController.producto}"  valueChangeListener="#{pedidoController.cargarCantidad}" required="true" requiredMessage="El campo producto es obligatorio">
+                        <f:selectItem noSelectionOption="true" itemLabel="Seleccione" itemValue="#{null}" />
+                        <f:selectItems value="#{pedidoController.productoSeleccionado}"
+                                       var="pro"
+                                       itemValue="#{pro}"
+                                       itemLabel="#{pro.nombreProducto}"
+                                       />
+                        <p:ajax update="CantidaStock,unidadDeMedida"/>
+                    </p:selectOneMenu>
 
                     <p:outputLabel value="Unidad De Medida" for="unidadDeMedida" />
                     <p:selectOneMenu id="unidadDeMedida" value="#{pedidoController.unidadDeMedida}" style="width:125px">
                         <f:selectItem itemLabel="Select One" itemValue="" />
-                        <f:selectItem itemLabel="Paquete" itemValue="Paquete" />
-                        <f:selectItem itemLabel="Libras" itemValue="Libras" />
-                        <f:selectItem itemLabel="Kilos" itemValue="Kilos" />
-                        <f:selectItem itemLabel="Arroba" itemValue="Arroba" />
+                        <f:selectItems value="#{pedidoController.medida}"
+                                       var="medi"
+                                       itemValue="#{medi}"
+                                       />
                     </p:selectOneMenu>
-                    <h:outputLabel value="Precio Por Unidad" for="preciounidad" />
-                    <h:panelGrid columns="1" cellpadding="5">
-                        <p:spinner id="preciounidad" prefix="$" min="0"  value="#{pedidoController.precioUnidad}"   title="Precio Unidad" required="true" requiredMessage="El campo precio Por Unidad Es Obligatorio"/>
+                    <p:outputLabel  value="Cantidad De Productos A Pedir" for="CantidaPedidos" />
+                    <h:panelGrid >
+                        <p:inputText id="CantidaPedidos"  value="#{pedidoController.cantidadPedidos}"  title="Cantidad De Productos Pedidos" required="true" requiredMessage="El campo Cantidad De Productos Pedidos Es Obligatorio"/>
+                        <h:panelGrid  columns="2"><h:column>Stock:&nbsp;</h:column><h:column><p:outputLabel style="position: relative; top: 2px;" id="CantidaStock" value="#{pedidoController.cantidadStock}"/></h:column></h:panelGrid>
                     </h:panelGrid>
-                    <h:outputLabel value="Cantidad De Productos Pedidos" for="CantidadPedidos" />
-                    <p:panelGrid columns="1"  >
-                        <p:inputText id="CantidadPedidos" value="#{pedidoController.cantidadPedidos}" title="Cantidad De Productos Pedidos" required="true" requiredMessage="El campo Cantidad De Productos Pedidos Es Obligatorio"/>
-                        <p:slider for="CantidadPedidos" step="1" />
-                    </p:panelGrid>
+                    <h:outputLabel value="Precio Por Unidad" for="preciounidad" />
+                    <h:panelGrid columns="1" >
+                        <p:spinner id="preciounidad" style="position: relative; height: 30px;  width:10px;"  prefix="$" min="0"  value="#{pedidoController.precioUnidad}"   title="Precio Unidad De Compra" required="true" requiredMessage="El campo precio Por Unidad Es Obligatorio"/>
+                    </h:panelGrid>
+                    
 
                     <f:facet name="footer">
-                        <p:commandButton value="Agregar" actionListener="#{pedidoController.Agregar()}"  update="Detalle,ProductoListForm"/>
+                        <p:commandButton value="Agregar" actionListener="#{pedidoController.Agregar()}"  update=":detallePedido,ProductoListForm" />
                     </f:facet>
                 </p:panelGrid>
-
-                <p:separator/>
+            </h:form>
+            <h:form style="position: absolute;  top: 323px; left: 438px;">
+                <p:commandButton id="Cancelar"  style=" font-size: 14px;"  value="Cancelar" actionListener="#{pedidoController.limpiarAgrega()}" update=":detallePedido,:ProductoListForm" />
+            </h:form>
+            <p:separator/>
+            <h:form id="detallePedido">
                 <p:dataTable rendered="#{usuarioController.validarContra()==1}" style="font-size: 14px;" id="Detalle" value="#{pedidoController.detallePedido}" var="det" paginator="true" rows="10" 
                              rowsPerPageTemplate="5,10,15" emptyMessage="No hay productos para hacer pedido" >
                     <p:column headerText="Producto">
@@ -70,11 +80,12 @@
                     <p:column headerText="Cantidad">
                         #{det.cantidadPedidos}
                     </p:column>
-                    <p:column headerText="Total">
-                        #{det.precioTotal}
+                    <p:column headerText="Precio Unidad">
+                        #{det.precioUnidadCompra}
                     </p:column>
                     <f:facet name="footer">
-                        <p:commandButton id="Registrar"  value="Registrar" actionListener="#{pedidoController.Registrar()}" update="Detalle,:ProductoListForm"/>
+                        <p:commandButton id="Registrar"  value="Registrar" actionListener="#{pedidoController.Registrar()}" update=":detallePedido,:ProductoListForm"  />
+                        <p:commandButton id="Cancelar"   value="Cancelar" actionListener="#{pedidoController.limpiar()}" update=":detallePedido,:ProductoListForm" />
                     </f:facet>
                 </p:dataTable>
             </h:form>

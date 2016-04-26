@@ -97,13 +97,15 @@ public static String encriptaEnMD5(String RawText)
  
     }
 
+
     public static void main(String[] args) throws Exception {
-        System.out.println("\n\nEncriptacion en MD5 de 123: '" + encriptaEnMD5("1gdfgdf") + "'");
+        System.out.println("\n\nEncriptacion en MD5 de 123: '" + encriptaEnMD5("123") + "'");
         System.out.println("Encriptacion en MD5 de hola: '" + encriptaEnMD5("Hola") + "'");
         String encriptado = encriptaEnMD5("ca008c38-a27c-4e86-ae76-c378cc8fd9fe");
         System.out.println(encriptado.length());
-        System.out.println("Encriptacion en MD5 de c6d1fa87-f6fc-40b8-803d-f9be02016c76: '" + encriptaEnMD5("") + "'");
-        System.out.println(DesencriptaEnMD5("0VwonHEZai6J15GlqfQS7g=="));
+        System.out.println("Encriptacion en MD5 de c6d1fa87-f6fc-40b8-803d-f9be02016c76: '" + encriptaEnMD5("123") + "'");
+        System.out.println("Clave "+DesencriptaEnMD5("dZd7PH56sLc77oBEul2SAg=="));
+        System.out.println(DesencriptaEnMD5("EAjmZ1xStunjgg1wR2HwF/o9XVVRF5Y0Bdt1fiisW8UnB6qhhWX15A=="));
 
     }
 }

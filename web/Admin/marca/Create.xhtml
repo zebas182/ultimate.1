@@ -15,8 +15,8 @@
                         <p:outputLabel value="#{bundle.CreateMarcaLabel_nombreMarca}" for="nombreMarca" />
                         <p:inputText id="nombreMarca" value="#{marcaController.selected.nombreMarca}" title="#{bundle.CreateMarcaTitle_nombreMarca}" required="true" requiredMessage="#{bundle.CreateMarcaRequiredMessage_nombreMarca}"/>
                         </p:panelGrid>
-                    <p:commandButton actionListener="#{marcaController.create}" value="#{bundle.Save}" update="display,:MarcaListForm:datalist,:growl" oncomplete="PF('MarcaCreateDialog')hide();"/>
-                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('MarcaCreateDialog')hide();"/>
+                    <p:commandButton actionListener="#{marcaController.create}" value="#{bundle.Save}" update="display,:MarcaListForm:datalist,:growl" oncomplete="PF('MarcaCreateDialog').hide();"/>
+                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('MarcaCreateDialog').hide();"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

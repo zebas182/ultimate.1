@@ -6,6 +6,9 @@
 package co.com.regimp.operaciones;
 
 import co.com.regimp.modelos.Producto;
+import co.com.regimp.modelos.Proveedor;
+import java.util.Date;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -30,6 +33,18 @@ public class ProductoFacade extends AbstractFacade<Producto> {
         super(Producto.class);
     }
 
+    public List<Producto> UnidadesDeMedida(Producto producto) {
+        return (List<Producto>) em.createQuery("SELECT P.unidadDeMedida FROM Producto P WHERE P.nombreProducto=:producto").setParameter("producto", producto.getNombreProducto()).getResultList();
+    }
+
+    public List<Producto> Productos(Proveedor proveedor) {
+        return (List<Producto>) em.createQuery("SELECT P FROM Producto P WHERE P.proveedor=:proveedor").setParameter("proveedor", proveedor.getNombreProveedor()).getResultList();
+    }
+
+    public List<Producto> ProductosString(String proveedor) {
+        return (List<Producto>) em.createQuery("SELECT P FROM Producto P WHERE P.proveedor=:proveedor").setParameter("proveedor", proveedor).getResultList();
+    }
+
     public void limiteStock(int cantidad, int id) {
         int control = (int) em.createQuery("select p.control FROM Producto p where p.idProducto=:id").setParameter("id", id).getSingleResult();
         int total = control - cantidad;
@@ -43,6 +58,12 @@ public class ProductoFacade extends AbstractFacade<Producto> {
         int cantidadTotal = precant - cantidadVieja;
         System.out.println(cantidadTotal + " " + cantidadVieja + " ");
         return em.createQuery("Update Producto u set U.cantidadStock=:cantidadTotal where u.idProducto=:id").setParameter("cantidadTotal", cantidadTotal).setParameter("id", id).executeUpdate();
+    }
+
+    public int AgregarCantidadProducto(int id, int cantidad) {
+        int can = (int) em.createQuery("select p.cantidadStock from Producto p where p.idProducto=:id").setParameter("id", id).getSingleResult();
+        int catidadTotal = can + cantidad;
+        return em.createQuery("Update Producto u set U.cantidadStock=:cantidadTotal where u.idProducto=:id").setParameter("cantidadTotal", catidadTotal).setParameter("id", id).executeUpdate();
     }
 
     public void limpiarCon() {
@@ -86,5 +107,15 @@ public class ProductoFacade extends AbstractFacade<Producto> {
         int can = (int) em.createQuery("select p.cantidadStock from Producto p where p.idProducto=:id").setParameter("id", id).getSingleResult();
         int precant = can - cantidad;
         em.createQuery("Update Producto u set U.cantidadStock=:cantidadTotal where u.idProducto=:id").setParameter("cantidadTotal", precant).setParameter("id", id).executeUpdate();
+    }
+
+    public List<String> verificarReporteEmpleado(String Fecha,String Empleado) {
+        try {
+            List<String> pro = (List<String>) em.createQuery("Select P.nombreProducto FROM  Producto P INNER JOIN P.detalleDespachoCollection D ON P.idProducto=D.productoidProducto.idProducto  INNER JOIN D.despachoidDespacho E ON D.idDetalleDespacho=E.idDespacho WHERE  E.fechaDespacho LIKE '"+Fecha+"%' AND E.empleado LIKE '"+Empleado+"%'").getResultList();
+            return pro;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

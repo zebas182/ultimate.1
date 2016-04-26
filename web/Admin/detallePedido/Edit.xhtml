@@ -24,11 +24,12 @@
                         <p:inputText id="productoidProducto" readonly="true" value="#{detallePedidoController.selected.productoidProducto.nombreProducto}" required="true" requiredMessage="#{bundle.EditDetallePedidoRequiredMessage_productoidProducto}"/>
                             
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{detallePedidoController.update}" value="#{bundle.Save}" update="display,:DetallePedidoListForm:datalist,:growl" ajax="true" oncomplete="handleSubmit(args, 'DetallePedidoEditDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="DetallePedidoEditDialog.hide()"/>
+                    <p:commandButton actionListener="#{detallePedidoController.update}" value="#{bundle.Save}" update="display,:DetallePedidoListForm:datalist,:growl" ajax="true" oncomplete="PF('DetallePedidoEditDialog').hide();"/>
+                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('DetallePedidoEditDialog').hide();"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>
 
     </ui:composition>
+    <h:outputScript library="js" name="es.js"/>
 </html>

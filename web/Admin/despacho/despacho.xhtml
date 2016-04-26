@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="./../../Plantilla.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="Despachos"></h:outputText>
+        </ui:define>
+
+        <ui:define name="content">
+            <h:form id="DespachoListForm">
+                <p:panel header="#{bundle.ListDespachoTitle}" rendered="#{usuarioController.validarContra()==1}">
+                    <p:dataTable id="datalist" value="#{despachoController.items}" var="item" 
+                                 selectionMode="single" selection="#{despachoController.selected}"
+                                 paginator="true" emptyMessage="No se encontraron resultados"
+                                 rowKey="#{item.idDespacho}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="viewButton editButton deleteButton"/>
+
+                        
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDespachoTitle_fechaDespacho}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.fechaDespacho}">
+                                <f:convertDateTime pattern="MM/dd/yyyy"/>
+                            </h:outputText>
+                        </p:column>
+                        
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDespachoTitle_empleado}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.empleado}"/>
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":DespachoViewForm" oncomplete="PF('DespachoViewDialog').show()" disabled="#{empty despachoController.selected}"/>
+                            <p:commandButton id="editButton"   style="background-image: url('../..//resources/images/delete.png'); background-repeat: no-repeat; background-position-x: 2%;  width: 80px;" value="#{bundle.Edit}" update=":DespachoEditForm" oncomplete="PF('DespachoEditDialog').show()" disabled="#{empty despachoController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{despachoController.destroy}" update=":growl,datalist" disabled="#{empty despachoController.selected}"/>
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+    
+</html>

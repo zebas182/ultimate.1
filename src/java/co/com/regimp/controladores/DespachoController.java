@@ -6,6 +6,7 @@ import co.com.regimp.controladores.util.JsfUtil.PersistAction;
 import co.com.regimp.modelos.DetalleDespacho;
 import co.com.regimp.modelos.Producto;
 import co.com.regimp.operaciones.DespachoFacade;
+import java.io.IOException;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -19,9 +20,11 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIComponent;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.faces.event.ValueChangeEvent;
 import javax.inject.Inject;
 
 @ManagedBean(name = "despachoController")
@@ -41,9 +44,11 @@ public class DespachoController implements Serializable {
     private List<DetalleDespacho> detalleDespacho = new ArrayList();
     private List<DetalleDespacho> detalleDespacho2;
     private Producto producto;
+    private List<Producto> medida;
     private String UnidadDeMedida = null;
     private int precioUnidadVenta = 0;
     private int cantidadVendidos = 0;
+    private int cantidadStock = 0;
     private DetalleDespacho det;
     private Producto productoSeleccionado;
     private int result = 0;
@@ -66,20 +71,32 @@ public class DespachoController implements Serializable {
         return filteredProducto;
     }
 
+    public void cargarCantidad(ValueChangeEvent value) {
+        producto = (Producto) value.getNewValue();
+        cantidadStock = ejbProducto.stock(producto.getIdProducto());
+        medida = ejbProducto.UnidadesDeMedida(producto);
+    }
+
+    public void carrito() throws IOException {
+        ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
+        context.redirect(context.getRequestContextPath() + "/faces/Admin/despacho/Carrito.xhtml");
+    }
+
     public void limpiar() {
         ejbProducto.limpiarCon();
         detalleDespacho.clear();
         UnidadDeMedida = "";
         precioUnidadVenta = 0;
         producto = null;
+        cantidadStock = 0;
         cantidadVendidos = 0;
         selected.setEmpleado(null);
     }
 
     public void limpiarAgrega() {
-        ejbProducto.limpiarCon();
         UnidadDeMedida = "";
         precioUnidadVenta = 0;
+        cantidadStock = 0;
         producto = null;
         cantidadVendidos = 0;
         selected.setEmpleado(null);
@@ -141,8 +158,10 @@ public class DespachoController implements Serializable {
                 ejbProducto.QuitarCantidaddef(det.getProductoidProducto().getIdProducto(), det.getCantidadVendida());
                 ejbProducto.limpiarControl(det.getProductoidProducto().getIdProducto());
             }
+
             FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Productos Despachados  Exitosamente", "");
             FacesContext.getCurrentInstance().addMessage("successInfo", facesMsg);
+
             detalleDespacho.clear();
             UnidadDeMedida = "";
             precioUnidadVenta = 0;
@@ -245,6 +264,7 @@ public class DespachoController implements Serializable {
 
     public void setProducto(Producto producto) {
         this.producto = producto;
+
     }
 
     public String getUnidadDeMedida() {
@@ -269,6 +289,7 @@ public class DespachoController implements Serializable {
 
     public void setCantidadVendidos(int cantidadVendidos) {
         this.cantidadVendidos = cantidadVendidos;
+
     }
 
     public List<DetalleDespacho> getDetalleDespacho() {
@@ -317,6 +338,22 @@ public class DespachoController implements Serializable {
 
     public void setAlmacen(int almacen) {
         this.almacen = almacen;
+    }
+
+    public int getCantidadStock() {
+        return cantidadStock;
+    }
+
+    public void setCantidadStock(int cantidadStock) {
+        this.cantidadStock = cantidadStock;
+    }
+
+    public List<Producto> getMedida() {
+        return medida;
+    }
+
+    public void setMedida(List<Producto> medida) {
+        this.medida = medida;
     }
 
     @FacesConverter(forClass = Despacho.class)
