@@ -33,6 +33,7 @@
                         <p:ajax update="productos"/>
                     </p:selectOneMenu>
 
+
                     <p:outputLabel value="Producto"  />
                     <p:selectOneMenu id="productos" filter="true"  value="#{devolucionController.producto}"  valueChangeListener="#{devolucionController.cargarCantidad}" required="true" requiredMessage="El campo producto es obligatorio">
                         <f:selectItem noSelectionOption="true" itemLabel="Seleccione" itemValue="#{null}" />

@@ -11,7 +11,7 @@
         <!--[if IE]>
             <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
             <![endif]-->
-        <title>Free Responsive Admin Theme - ZONTAL</title>
+        <title>Recuperar Contraseña</title>
         <!-- BOOTSTRAP CORE STYLE  -->
         <link href="resources/css/bootstrap.css" rel="stylesheet" />
         <!-- FONT AWESOME ICONS  -->
@@ -26,17 +26,17 @@
         <![endif]-->
     </head>
     <body>
-       
+
 
         <header>
-             <p:growl id="growl" autoUpdate="true"  showDetail="true" life="3000" />
+            <p:growl id="growl" autoUpdate="true"  showDetail="true" life="3000" />
             <div class="container">
                 <div class="row">
                     <div class="col-md-12">
-                        
-                        <strong>Email: </strong>info@yourdomain.com
 
-                        <strong>Support: </strong>+90-897-678-44
+                        <strong>Correo: </strong>regimpequipo@outlook.com
+
+                        <strong>Soporte: </strong>+57-312-666-0674
                     </div>
 
                 </div>
@@ -45,24 +45,53 @@
         <!-- HEADER END-->
 
 
-        <div class="col-md-6">
+        <div class="recuperarcorrreo">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    RECUPERAR CONTRASEÑA
+                    <center><h4>Recuperar Contraseña</h4></center>
                 </div>
                 <div class="panel-body" style="align-self: center ">
                     <h:form>
                         <div class="form-group1">
-                            <label for="exampleInputEmail1"> Se le enviara un correo con su nueva contraseña </label>
+                            <span class="glyphicon glyphicon-asterisk"></span><label for="exampleInputEmail1"> Se le enviara un correo con su nueva contraseña</label>
                             <br></br>
                             <label for="exampleInputEmail1"> Ingrese su usuario: </label>
                             <p:inputText type="text" value="#{usuarioController.selected.nombreUsuario}" class="form-control" id="nombreUsuario" placeholder="Ingrese Su Usuario" />
                         </div>
-                        <p:commandButton value="Enviar" actionListener="#{usuarioController.recibirUsuario()}" update=":growl"/>
+                        <hr/>
+                        <p:commandButton value="  Enviar" image="glyphicon glyphicon-envelope" class="btn btn-warning" actionListener="#{usuarioController.recibirUsuario()}" update=":growl"></p:commandButton>
                         <h:outputText value="&#160;" />
-                        <p:commandButton value="Regresar" actionListener="#{usuarioController.redireccion()}"><f:ajax /></p:commandButton>
+                        <p:commandButton value="Regresar" class="btn btn-success"  actionListener="#{usuarioController.redireccion()}"><f:ajax /></p:commandButton>
 
+                        <a  class="link" data-toggle="modal" data-target="#myModal">
+                            Tiene problemas?
+                        </a> 
                     </h:form>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="panel-body">
+            <!--  <p> <a  class="link" data-toggle="modal" data-target="#myModal">
+                Click  Launch Demo Modal
+                  </a> </p> -->
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                            <h4 class="modal-title" id="myModalLabel">Ayuda de Regimp</h4>
+                        </div>
+                        <div class="modal-body">
+                            Si no recuerda su nombre de usuario o no tiene acceso a su correo electrónico, póngase en contacto con el administrador
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                            <button type="button" class="btn btn-primary">Soy el Administrador!</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -72,7 +101,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-12">
-                        2015 YourCompany | By : <a href="http://www.designbootstrap.com/" target="_blank">DesignBootstrap</a>
+                        COPYRIGHT © 2016 REGIMP | Todos los derechos reservados
                     </div>
 
                 </div>
@@ -81,8 +110,8 @@
         <!-- FOOTER SECTION END-->
         <!-- JAVASCRIPT AT THE BOTTOM TO REDUCE THE LOADING TIME  -->
         <!-- CORE JQUERY SCRIPTS -->
-        <script src="assets/js/jquery-1.11.1.js"></script>
+        <script src="resources/js/jquery-1.11.1.js"></script>
         <!-- BOOTSTRAP SCRIPTS  -->
-        <script src="assets/js/bootstrap.js"></script>
+        <script src="resources/js/bootstrap.js"></script>
     </body>
 </html>

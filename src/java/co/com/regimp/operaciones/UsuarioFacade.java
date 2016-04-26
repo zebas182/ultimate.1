@@ -48,12 +48,15 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
 
     public Empleado consultarEmpleado(Usuario u) {
         try {
+
             return (Empleado) em.createQuery("SELECT e FROM Empleado e WHERE e.usuarioidUsuario.idUsuario = :id").setParameter("id", u.getIdUsuario()).getSingleResult();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
     }
+
 
     public List<Usuario> ListaUsuariosDisponibles() {
         try {

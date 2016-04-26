@@ -1600,10 +1600,13 @@ pre code {
 }
 
 .recuperarcorrreo {
-    position: relative;
-  min-height: 1px;
-  padding-right: 15px;
-  padding-left: 15px;
+  position: relative;
+  min-height: 100px;
+  min-width: 150px;
+  padding-right: 300px;
+  padding-left: 300px;
+  padding-top: 20px;
+  padding-bottom: 220px;
   align-self: center;
 }
 
