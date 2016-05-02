@@ -10,10 +10,7 @@
         <ui:define name="title">
             <h:outputText value="Carrito De Devoluciones Al Proveedor"></h:outputText>
         </ui:define>
-
-        <ui:define name="title">
-            <h:outputText value="Carrito Devolución Al Proveedor"></h:outputText>
-        </ui:define>
+        
         <p:growl id="msj" autoUpdate="true" showDetail="true"/>
         <ui:define name="content" >
             <h:form id="ProductoListForm" >
@@ -65,14 +62,15 @@
                     </p:panelGrid>
 
                     <f:facet name="footer">
-                        <p:commandButton value="Agregar" actionListener="#{devolucionController.Agregar()}"  update=":DetalleListForm,ProductoListForm" />
-                        <p:commandButton id="Cancelar"   value="Cancelar" actionListener="#{devolucionController.limpiarAgrega()}" update=":ProductoListForm" />
+                        <p:commandButton value="Agregar" icon="ui-icon-circle-plus" actionListener="#{devolucionController.Agregar()}"  update=":DetalleListForm,ProductoListForm" />
                     </f:facet>
                 </p:panelGrid>
             </h:form>
-            <p:separator/>
+            <h:form style="position: absolute; top: 371px; left: 445px;">
+                <p:commandButton id="Cancelar" icon="icon-remove-circle"   value="Cancelar" actionListener="#{devolucionController.limpiarAgrega()}" update=":DetalleListForm,:ProductoListForm" />
+            </h:form>
             <h:form id="DetalleListForm">
-                <p:dataTable rendered="#{usuarioController.validarContra()==1}" id="Detalle" value="#{devolucionController.detalleDevolucion}" var="det" paginator="true" rows="10" 
+                <p:dataTable style="top: 10px; position: relative;" rendered="#{usuarioController.validarContra()==1}" id="Detalle" value="#{devolucionController.detalleDevolucion}" var="det" paginator="true" rows="10" 
                              rowsPerPageTemplate="5,10,15" emptyMessage="No hay productos para devolver">
                     <p:column headerText="Producto">
                         #{det.productoidProducto.nombreProducto}
@@ -84,8 +82,8 @@
                         #{det.observaciones}
                     </p:column>
                     <f:facet name="footer">
-                        <p:commandButton id="Registrar"  value="Registrar" actionListener="#{devolucionController.Registrar()}"  update="Detalle" />
-                        <p:commandButton id="Cancelar"   value="Cancelar" actionListener="#{devolucionController.limpiar()}" update="Detalle" />
+                        <p:commandButton id="Registrar" icon="ui-icon-disk" value="Registrar" actionListener="#{devolucionController.Registrar()}"  update="Detalle" />
+                        <p:commandButton id="Cancelar" icon="icon-remove-circle"   value="Cancelar" actionListener="#{devolucionController.limpiar()}" update=":DetalleListForm" />
                     </f:facet>
                 </p:dataTable>
             </h:form>

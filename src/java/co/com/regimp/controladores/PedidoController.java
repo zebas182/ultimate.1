@@ -76,7 +76,7 @@ public class PedidoController implements Serializable {
     private int cantidadStock = 0;
     private List<Producto> productoSeleccionado;
     private List<Producto> medida;
-    private Proveedor proveedor=null; 
+    private Proveedor proveedor = null;
 
     public PedidoController() {
 
@@ -102,11 +102,11 @@ public class PedidoController implements Serializable {
         medida = ejbProducto.UnidadesDeMedida(producto);
     }
 
-        public void cargarProducto(ValueChangeEvent value) {
+    public void cargarProducto(ValueChangeEvent value) {
         proveedor = (Proveedor) value.getNewValue();
         productoSeleccionado = ejbProducto.Productos(proveedor);
     }
-    
+
     public void PorIdPedido(ValueChangeEvent value) {
         PedidoSeleccionado = (Pedido) value.getNewValue();
         detallePedido2 = ejbFacade.PorIdPedido(PedidoSeleccionado);
@@ -137,7 +137,7 @@ public class PedidoController implements Serializable {
         Connection conexion = null;
         conexion = ds.getConnection();
         conexion.setAutoCommit(true);
-        Map<String,Object> parametro = new HashMap<String,Object>();
+        Map<String, Object> parametro = new HashMap<String, Object>();
         parametro.put("Fecha", format.format(actual));
 //        JasperReport reporte = null;
 //        reporte = (JasperReport) JRLoader.loadObjectFromFile("C:\\Users\\alber\\Documents\\NetBeansProjects\\UltimatePrueba\\ultimate.1\\web\\WEB-INF\\StockProducto.jasper");
@@ -168,6 +168,7 @@ public class PedidoController implements Serializable {
         det.setPrecioUnidadCompra(precioUnidad);
         det.setCantidadPedidos(cantidadPedidos);
         det.setProductoidProducto(producto);
+        cantidadStock = 0;
         det.setPrecioUnidadCompra(precioUnidad);
         det.setUnidadDeMedida(UnidadDeMedida);
         det.setCantidadPedidos(cantidadPedidos);
@@ -181,6 +182,7 @@ public class PedidoController implements Serializable {
 
     public void Registrar() {
         try {
+            selected.setFechaPedido(actual);
             selected.setEstado(true);
             ejbFacade.create(selected);
             for (DetallePedido det : detallePedido) {
@@ -193,8 +195,9 @@ public class PedidoController implements Serializable {
             detallePedido.clear();
             UnidadDeMedida = "";
             precioUnidad = 0;
+            cantidadStock = 0;
             cantidadPedidos = 0;
-            selected.setProveedoridProveedor(null);
+            producto=null;
             selected.setProveedoridProveedor(null);
         } catch (Exception e) {
             e.getStackTrace();
@@ -204,9 +207,10 @@ public class PedidoController implements Serializable {
     public void limpiar() {
         ejbProducto.limpiarCon();
         detallePedido.clear();
-        proveedor =null;
+        proveedor = null;
         UnidadDeMedida = "";
         precioUnidad = 0;
+        cantidadStock = 0;
         producto = null;
         cantidadPedidos = 0;
         selected.setEmpleadoidEmpleado(null);
@@ -432,8 +436,6 @@ public class PedidoController implements Serializable {
     public void setProductoSeleccionado(List<Producto> productoSeleccionado) {
         this.productoSeleccionado = productoSeleccionado;
     }
-
-
 
     @FacesConverter(forClass = Pedido.class)
     public static class PedidoControllerConverter implements Converter {

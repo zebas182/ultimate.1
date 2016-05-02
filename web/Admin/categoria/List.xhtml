@@ -8,15 +8,15 @@
 
     <ui:composition template="./../../plantilla.html">
         <link rel="stylesheet" href="../../resources/css/bootstrap_1.css"/>
-       
+
         <ui:define name="title">
             <h:outputText value="#{bundle.ListCategoriaTitle}"></h:outputText>
         </ui:define>
-        
+
         <ui:define name="body">
             <h:form id="CategoriaListForm" >
                 <p:panel header="#{bundle.ListCategoriaTitle}" rendered="#{usuarioController.validarContra()==1}">
-                    <p:dataTable id="datalist"  value="#{categoriaController.items}" var="item"
+                    <p:dataTable id="datalist"  value="#{categoriaController.items}" var="item" 
                                  selectionMode="single" selection="#{categoriaController.selected}"
                                  paginator="true" emptyMessage="No se encontraron resultados"
                                  rowKey="#{item.idCategoria}"
@@ -26,9 +26,9 @@
 
                         <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
                         <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+                        
 
-
-                        <p:column>
+                        <p:column >
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListCategoriaTitle_nombreCategoria}"/>
                             </f:facet>
@@ -36,7 +36,7 @@
                         </p:column>
 
                         <f:facet name="footer">
-                            
+
                             <p:commandButton id="createButton"  style="background-image: url('../..//resources/images/new.png'); background-repeat: no-repeat; background-position-x: 2%;  width: 75px;"  value="#{bundle.Create}" actionListener="#{categoriaController.prepareCreate}" update=":CategoriaCreateForm" oncomplete="PF('CategoriaCreateDialog').show()"/>
                             <p:commandButton id="viewButton" style="background-image: url('../..//resources/images/Consultar.gif'); background-repeat: no-repeat; background-position-x: 2%;  width: 75px;"  value="#{bundle.View}" update=":CategoriaViewForm" oncomplete="PF('CategoriaViewDialog').show()" disabled="#{empty categoriaController.selected}"/>
                             <p:commandButton id="editButton"   style="background-image: url('../..//resources/images/edit.png'); background-repeat: no-repeat; background-position-x: 2%;  width: 75px;" value="#{bundle.Edit}" update=":CategoriaEditForm" oncomplete="PF('CategoriaEditDialog').show()" disabled="#{empty categoriaController.selected}"/>

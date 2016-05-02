@@ -15,7 +15,7 @@
                         <p:outputLabel value="#{bundle.EditCategoriaLabel_nombreCategoria}" for="nombreCategoria" />
                         <p:inputText id="nombreCategoria" value="#{categoriaController.selected.nombreCategoria}" title="#{bundle.EditCategoriaTitle_nombreCategoria}" required="true" requiredMessage="#{bundle.EditCategoriaRequiredMessage_nombreCategoria}"/>
                        </p:panelGrid>
-                    <p:commandButton actionListener="#{categoriaController.update()}" value="#{bundle.Save}" update="display,:CategoriaListForm:datalist,:growl" oncomplete="PF('CategoriaEditDialog').hide();"/>
+                    <p:commandButton actionListener="#{categoriaController.update}" value="#{bundle.Save}" update="display,:CategoriaListForm:datalist,:growl" onclick="CategoriaEditDialog.hide()"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="CategoriaEditDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

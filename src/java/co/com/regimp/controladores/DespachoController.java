@@ -10,6 +10,7 @@ import java.io.IOException;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -49,6 +50,7 @@ public class DespachoController implements Serializable {
     private int precioUnidadVenta = 0;
     private int cantidadVendidos = 0;
     private int cantidadStock = 0;
+    private Date actual = new Date();
     private DetalleDespacho det;
     private Producto productoSeleccionado;
     private int result = 0;
@@ -128,6 +130,7 @@ public class DespachoController implements Serializable {
                         UnidadDeMedida = null;
                         precioUnidadVenta = 0;
                         producto = null;
+                        cantidadStock = 0;
                         cantidadVendidos = 0;
                         detalleDespacho.add(det);
                         FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Producto Agregado Exitosamente", "");
@@ -150,6 +153,7 @@ public class DespachoController implements Serializable {
 
     public void Registrar() {
         try {
+            selected.setFechaDespacho(actual);
             selected.setEstado(true);
             ejbFacade.create(selected);
             for (DetalleDespacho det : detalleDespacho) {
@@ -354,6 +358,14 @@ public class DespachoController implements Serializable {
 
     public void setMedida(List<Producto> medida) {
         this.medida = medida;
+    }
+
+    public Date getActual() {
+        return actual;
+    }
+
+    public void setActual(Date actual) {
+        this.actual = actual;
     }
 
     @FacesConverter(forClass = Despacho.class)

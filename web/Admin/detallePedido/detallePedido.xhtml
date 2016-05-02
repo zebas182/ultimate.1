@@ -91,9 +91,9 @@
                             </p:column>
 
                             <f:facet name="footer">
-                                <p:commandButton id="viewButton"   style="background-image: url('../..//resources/images/Consultar.gif'); background-repeat: no-repeat; background-position-x: 2%;  width: 75px;" value="#{bundle.View}" update=":DetallePedidoViewForm" oncomplete="PF('DetallePedidoViewDialog').show()" disabled="#{empty detallePedidoController.selected}"/>
-                                <p:commandButton id="editButton"  rendered="#{usuarioController.u.rolidRol.idRol eq 1}" style="background-image: url('../..//resources/images/edit.png'); background-repeat: no-repeat; background-position-x: 2%;  width: 75px;" value="#{bundle.Edit}" update=":DetallePedidoEditForm" oncomplete="PF('DetallePedidoEditDialog').show()" disabled="#{empty detallePedidoController.selected}"/>
-                                <p:commandButton id="deleteButton" rendered="#{usuarioController.u.rolidRol.idRol eq 1}" style="background-image: url('../..//resources/images/delete.png'); background-repeat: no-repeat; background-position-x: 2%;" value="#{bundle.Delete}" actionListener="#{detallePedidoController.destroy}" update=":growl,datalist" disabled="#{empty detallePedidoController.selected}"/>
+                                <p:commandButton id="viewButton" value="#{bundle.View}"   update=":DetallePedidoViewForm" oncomplete="PF('DetallePedidoViewDialog').show()" disabled="#{empty detallePedidoController.selected}"/>
+                                <p:commandButton id="editButton"  rendered="#{usuarioController.u.rolidRol.idRol eq 1}" value="#{bundle.Edit}" update=":DetallePedidoEditForm" oncomplete="PF('DetallePedidoEditDialog').show()" disabled="#{empty detallePedidoController.selected}"/>
+                                <p:commandButton id="deleteButton" rendered="#{usuarioController.u.rolidRol.idRol eq 1}" value="#{bundle.Delete}" actionListener="#{detallePedidoController.destroy}" update=":growl,datalist" disabled="#{empty detallePedidoController.selected}"/>
                             </f:facet>
                         </p:dataTable>
                     </p:panel>

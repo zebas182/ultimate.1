@@ -12,6 +12,7 @@
         <f:metadata>
             <f:event type="preRenderView" listener="#{usuarioController.validarSesion()}"></f:event>
         </f:metadata>
+        <link rel="shortcut icon" type="image/x-icon" href="resources/images/IconoRegimp.ico" />
         <h:outputScript library="js" name="es.js"/>
         <h:outputStylesheet name="./css/default.css"/>
         <h:outputStylesheet name="./css/cssLayout.css"/>
@@ -33,7 +34,7 @@
             <div class="navbar-inner" style="background: #F3F2EE;">
                 <div class="container" >
                     <a class="btn btn-navbar" data-toggle="collapse" data-target=".navbar-inverse-collapse">
-                        <i class="icon-reorder shaded"></i></a><h:form><p:commandLink  action="#{usuarioController.redireccion()}"><p:graphicImage library="img" style="width: 150px; position: absolute; top: 1px;" name="Regimp1.png"/></p:commandLink></h:form>
+                        <i class="icon-reorder shaded"></i></a><h:form><p:commandLink id="redireccion" action="/Plantilla.xhtml?faces-redirect=true"><p:graphicImage library="img" style="width: 150px; position: absolute; top: 1px;" name="Regimp1.png"/></p:commandLink></h:form>
                     <div class="nav-collapse collapse navbar-inverse-collapse">
                         <h:form><p:commandLink  title="Cerrar Sesión"  style="color: #000; position: absolute; top: 10px; left: 1015px; "  actionListener="#{usuarioController.cerrarSesion()}"  ><p:graphicImage library="img" name="CerrarSesion.jpg" style="width: 25px;" /></p:commandLink><p:commandLink  title="Cerrar Sesión"  style="color: #000; position: absolute; top: 15px; left: 1040px; " value="Cerrar Sesión" actionListener="#{usuarioController.cerrarSesion()}" ></p:commandLink></h:form>
                     </div>
@@ -52,47 +53,42 @@
                 <h:form> 
                     <ul class="widget widget-menu unstyled">
                         <li>
-                            <h:commandLink action="/faces/Admin/marca/marca" style="text-align: left;" value="Ver Marcas">
+                            <h:commandLink rendered="#{usuarioController.u.rolidRol.idRol eq 1}" action="/faces/Admin/marca/marca?faces-redirect=true" style="text-align: left;" value="Lista Marcas">
                                 <i class="icon-tags pull-left" style="width: 25px;"></i>
                             </h:commandLink>
                         </li>
                     </ul>
                     <ul class="widget widget-menu unstyled" id="categoria">
                         <li>
-                            <h:commandLink action="/faces/Admin/categoria/categoria"  value="Ver Categorias">
+                            <h:commandLink rendered="#{usuarioController.u.rolidRol.idRol eq 1}" action="/faces/Admin/categoria/categoria?faces-redirect=true"  value="Lista Categorias">
                                 <i class="icon-th-list pull-left" style="width: 25px;"></i>
                             </h:commandLink>
                         </li>
                     </ul>
                     <ul class="widget widget-menu unstyled">
                         <li>
-                            <h:commandLink action="/faces/Admin/proveedor/proveedor" style="text-align: left;" value="Ver Proveedores">
+                            <h:commandLink rendered="#{usuarioController.u.rolidRol.idRol eq 1}" action="/faces/Admin/proveedor/proveedor?faces-redirect=true" style="text-align: left;" value="Lista Proveedores">
                                 <i class="icon-briefcase pull-left" style="width: 25px;"></i>
                             </h:commandLink>
                         </li>
                     </ul>
                     <ul class="widget widget-menu unstyled">
                         <li>
-                            <h:commandLink action="/faces/Admin/producto/producto" style="text-align: left;" value="Ver Productos">
+                            <h:commandLink action="/faces/Admin/producto/producto?faces-redirect=true" style="text-align: left;" value="Lista Productos">
                                 <i class="icon-glass pull-left" style="width: 25px;"></i>
                             </h:commandLink>
                         </li>
                     </ul>
-                    <ul class="widget widget-menu unstyled" id="Devolucion">
-                        <li><a class="collapsed" data-toggle="collapse" href="#Devoluciones"><i class="menu-icon icon-repeat">
+                    <ul class="widget widget-menu unstyled" rendered="#{usuarioController.u.rolidRol.idRol eq 1}">
+                        <li rendered="#{usuarioController.u.rolidRol.idRol eq 1}" ><a rendered="#{usuarioController.u.rolidRol.idRol eq 1}" class="collapsed" data-toggle="collapse" href="#Pedido"><i class="menu-icon icon-book">
                                 </i><i class="icon-chevron-down pull-right"></i><i class="icon-chevron-up pull-right">
-                                </i>Devoluciónes</a>
-                            <ul id="Devoluciones" class="collapse unstyled">
-                                <li><h:commandLink action="/faces/Admin/detalleDevolucion/detalleDevolucion"  value="Devoluciones">
+                                </i>Pedidos </a>
+                            <ul id="Pedido"  class="collapse unstyled">
+                                <li><h:commandLink  action="/faces/Admin/detallePedido/detallePedido?faces-redirect=true"  value="Lista De Pedidos">
                                         <i class="icon-list pull-left" style="width: 25px;"></i>
                                     </h:commandLink></li>
-                                <li><h:commandLink action="/faces/Admin/devolucion/Carrito"  value="Devolución A Proveedor">
-                                        <i class="icon-briefcase pull-left"></i>
-                                        <i class="icon-arrow-right pull-left" style="width: 25px;"></i>
-                                    </h:commandLink></li>
-                                <li><h:commandLink action="/faces/Admin/devolucion/CarritoCliente"  value="Devolución De Cliente">
-                                        <i class="icon-arrow-left pull-left" ></i>
-                                        <i class="icon-user pull-left" style="width: 25px;"></i>
+                                <li><h:commandLink rendered="#{usuarioController.u.rolidRol.idRol eq 1}" action="/faces/Admin/pedido/Carrito.xhtml?faces-redirect=true"  value="Realizar Pedido">
+                                        <i class="icon-shopping-cart pull-left" style="width: 25px;"></i>
                                     </h:commandLink></li>
                             </ul>
                         </li>
@@ -100,60 +96,71 @@
                     <ul class="widget widget-menu unstyled">
                         <li><a class="collapsed" data-toggle="collapse" href="#Despacho"><i class="menu-icon icon-share">
                                 </i><i class="icon-chevron-down pull-right"></i><i class="icon-chevron-up pull-right">
-                                </i>Despacho </a>
+                                </i>Despacho</a>
                             <ul id="Despacho" class="collapse unstyled">
-                                <li><h:commandLink action="/faces/Admin/detalleDespacho/detalleDespacho"  value="Despachos">
+                                <li><h:commandLink action="/faces/Admin/detalleDespacho/detalleDespacho?faces-redirect=true"  value="Lista De Despachos">
                                         <i class="icon-list pull-left" style="width: 25px;"></i>
                                     </h:commandLink></li>
-                                <li><h:commandLink action="/faces/Admin/despacho/Carrito"  value="Carrito De Despacho">
+                                <li><h:commandLink action="/faces/Admin/despacho/Carrito?faces-redirect=true"  value="Realizar Despacho">
                                         <i class="icon-shopping-cart pull-left" style="width: 25px;"></i>
                                     </h:commandLink></li>
                             </ul>
                         </li>
                     </ul>
-                    <ul class="widget widget-menu unstyled">
-                        <li><a class="collapsed" data-toggle="collapse" href="#Pedido"><i class="menu-icon icon-book">
+                    <ul class="widget widget-menu unstyled" id="Devolucion">
+                        <li><a class="collapsed" data-toggle="collapse" href="#Devoluciones"><i class="menu-icon icon-repeat">
                                 </i><i class="icon-chevron-down pull-right"></i><i class="icon-chevron-up pull-right">
-                                </i>Pedidos </a>
-                            <ul id="Pedido" class="collapse unstyled">
-                                <li><h:commandLink action="/faces/Admin/detallePedido/detallePedido"  value="Pedidos">
+                                </i>Devoluciones</a>
+                            <ul id="Devoluciones" class="collapse unstyled">
+                                <li><h:commandLink action="/faces/Admin/detalleDevolucion/detalleDevolucion?faces-redirect=true"  value="Lista De Devoluciones">
                                         <i class="icon-list pull-left" style="width: 25px;"></i>
                                     </h:commandLink></li>
-                                <li><h:commandLink action="/faces/Admin/pedido/Carrito"  value="Carrito De Pedido">
-                                        <i class="icon-shopping pull-left" style="width: 25px;"></i>
+                                <li><h:commandLink action="/faces/Admin/devolucion/Carrito?faces-redirect=true" style="font-size: 12px;" value="Realizar Devolución A Proveedor">
+                                        <i class="icon-briefcase pull-left"></i>
+                                        <i class="icon-arrow-right pull-left" style="width: 20px;"></i>
+                                    </h:commandLink></li>
+                                <li><h:commandLink action="/faces/Admin/devolucion/CarritoCliente?faces-redirect=true" style="font-size: 12px;"  value="Realizar Devolución Del Cliente">
+                                        <i class="icon-arrow-left pull-left" ></i>
+                                        <i class="icon-user pull-left" style="width: 20px;"></i>
                                     </h:commandLink></li>
                             </ul>
                         </li>
                     </ul>
-                    <!--/.widget-nav-->
-                    <ul class="widget widget-menu unstyled">
-                        <li><a class="collapsed" data-toggle="collapse" href="#Empleado"><i class="menu-icon icon-user">
-                                </i><i class="icon-chevron-down pull-right"></i><i class="icon-chevron-up pull-right">
-                                </i>Personal</a>
-                            <ul id="Empleado" class="collapse unstyled">
-                                <li><h:commandLink action="/faces/Admin/empleado/empleado"  value="Empleados">
-                                        <i class="icon-list pull-left" style="width: 25px;"></i>
-                                    </h:commandLink></li>
-                                <li><h:commandLink action="/faces/Admin/usuario/usuario"  value="Usuarios">
-                                        <i class="icon-user pull-left" style="width: 25px;"></i>
-                                    </h:commandLink></li>
-                            </ul>
-                        </li>
-                    </ul>
-                    <ul class="widget widget-menu unstyled">
-                        <li><a class="collapsed" data-toggle="collapse" href="#Reportes"><i class="menu-icon icon-file">
-                                </i><i class="icon-chevron-down pull-right"></i><i class="icon-chevron-up pull-right">
-                                </i>Reportes</a>
-                            <ul id="Reportes" class="collapse unstyled">
-                                <li><h:commandLink  action="/faces/Admin/reportes/reporteVentas"  value="Venta Por Empleados">
-                                        <i class="icon-list pull-left" style="width: 25px;"></i>
-                                    </h:commandLink></li>
-                                <li><h:commandLink action="#{pedidoController.reportePedido()}"  value="Reporte Pedidos diarios">
-                                        <i class="icon-download pull-left" style="width: 25px;"></i>
-                                    </h:commandLink></li>
-                            </ul>
-                        </li>
-                    </ul>
+
+                    <h:outputLabel rendered="#{usuarioController.u.rolidRol.idRol eq 1}">
+                        <!--/.widget-nav-->
+                        <ul class="widget widget-menu unstyled"  rendered="#{usuarioController.u.rolidRol.idRol eq 1}">
+                            <li><a class="collapsed" data-toggle="collapse" href="#Empleado"><i class="menu-icon icon-user">
+                                    </i><i class="icon-chevron-down pull-right"></i><i class="icon-chevron-up pull-right">
+                                    </i>Personal Del Negocio</a>
+                                <ul id="Empleado" class="collapse unstyled">
+                                    <li><h:commandLink rendered="#{usuarioController.u.rolidRol.idRol eq 1}" action="/faces/Admin/empleado/empleado"  value="Empleados">
+                                            <i class="icon-list pull-left" style="width: 25px;"></i>
+                                        </h:commandLink></li>
+                                    <li><h:commandLink rendered="#{usuarioController.u.rolidRol.idRol eq 1}" action="/faces/Admin/usuario/usuario"  value="Usuarios">
+                                            <i class="icon-user pull-left" style="width: 25px;"></i>
+                                        </h:commandLink></li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <ul class="widget widget-menu unstyled"  rendered="#{usuarioController.u.rolidRol.idRol eq 1}">
+                            <li ><a class="collapsed"  data-toggle="collapse" href="#Reportes"><i class="menu-icon icon-file">
+                                    </i><i class="icon-chevron-down pull-right"></i><i class="icon-chevron-up pull-right">
+                                    </i>Reportes</a>
+                                <ul id="Reportes" class="collapse unstyled">
+                                    <li><h:commandLink rendered="#{usuarioController.u.rolidRol.idRol eq 1}" action="/faces/Admin/reportes/reporteVentas"  value="Venta Por Empleados">
+                                            <i class="icon-list pull-left" style="width: 25px;"></i>
+                                        </h:commandLink></li>
+                                    <li><h:commandLink rendered="#{usuarioController.u.rolidRol.idRol eq 1}" action="#{pedidoController.reportePedido()}"  value="Reporte Pedidos Diarios">
+                                            <i class="icon-download pull-left" style="width: 25px;"></i>
+                                        </h:commandLink></li>
+                                    <li><h:commandLink rendered="#{usuarioController.u.rolidRol.idRol eq 1}" actionListener="#{empleadoController.reporteVenta()}"  value="Reporte Ventas Diarias">
+                                            <i class="icon-download pull-left" style="width: 25px;"></i>
+                                        </h:commandLink></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </h:outputLabel>
                 </h:form>
             </div>
             <!--/.sidebar-->

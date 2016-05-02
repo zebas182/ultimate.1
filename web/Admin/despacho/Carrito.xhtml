@@ -9,7 +9,7 @@
     <ui:composition template="./../../Plantilla.xhtml">
 
         <ui:define name="title">
-            <p:outputLabel value="Carrito De Despachos"></p:outputLabel>
+            <h:outputText value="Carrito De Despachos"></h:outputText>
         </ui:define>
         
         <ui:define name="content" >
@@ -54,12 +54,12 @@
                         <p:spinner id="preciounidad" style="position: relative; height: 30px;  width:10px;"  prefix="$" min="0"  value="#{despachoController.precioUnidadVenta}"   title="Precio Unidad De Compra" required="true" requiredMessage="El campo precio Por Unidad Es Obligatorio"/>
                     </h:panelGrid>
                     <f:facet name="footer">
-                        <p:commandButton value="Agregar" actionListener="#{despachoController.Agregar()}" update=":Detalle,ProductoListForm,:growl" style="background-image: url('../..//resources/images/new.png'); background-repeat: no-repeat; background-position-x: 2%;  width: 75px;"/>
+                        <p:commandButton value="Agregar" icon="ui-icon-circle-plus" actionListener="#{despachoController.Agregar()}" update=":Detalle,ProductoListForm,:growl" />
                     </f:facet>
                 </p:panelGrid>
             </h:form >
-            <h:form style="position: absolute; top: 280px; left: 428px;">
-                <p:commandButton id="Cancelar"    value="Cancelar" actionListener="#{despachoController.limpiarAgrega()}" update=":Detalle,:ProductoListForm" style="background-image: url('../..//resources/images/cancel.png'); background-repeat: no-repeat; background-position-x: 2%;  width: 75px;"/>
+            <h:form style="position: absolute; top: 280px; left: 445px;">
+                <p:commandButton id="Cancelar"  icon="icon-remove-circle" value="Cancelar" actionListener="#{despachoController.limpiarAgrega()}" update=":Detalle,:ProductoListForm" />
             </h:form>
 
             <p:separator/>
@@ -79,8 +79,8 @@
                         #{det.precioTotal}
                     </p:column>
                     <f:facet name="footer">
-                        <p:commandButton id="Registrar"   value="Registrar"  actionListener="#{despachoController.Registrar()}" update=":growl,Detalle" style="background-image: url('../..//resources/images/save.png'); background-repeat: no-repeat; background-position-x: 2%;  width: 75px;"/>
-                        <p:commandButton id="Cancelar"    value="Cancelar" actionListener="#{despachoController.limpiar()}" update="Detalle,:ProductoListForm,:ProductoListForm" style="background-image: url('../..//resources/images/cancel.png'); background-repeat: no-repeat; background-position-x: 2%;  width: 75px;"/>
+                        <p:commandButton id="Registrar" icon="ui-icon-disk"  value="Registrar"  actionListener="#{despachoController.Registrar()}" update=":growl,Detalle" />
+                        <p:commandButton id="Cancelar" icon="icon-remove-circle" value="Cancelar" actionListener="#{despachoController.limpiar()}" update="Detalle,:ProductoListForm,:ProductoListForm" />
                     </f:facet>
                 </p:dataTable>
             </h:form>

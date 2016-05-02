@@ -79,7 +79,7 @@ public class EmpleadoController implements Serializable {
     public void ReporteEmpleadoVenta() throws SQLException, JRException, IOException, NamingException {
         //Fill Map with params values
         SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
-        List<String> prod = ejbProducto.verificarReporteEmpleado(formato.format(FechaDespacho),empleado.getNombreEmpleado());
+        List prod = ejbProducto.verificarReporteEmpleado(formato.format(Actual),empleado.getNombreEmpleado());
 
         if (prod!=null) {
             FacesContext context = FacesContext.getCurrentInstance();
@@ -116,6 +116,41 @@ public class EmpleadoController implements Serializable {
         }
     }
 
+    public void reporteVenta() throws SQLException, JRException, IOException, NamingException {
+        //Fill Map with params values
+        SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+
+            FacesContext context = FacesContext.getCurrentInstance();
+            HttpServletResponse response = (HttpServletResponse) context.getExternalContext().getResponse();
+            ServletOutputStream out = response.getOutputStream();
+
+            //Connect with local datasource
+            Context ctx = new InitialContext();
+            DataSource ds = (DataSource) ctx.lookup("jdbc_Regimp");
+            Connection conexion = null;
+            conexion = ds.getConnection();
+            conexion.setAutoCommit(true);
+            Map<String, Object> parametro = new HashMap<String, Object>();
+
+            parametro.put("fecha", formato.format(Actual));
+//        JasperReport reporte = null;
+//        reporte = (JasperReport) JRLoader.loadObjectFromFile("C:\\Users\\alber\\Documents\\NetBeansProjects\\UltimatePrueba\\ultimate.1\\web\\WEB-INF\\StockProducto.jasper");
+//        
+            response.addHeader("Content-disposition",
+                    "attachment; filename=reporte.pdf");
+            response.setContentType("application/pdf");
+            File file = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("/Admin/jasper/ventaDiaria.jasper"));
+            JasperPrint jasperPrint = JasperFillManager.fillReport(file.getPath(), parametro, conexion);
+            JRExporter exporter = new JRPdfExporter();
+            exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+            exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, out);
+            exporter.exportReport();
+
+            FacesContext.getCurrentInstance().responseComplete();
+
+    }
+
+    
     public void redireccion() throws IOException {
         ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
         context.redirect(context.getRequestContextPath() + "/faces/Login.xhtml");

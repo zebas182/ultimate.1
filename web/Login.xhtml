@@ -4,7 +4,7 @@
     <h:head>
         <title>Login</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-
+         <link rel="shortcut icon" type="image/x-icon" href="resources/images/IconoRegimp.ico" />
         <link href="resources/css/login.css" rel="stylesheet" type="text/css"/>
     </h:head>
 
@@ -32,7 +32,7 @@
                                             <br/>
                                             <!-- <h:outputLabel class="label" for="password" value="Contraseña" /> -->
                                             <p:password class="contrasena" id="password" value="#{usuarioController.contrasenaEncriptada}" required="true" label="password" requiredMessage="Contraseña Obligatoria" placeholder="&#128272; ingrese su contraseña"/> <!--feedback="true"--> 
-                                            <p:link value="¿Olvidó su contraseña?" href="recuperarClave.xhtml"  class="link"></p:link>
+                                            <p:link value="¿Olvidó su contraseña?" href="recuperarClave2.xhtml"  class="link"></p:link>
                                             <br/>
                                             <p:commandButton class="btn" style="background-image: url(''); background-repeat: no-repeat; background-position: 2px;" value="Ingresar" action="#{usuarioController.validado()}"/>
                                             <br />

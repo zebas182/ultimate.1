@@ -60,12 +60,12 @@
                     
 
                     <f:facet name="footer">
-                        <p:commandButton value="Agregar" actionListener="#{pedidoController.Agregar()}"  update=":detallePedido,ProductoListForm" />
+                        <p:commandButton value="Agregar" icon="ui-icon-circle-plus" actionListener="#{pedidoController.Agregar()}"  update=":detallePedido,ProductoListForm" />
                     </f:facet>
                 </p:panelGrid>
             </h:form>
-            <h:form style="position: absolute;  top: 323px; left: 438px;">
-                <p:commandButton id="Cancelar"  style=" font-size: 14px;"  value="Cancelar" actionListener="#{pedidoController.limpiarAgrega()}" update=":detallePedido,:ProductoListForm" />
+            <h:form style="position: absolute;  top: 323px; left: 452px;">
+                <p:commandButton id="Cancelar" icon="icon-remove-circle" style=" font-size: 14px;"  value="Cancelar" actionListener="#{pedidoController.limpiarAgrega()}" update=":detallePedido,:ProductoListForm" />
             </h:form>
             <p:separator/>
             <h:form id="detallePedido">
@@ -84,8 +84,8 @@
                         #{det.precioUnidadCompra}
                     </p:column>
                     <f:facet name="footer">
-                        <p:commandButton id="Registrar"  value="Registrar" actionListener="#{pedidoController.Registrar()}" update=":detallePedido,:ProductoListForm"  />
-                        <p:commandButton id="Cancelar"   value="Cancelar" actionListener="#{pedidoController.limpiar()}" update=":detallePedido,:ProductoListForm" />
+                        <p:commandButton id="Registrar" icon="ui-icon-disk" value="Registrar" actionListener="#{pedidoController.Registrar()}" update=":detallePedido,:ProductoListForm"  />
+                        <p:commandButton id="Cancelar" icon="icon-remove-circle"  value="Cancelar" actionListener="#{pedidoController.limpiar()}" update=":detallePedido,:ProductoListForm" />
                     </f:facet>
                 </p:dataTable>
             </h:form>

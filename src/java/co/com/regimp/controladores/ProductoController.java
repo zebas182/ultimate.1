@@ -1,4 +1,3 @@
-
 package co.com.regimp.controladores;
 
 import co.com.regimp.modelos.Producto;
@@ -36,7 +35,6 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.export.JRPdfExporter;
 import javax.servlet.http.HttpServletResponse;
 
-
 @ManagedBean(name = "productoController")
 @ViewScoped
 public class ProductoController implements Serializable {
@@ -46,58 +44,16 @@ public class ProductoController implements Serializable {
     @EJB
     private co.com.regimp.operaciones.ProveedorFacade ejbProveedor;
     private List<Producto> items = null;
-    private Producto selected;
+    private Producto selected = new Producto();
     private List<Proveedor> listProveedor = null;
-    private List<Producto> filteredProductos=null;
-    
+    private List<Producto> filteredProductos = null;
+
     public ProductoController() {
-        selected=new Producto();
-    }
-
-   
-    public void ReporteStockProducto() throws SQLException, JRException, IOException, NamingException {
-        //Fill Map with params values
-        FacesContext context = FacesContext.getCurrentInstance();
-        HttpServletResponse response = (HttpServletResponse) context.getExternalContext().getResponse();
-        ServletOutputStream out = response.getOutputStream();
-        
-        //Connect with local datasource
-        Context ctx = new InitialContext();
-        DataSource ds = (DataSource) ctx.lookup("jdbc_Regimp");
-        Connection conexion = null;
-        conexion = ds.getConnection();
-        conexion.setAutoCommit(true);
-//        JasperReport reporte = null;
-//        reporte = (JasperReport) JRLoader.loadObjectFromFile("C:\\Users\\alber\\Documents\\NetBeansProjects\\UltimatePrueba\\ultimate.1\\web\\WEB-INF\\StockProducto.jasper");
-//        
-        response.addHeader("Content-disposition",
-                "attachment; filename=reporte.pdf");
-        response.setContentType("application/pdf");
-
-        JasperPrint jasperPrint = JasperFillManager.fillReport("C:\\Users\\Brayan\\Desktop\\Steven\\SENA\\ultimate.1\\src\\java\\Reportes\\StockProducto.jasper", null, conexion);
-        JRExporter exporter = new JRPdfExporter();
-        exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
-        exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, out);
-        exporter.exportReport();
-        
-        System.out.println("cosa");
-     
-        
-        FacesContext.getCurrentInstance().responseComplete();
-        
     }
 
 //    public void reportes() {
 //        reportesRegimp.ReporteStockProducto();
 //    }
-    public Producto getSelected() {
-        return selected;
-    }
-
-    public void setSelected(Producto selected) {
-        this.selected = selected;
-    }
-
     protected void setEmbeddableKeys() {
     }
 
@@ -125,6 +81,14 @@ public class ProductoController implements Serializable {
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("ProductoUpdated"));
     }
 
+    public void eliminar() {
+        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("ProductoDeleted"));
+        if (!JsfUtil.isValidationFailed()) {
+            selected = null; // Remove selection
+            items = null;    // Invalidate list of items to trigger re-query.
+        }
+    }
+
     public void destroy() {
         persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("ProductoDeleted"));
         if (!JsfUtil.isValidationFailed()) {
@@ -134,15 +98,12 @@ public class ProductoController implements Serializable {
     }
 
     public List<Producto> getItems() {
-        if (items == null) {
-            items = getFacade().findAll();
-        }
+        items = getFacade().findAll();
         return items;
     }
 
     private void persist(PersistAction persistAction, String successMessage) {
         if (selected != null) {
-            selected.setEstado(true);
             selected.setControl(0);
             setEmbeddableKeys();
             try {
@@ -196,6 +157,14 @@ public class ProductoController implements Serializable {
 
     public void setFilteredProductos(List<Producto> filteredProductos) {
         this.filteredProductos = filteredProductos;
+    }
+
+    public Producto getSelected() {
+        return selected;
+    }
+
+    public void setSelected(Producto selected) {
+        this.selected = selected;
     }
 
     @FacesConverter(forClass = Producto.class)

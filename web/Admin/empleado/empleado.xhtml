@@ -64,10 +64,9 @@
                                 <h:outputText value="#{item.usuarioidUsuario.nombreUsuario}"/>
                             </p:column>
                             <f:facet name="footer">
-                                <p:commandButton id="viewButton"   style="background-image: url('../..//resources/images/Consultar.gif'); background-repeat: no-repeat; background-position-x: 2%;  width: 75px;" value="#{bundle.View}" update=":EmpleadoViewForm" oncomplete="PF('EmpleadoViewDialog').show()" disabled="#{empty empleadoController.selected}"/>
-                                <p:commandButton id="editButton"   style="background-image: url('../..//resources/images/edit.png'); background-repeat: no-repeat; background-position-x: 2%;  width: 75px;" value="#{bundle.Edit}" update=":EmpleadoEditForm" oncomplete="PF('EmpleadoEditDialog').show()" disabled="#{empty empleadoController.selected}"/>
-                                <p:commandButton id="deleteButton" style="background-image: url('../..//resources/images/delete.png'); background-repeat: no-repeat; background-position-x: 2%;  width: 80px;"  value="#{bundle.Delete}" actionListener="#{empleadoController.destroy}" update=":growl,datalist" disabled="#{empty empleadoController.selected}"/>
-                                <h:commandButton id="ReporteEmpleado"  value="Reporte Venta"   actionListener="#{empleadoController.ReporteEmpleadoVenta}"/>
+                                <p:commandButton id="viewButton"    value="#{bundle.View}" update=":EmpleadoViewForm" oncomplete="PF('EmpleadoViewDialog').show()" disabled="#{empty empleadoController.selected}"/>
+                                <p:commandButton id="editButton"    value="#{bundle.Edit}" update=":EmpleadoEditForm" oncomplete="PF('EmpleadoEditDialog').show()" disabled="#{empty empleadoController.selected}"/>
+                                <p:commandButton id="deleteButton"   value="#{bundle.Delete}" actionListener="#{empleadoController.destroy}" update=":growl,datalist" disabled="#{empty empleadoController.selected}"/>
                             </f:facet>
                         </p:dataTable>
                     </p:panel>

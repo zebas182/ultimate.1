@@ -12,26 +12,28 @@
             <h:form id="DetalleDevolucionEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{detalleDevolucionController.selected != null}">
-                       <p:outputLabel value="#{bundle.EditDetalleDevolucionLabel_cantidadProductos}" for="cantidadProductos" />
+                        <p:outputLabel value="#{bundle.EditDetalleDevolucionLabel_cantidadProductos}" for="cantidadProductos" />
                         <p:inputText id="cantidadProductos" value="#{detalleDevolucionController.selected.cantidadProductos}" title="#{bundle.EditDetalleDevolucionTitle_cantidadProductos}" required="true" requiredMessage="#{bundle.EditDetalleDevolucionRequiredMessage_cantidadProductos}"/>
                         <p:outputLabel value="#{bundle.EditDetalleDevolucionLabel_observaciones}" for="observaciones" />
                         <p:inputText id="observaciones" value="#{detalleDevolucionController.selected.observaciones}" title="#{bundle.EditDetalleDevolucionTitle_observaciones}" required="true" requiredMessage="#{bundle.EditDetalleDevolucionRequiredMessage_observaciones}"/>
                         <p:outputLabel value="#{bundle.EditDetalleDevolucionLabel_devolucionidDevolucion}" for="devolucionidDevolucion" />
-                        <p:selectOneMenu id="devolucionidDevolucion" value="#{detalleDevolucionController.selected.devolucionidDevolucion}" required="true" requiredMessage="#{bundle.EditDetalleDevolucionRequiredMessage_devolucionidDevolucion}">
+                        <p:selectOneMenu id="devolucionidDevolucion" disabled="true" value="#{detalleDevolucionController.selected.devolucionidDevolucion}" required="true" requiredMessage="#{bundle.EditDetalleDevolucionRequiredMessage_devolucionidDevolucion}">
                             <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
                             <f:selectItems value="#{devolucionController.itemsAvailableSelectOne}"
                                            var="devolucionidDevolucionItem"
-                                           itemValue="#{devolucionidDevolucionItem}"/>
+                                           itemValue="#{devolucionidDevolucionItem}"
+                                           itemLabel="#{devolucionidDevolucionItem.fechaDevolucion.date}/#{devolucionidDevolucionItem.fechaDevolucion.month+1}/#{devolucionidDevolucionItem.fechaDevolucion.year+1900}"/>
                         </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.EditDetalleDevolucionLabel_productoidProducto}" for="productoidProducto" />
                         <p:selectOneMenu id="productoidProducto" value="#{detalleDevolucionController.selected.productoidProducto}" required="true" requiredMessage="#{bundle.EditDetalleDevolucionRequiredMessage_productoidProducto}">
                             <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
                             <f:selectItems value="#{productoController.itemsAvailableSelectOne}"
                                            var="productoidProductoItem"
-                                           itemValue="#{productoidProductoItem}"/>
+                                           itemValue="#{productoidProductoItem}"
+                                           itemLabel="#{productoidProductoItem.nombreProducto}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{detalleDevolucionController.update}" value="#{bundle.Save}" update="display,:DetalleDevolucionListForm:datalist,:growl" oncomplete="handleSubmit(args, 'DetalleDevolucionEditDialog');"/>
+                    <p:commandButton actionListener="#{detalleDevolucionController.update}" value="#{bundle.Save}" update="display,:DetalleDevolucionListForm:datalist,:growl" onclick="DetalleDevolucionEditDialog.hide()"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="DetalleDevolucionEditDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

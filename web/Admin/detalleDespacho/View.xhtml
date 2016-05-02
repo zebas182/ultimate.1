@@ -12,8 +12,6 @@
             <h:form id="DetalleDespachoViewForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{detalleDespachoController.selected != null}">
-                        <h:outputText value="#{bundle.ViewDetalleDespachoLabel_idDetalleDespacho}"/>
-                        <h:outputText value="#{detalleDespachoController.selected.idDetalleDespacho}" title="#{bundle.ViewDetalleDespachoTitle_idDetalleDespacho}"/>
                         <h:outputText value="#{bundle.ViewDetalleDespachoLabel_unidadDeMedida}"/>
                         <h:outputText value="#{detalleDespachoController.selected.unidadDeMedida}" title="#{bundle.ViewDetalleDespachoTitle_unidadDeMedida}"/>
                         <h:outputText value="#{bundle.ViewDetalleDespachoLabel_precioVentaUnidad}"/>

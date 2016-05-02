@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="dc1d6576-12ca-4e37-8740-17cb463664b4">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="fecha" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+     detalle_despacho.`unidad_De_Medida` AS detalle_despacho_unidad_De_Medida,
+     detalle_despacho.`cantidad_Vendida` AS detalle_despacho_cantidad_Vendida,
+     detalle_despacho.`precio_Total` AS detalle_despacho_precio_Total,
+     despacho.`fecha_Despacho` AS despacho_fecha_Despacho,
+     despacho.`empleado` AS despacho_empleado,
+     producto.`nombre_Producto` AS producto_nombre_Producto
+FROM
+     `despacho` despacho INNER JOIN `detalle_despacho` detalle_despacho ON despacho.`idDespacho` = detalle_despacho.`Despacho_idDespacho`
+     INNER JOIN `producto` producto ON detalle_despacho.`Producto_idProducto` = producto.`idProducto` where despacho.`fecha_Despacho` LIKE "$P!{fecha}%";]]>
+	</queryString>
+	<field name="detalle_despacho_unidad_De_Medida" class="java.lang.String"/>
+	<field name="detalle_despacho_cantidad_Vendida" class="java.lang.Integer"/>
+	<field name="detalle_despacho_precio_Total" class="java.lang.Integer"/>
+	<field name="despacho_fecha_Despacho" class="java.sql.Timestamp"/>
+	<field name="despacho_empleado" class="java.lang.String"/>
+	<field name="producto_nombre_Producto" class="java.lang.String"/>
+	<variable name="detalle_despacho_precio_Total_1" class="java.lang.Integer" resetType="Page" calculation="Sum">
+		<variableExpression><![CDATA[$F{detalle_despacho_precio_Total}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<textField>
+				<reportElement x="1" y="26" width="327" height="39" uuid="f5e3c8ab-5dfd-4b9f-9d75-8f8096ab35c1"/>
+				<textElement>
+					<font size="24" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Reporte Diario De Ventas"]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch">
+			<textField>
+				<reportElement x="435" y="0" width="80" height="20" uuid="f554ebd5-008d-4ab4-8e3e-2d7fd4e2d873"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="515" y="0" width="40" height="20" uuid="53b50ea0-e7f3-4b89-ad63-253828dd8fb3"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="yyyy/MM/dd">
+				<reportElement x="11" y="0" width="100" height="20" uuid="50c82533-e7fb-488d-a417-06b4ebaeb38a"/>
+				<textFieldExpression><![CDATA["Fecha: "+$P{fecha}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="51" splitType="Stretch">
+			<rectangle radius="10">
+				<reportElement x="0" y="2" width="554" height="42" forecolor="#FF9900" backcolor="#999999" uuid="82c06d94-de54-4311-acd5-4008ef96f640"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="11" y="12" width="100" height="20" uuid="036a3467-5c4a-4f57-ace1-760e2fb7fa2d"/>
+				<text><![CDATA[Empleado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="121" y="12" width="100" height="20" uuid="16412a9e-e822-4fb3-946b-d7cf8a1886bd"/>
+				<text><![CDATA[Producto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="228" y="12" width="100" height="20" uuid="8241c13a-e2ee-43fc-950f-6d6c1ab173f8"/>
+				<text><![CDATA[Unidad De Medida]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="335" y="12" width="100" height="20" uuid="f61a3841-df26-466a-957b-c856c2d7b0a3"/>
+				<text><![CDATA[Cantidad]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="441" y="12" width="100" height="20" uuid="20113a26-b090-4690-8df1-8e9e3b54cbf0"/>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="48" splitType="Stretch">
+			<rectangle>
+				<reportElement x="1" y="0" width="554" height="40" forecolor="#CCCCCC" backcolor="#CCCCCC" uuid="2bece03e-a40d-442a-aac9-b9d63f6c5c13"/>
+			</rectangle>
+			<textField>
+				<reportElement x="11" y="10" width="100" height="20" uuid="7dc0d75d-e47e-4b8e-86cf-1dddf2b48809"/>
+				<textFieldExpression><![CDATA[$F{despacho_empleado}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="228" y="10" width="100" height="20" uuid="9e145287-24ae-473b-9085-5e68302474ee"/>
+				<textFieldExpression><![CDATA[$F{detalle_despacho_unidad_De_Medida}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="335" y="10" width="100" height="20" uuid="ac8bfe88-4c47-4658-9cd5-e63d0dbfc28e"/>
+				<textFieldExpression><![CDATA[$F{detalle_despacho_cantidad_Vendida}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="441" y="10" width="100" height="20" uuid="96136f87-46cf-4676-82cf-3bd5d03142a0"/>
+				<textFieldExpression><![CDATA[$F{detalle_despacho_precio_Total}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="121" y="10" width="100" height="20" uuid="4a61eb23-56e2-4fdd-8e49-32c38bbb9a31"/>
+				<textFieldExpression><![CDATA[$F{producto_nombre_Producto}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="22" splitType="Stretch">
+			<textField>
+				<reportElement x="435" y="0" width="100" height="20" uuid="77e4cebd-27c8-4fe5-8ed6-58bb9d2c0ba8"/>
+				<textFieldExpression><![CDATA["Total: "+$V{detalle_despacho_precio_Total_1}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

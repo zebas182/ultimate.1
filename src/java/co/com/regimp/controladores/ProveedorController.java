@@ -42,6 +42,7 @@ public class ProveedorController implements Serializable {
     @EJB
     private co.com.regimp.operaciones.ProveedorFacade ejbFacade;
     private List<Proveedor> items = null;
+    private List<Proveedor> filtered = null;
     private Proveedor selected;
 
     public ProveedorController() {
@@ -166,6 +167,14 @@ public class ProveedorController implements Serializable {
 
     public List<Proveedor> getItemsAvailableSelectOne() {
         return getFacade().findAll();
+    }
+
+    public List<Proveedor> getFiltered() {
+        return filtered;
+    }
+
+    public void setFiltered(List<Proveedor> filtered) {
+        this.filtered = filtered;
     }
 
     @FacesConverter(forClass = Proveedor.class)

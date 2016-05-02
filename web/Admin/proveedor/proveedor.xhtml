@@ -17,7 +17,8 @@
             <ui:define name="content">
                 <h:form id="ProveedorListForm">
                     <p:panel header="#{bundle.ListProveedorTitle}" rendered="#{usuarioController.validarContra()==1}">
-                        <p:dataTable id="datalist" value="#{proveedorController.items}" var="item"
+                        <p:dataTable id="datalist" value="#{proveedorController.items}" var="item"  widgetVar="ProveedorTable"
+                                     filteredValue="#{proveedorController.filtered}"
                                      selectionMode="single" selection="#{proveedorController.selected}"
                                      paginator="true" emptyMessage="No se encontraron resultados"
                                      rowKey="#{item.idProveedor}"
@@ -27,27 +28,33 @@
 
                             <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
                             <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+                            <f:facet name="header">
+                                <p:outputPanel>
+                                    <h:outputText value="Buscar " />
+                                    <p:inputText id="globalFilter" onkeyup="PF('ProveedorTable').filter()" style="width:150px" placeholder="Ingresar Palabra"/>
+                                </p:outputPanel>
+                            </f:facet>
 
 
-                            <p:column>
+                            <p:column filterBy="#{item.nombreProveedor}">
                                 <f:facet name="header">
                                     <h:outputText value="#{bundle.ListProveedorTitle_nombreProveedor}"/>
                                 </f:facet>
                                 <h:outputText value="#{item.nombreProveedor}"/>
                             </p:column>
-                            <p:column>
+                            <p:column filterBy="#{item.telefono}">
                                 <f:facet name="header">
                                     <h:outputText value="#{bundle.ListProveedorTitle_telefono}"/>
                                 </f:facet>
                                 <h:outputText value="#{item.telefono}"/>
                             </p:column>
-                            <p:column>
+                            <p:column filterBy="#{item.nombreContacto}">
                                 <f:facet name="header">
                                     <h:outputText value="#{bundle.ListProveedorTitle_nombreContacto}"/>
                                 </f:facet>
                                 <h:outputText value="#{item.nombreContacto}"/>
                             </p:column>
-                            <p:column>
+                            <p:column filterBy="#{item.direccion}">
                                 <f:facet name="header">
                                     <h:outputText value="#{bundle.ListProveedorTitle_direccion}"/>
                                 </f:facet>
@@ -59,7 +66,6 @@
                                 <p:commandButton id="viewButton"    value="#{bundle.View}" update=":ProveedorViewForm" oncomplete="PF('ProveedorViewDialog').show()" disabled="#{empty proveedorController.selected}"/>
                                 <p:commandButton id="editButton"   value="#{bundle.Edit}" update=":ProveedorEditForm" oncomplete="PF('ProveedorEditDialog').show()" disabled="#{empty proveedorController.selected}"/>
                                 <p:commandButton id="deleteButton"   value="#{bundle.Delete}" actionListener="#{proveedorController.destroy}" update=":growl,datalist" disabled="#{empty proveedorController.selected}"/>
-                                <h:commandButton id="ReporteProveedor"  value="Reporte Proveedor"   actionListener="#{proveedorController.ReporteProveedor()}"/>
                             </f:facet>
                         </p:dataTable>
                     </p:panel>

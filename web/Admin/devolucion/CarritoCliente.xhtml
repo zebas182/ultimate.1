@@ -54,9 +54,12 @@
                     </p:panelGrid>
 
                     <f:facet name="footer">
-                        <p:commandButton value="Agregar" actionListener="#{devolucionController.AgregarDevCliente()}"  update=":DetalleListForm,ProductoListForm"/>
+                        <p:commandButton value="Agregar" icon="ui-icon-circle-plus" actionListener="#{devolucionController.AgregarDevCliente()}"  update=":DetalleListForm,ProductoListForm"/>
                     </f:facet>
                 </p:panelGrid>
+            </h:form>
+            <h:form style="position: absolute; top: 328px; left: 445px;">
+                <p:commandButton id="Cancelar"  icon="icon-remove-circle"  value="Cancelar" actionListener="#{devolucionController.limpiarAgrega()}" update=":DetalleListForm,:ProductoListForm" />
             </h:form>
             <p:separator/>
             <h:form id="DetalleListForm">
@@ -72,8 +75,8 @@
                         #{det.observaciones}
                     </p:column>
                     <f:facet name="footer">
-                        <p:commandButton id="Registrar"  value="Registrar" actionListener="#{devolucionController.RegistrarCliente()}"  update="Detalle"/>
-                        <p:commandButton id="Cancelar"  icon="ui-icon-closethick" value="Cancelar" actionListener="#{devolucionController.limpiar()}" update="Detalle"/>
+                        <p:commandButton id="Registrar"  icon="ui-icon-disk"  value="Registrar" actionListener="#{devolucionController.RegistrarCliente()}"  update="Detalle"/>
+                        <p:commandButton id="Cancelar"  icon="icon-remove-circle" value="Cancelar" actionListener="#{devolucionController.limpiar()}" update=":DetalleListForm"/>
 
                     </f:facet>
                 </p:dataTable>

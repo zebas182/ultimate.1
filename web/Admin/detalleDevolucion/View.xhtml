@@ -12,16 +12,16 @@
             <h:form id="DetalleDevolucionViewForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{detalleDevolucionController.selected != null}">
-                        <h:outputText value="#{bundle.ViewDetalleDevolucionLabel_idDetalleDevolucion}"/>
-                        <h:outputText value="#{detalleDevolucionController.selected.idDetalleDevolucion}" title="#{bundle.ViewDetalleDevolucionTitle_idDetalleDevolucion}"/>
                         <h:outputText value="#{bundle.ViewDetalleDevolucionLabel_cantidadProductos}"/>
                         <h:outputText value="#{detalleDevolucionController.selected.cantidadProductos}" title="#{bundle.ViewDetalleDevolucionTitle_cantidadProductos}"/>
                         <h:outputText value="#{bundle.ViewDetalleDevolucionLabel_observaciones}"/>
                         <h:outputText value="#{detalleDevolucionController.selected.observaciones}" title="#{bundle.ViewDetalleDevolucionTitle_observaciones}"/>
                         <h:outputText value="#{bundle.ViewDetalleDevolucionLabel_devolucionidDevolucion}"/>
-                        <h:outputText value="#{detalleDevolucionController.selected.devolucionidDevolucion}" title="#{bundle.ViewDetalleDevolucionTitle_devolucionidDevolucion}"/>
+                        <h:outputText value="#{detalleDevolucionController.selected.devolucionidDevolucion.fechaDevolucion}" title="#{bundle.ViewDetalleDevolucionTitle_devolucionidDevolucion}">
+                            <f:convertDateTime pattern="dd/MM/yyyy"/>
+                        </h:outputText>
                         <h:outputText value="#{bundle.ViewDetalleDevolucionLabel_productoidProducto}"/>
-                        <h:outputText value="#{detalleDevolucionController.selected.productoidProducto}" title="#{bundle.ViewDetalleDevolucionTitle_productoidProducto}"/>
+                        <h:outputText value="#{detalleDevolucionController.selected.productoidProducto.nombreProducto}" title="#{bundle.ViewDetalleDevolucionTitle_productoidProducto}"/>
                     </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="DetalleDevolucionViewDialog.hide()"/>
                 </h:panelGroup>

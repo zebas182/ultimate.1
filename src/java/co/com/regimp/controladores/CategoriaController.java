@@ -26,6 +26,7 @@ public class CategoriaController implements Serializable {
     @EJB
     private co.com.regimp.operaciones.CategoriaFacade ejbFacade;
     private List<Categoria> items = null;
+    private List<Categoria> filtered = null;
     private Categoria selected;
 
     public CategoriaController() {
@@ -116,6 +117,14 @@ public class CategoriaController implements Serializable {
 
     public List<Categoria> getItemsAvailableSelectOne() {
         return getFacade().findAll();
+    }
+
+    public List<Categoria> getFiltered() {
+        return filtered;
+    }
+
+    public void setFiltered(List<Categoria> filtered) {
+        this.filtered = filtered;
     }
 
     @FacesConverter(forClass = Categoria.class)

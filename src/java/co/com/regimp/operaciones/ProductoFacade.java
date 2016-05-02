@@ -109,10 +109,10 @@ public class ProductoFacade extends AbstractFacade<Producto> {
         em.createQuery("Update Producto u set U.cantidadStock=:cantidadTotal where u.idProducto=:id").setParameter("cantidadTotal", precant).setParameter("id", id).executeUpdate();
     }
 
-    public List<String> verificarReporteEmpleado(String Fecha,String Empleado) {
+    public List verificarReporteEmpleado(String Fecha, String Empleado) {
         try {
-            List<String> pro = (List<String>) em.createQuery("Select P.nombreProducto FROM  Producto P INNER JOIN P.detalleDespachoCollection D ON P.idProducto=D.productoidProducto.idProducto  INNER JOIN D.despachoidDespacho E ON D.idDetalleDespacho=E.idDespacho WHERE  E.fechaDespacho LIKE '"+Fecha+"%' AND E.empleado LIKE '"+Empleado+"%'").getResultList();
-            return pro;
+//            em.createQuery("SELECT P FROM Producto P INNER JOIN DetalleDespacho D ON D.productoidProducto.idProducto=P.idProducto INNER JOIN Despacho E ON D.despachoidDespacho.idDespacho = E.idDespacho WHERE E.fechaDespacho LIKE  '"+Fecha+"%'").getResultList();
+            return (List) em.createQuery("SELECT D FROM Despacho D INNER JOIN DetalleDespacho E ON D.idDespacho=E.despachoidDespacho.idDespacho INNER JOIN Producto P ON E.productoidProducto.idProducto=P.idProducto WHERE D.fechaDespacho LIKE  '" + Fecha + "%'").getResultList();
         } catch (Exception e) {
             e.printStackTrace();
         }

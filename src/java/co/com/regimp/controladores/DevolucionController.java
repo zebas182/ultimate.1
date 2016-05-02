@@ -10,6 +10,7 @@ import java.io.IOException;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -39,7 +40,7 @@ public class DevolucionController implements Serializable {
     private co.com.regimp.controladores.UsuarioController usucontroller;
     private List<Devolucion> items = null;
     private Devolucion selected = new Devolucion();
-    private Producto producto=new Producto();
+    private Producto producto = new Producto();
     private List<DetalleDevolucion> detalleDevolucion = new ArrayList();
     private String UnidadDeMedida = null;
     private String observaciones = null;
@@ -47,6 +48,7 @@ public class DevolucionController implements Serializable {
     private int cantidadDevueltos = 0;
     private int result = 0;
     private int almacen = 0;
+    private Date actual = new Date();
     private int idUsuario = 0;
     private String proveedor;
     private List<Producto> productos = null;
@@ -63,7 +65,7 @@ public class DevolucionController implements Serializable {
         UnidadDeMedida = null;
         producto = null;
         cantidadDevueltos = 0;
-        cantidadStock=0;
+        cantidadStock = 0;
         observaciones = null;
         selected.setEmpleado(null);
     }
@@ -112,7 +114,7 @@ public class DevolucionController implements Serializable {
         UnidadDeMedida = "";
         cantidadDevueltos = 0;
         observaciones = null;
-        cantidadStock=0;
+        cantidadStock = 0;
         producto = null;
         detalleDevolucion.add(det);
         det = null;
@@ -120,6 +122,8 @@ public class DevolucionController implements Serializable {
 
     public void RegistrarCliente() {
         try {
+            selected.setFechaDevolucion(actual);
+            selected.setProveedor("Cliente");
             selected.setEstado(true);
             ejbFacade.create(selected);
             for (DetalleDevolucion det : detalleDevolucion) {
@@ -132,7 +136,7 @@ public class DevolucionController implements Serializable {
             UnidadDeMedida = "";
             cantidadDevueltos = 0;
             observaciones = null;
-            cantidadStock=0;
+            cantidadStock = 0;
             producto = null;
         } catch (Exception e) {
             e.getStackTrace();
@@ -187,13 +191,14 @@ public class DevolucionController implements Serializable {
         UnidadDeMedida = "";
         cantidadDevueltos = 0;
         producto = null;
-        cantidadStock=0;
+        cantidadStock = 0;
         cantidadDevueltos = 0;
         observaciones = null;
     }
 
     public void Registrar() {
         try {
+            selected.setFechaDevolucion(actual);
             selected.setEstado(true);
             ejbFacade.create(selected);
             for (DetalleDevolucion det : detalleDevolucion) {
@@ -207,7 +212,7 @@ public class DevolucionController implements Serializable {
             detalleDevolucion.clear();
             UnidadDeMedida = null;
             cantidadDevueltos = 0;
-            cantidadStock=0;
+            cantidadStock = 0;
             selected.setEmpleado(null);
         } catch (Exception e) {
             e.getStackTrace();
@@ -384,6 +389,14 @@ public class DevolucionController implements Serializable {
 
     public void setCantidadStock(int cantidadStock) {
         this.cantidadStock = cantidadStock;
+    }
+
+    public Date getActual() {
+        return actual;
+    }
+
+    public void setActual(Date actual) {
+        this.actual = actual;
     }
 
     @FacesConverter(forClass = Devolucion.class)

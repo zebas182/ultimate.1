@@ -75,9 +75,7 @@ public class RolController implements Serializable {
     }
 
     public List<Rol> getItems() {
-        if (items == null) {
-            items = getFacade().findAll();
-        }
+        items = getFacade().findAll();
         return items;
     }
 
@@ -116,7 +114,7 @@ public class RolController implements Serializable {
     public List<Rol> getItemsAvailableSelectOne() {
         return getFacade().findAll();
     }
-    
+
     public Rol Usuario() {
         return getFacade().usuario();
     }

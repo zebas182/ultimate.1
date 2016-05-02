@@ -86,7 +86,7 @@ public class UsuarioController implements Serializable {
             if (usu == 0) {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "¡ERROR!", "El usuario o la contraseña no coinciden con ninguna cuenta"));
             } else {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "¡Actualizado!", "Su contraseña ha sido cambiada"));
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Actualizado!", "Su contraseña ha sido cambiada"));
             }
         } catch (Exception e) {
             e.getStackTrace();

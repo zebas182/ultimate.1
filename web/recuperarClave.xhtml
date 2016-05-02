@@ -3,7 +3,7 @@
        xmlns:h="http://xmlns.jcp.org/jsf/html"
        xmlns:p="http://primefaces.org/ui"
        xmlns:f="http://xmlns.jcp.org/jsf/core">
-    <head>
+    <h:head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
         <meta name="description" content="" />
@@ -24,12 +24,10 @@
             <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
             <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
-    </head>
-    <body>
-
-
+    </h:head>
+    <h:body>
+        <p:growl id="growl" autoUpdate="true"  showDetail="true" life="3000" />
         <header>
-            <p:growl id="growl" autoUpdate="true"  showDetail="true" life="3000" />
             <div class="container">
                 <div class="row">
                     <div class="col-md-12">
@@ -113,5 +111,5 @@
         <script src="resources/js/jquery-1.11.1.js"></script>
         <!-- BOOTSTRAP SCRIPTS  -->
         <script src="resources/js/bootstrap.js"></script>
-    </body>
+    </h:body>
 </html>

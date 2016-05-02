@@ -15,17 +15,19 @@
                         <p:outputLabel value="#{bundle.CreateProductoLabel_nombreProducto}" for="nombreProducto" />
                         <p:inputText id="nombreProducto" value="#{productoController.selected.nombreProducto}" title="#{bundle.CreateProductoTitle_nombreProducto}" required="true" requiredMessage="#{bundle.CreateProductoRequiredMessage_nombreProducto}"/>
                         <p:outputLabel value="#{bundle.CreateProductoLabel_unidadDeMedida}" for="unidadDeMedida" />
-                        <p:selectOneMenu id="unidadDeMedida" value="#{productoController.selected.unidadDeMedida}" style="width:125px">
+                        <p:selectOneMenu id="unidadDeMedida" effect="fold" filter="true"  value="#{productoController.selected.unidadDeMedida}" style="width:125px">
                             <f:selectItem itemLabel="Select One" itemValue="" />
                             <f:selectItem itemLabel="Paquete" itemValue="Paquete" />
                             <f:selectItem itemLabel="Libras" itemValue="Libras" />
                             <f:selectItem itemLabel="Kilos" itemValue="Kilos" />
                             <f:selectItem itemLabel="Arroba" itemValue="Arroba" />
+                            <f:selectItem itemLabel="Mililitro" itemValue="Mililitro" />
+                            <f:selectItem itemLabel="Litro" itemValue="Litro" />
                         </p:selectOneMenu>
                         <p:outputLabel value="Cantidad Stock" for="cantidadStock" />
-                        <p:inputText id="cantidadStock" value="#{productoController.selected.cantidadStock}" title="#{bundle.CreateProductoTitle_cantidadStock}" required="true" requiredMessage="#{bundle.CreateProductoRequiredMessage_cantidadStock}"/>
+                        <p:inputText id="cantidadStock"  value="#{productoController.selected.cantidadStock}" title="#{bundle.CreateProductoTitle_cantidadStock}" required="true" requiredMessage="#{bundle.CreateProductoRequiredMessage_cantidadStock}"/>
                         <p:outputLabel value="#{bundle.CreateProductoLabel_proveedor}" for="proveedor" />
-                        <p:selectOneMenu id="proveedor" value="#{productoController.selected.proveedor}" required="true" requiredMessage="#{bundle.CreateProductoRequiredMessage_proveedor}">
+                        <p:selectOneMenu id="proveedor" effect="fold" filter="true" value="#{productoController.selected.proveedor}" required="true" requiredMessage="#{bundle.CreateProductoRequiredMessage_proveedor}">
                             <f:selectItem itemLabel="Seleccione uno" itemValue="#{null}"/>
                             <f:selectItems value="#{productoController.itemsAvailableSelectOneProveedor}"
                                            var="listaitems"
@@ -33,7 +35,7 @@
                                            itemValue="#{listaitems.nombreProveedor}"/>
                         </p:selectOneMenu>
                         <p:outputLabel value="Categoria" for="categoriaidCategoria" />
-                        <p:selectOneMenu id="categoriaidCategoria" value="#{productoController.selected.categoriaidCategoria}" required="true" requiredMessage="#{bundle.EditProductoRequiredMessage_categoriaidCategoria}">
+                        <p:selectOneMenu id="categoriaidCategoria"  effect="fold"  value="#{productoController.selected.categoriaidCategoria}" required="true" requiredMessage="#{bundle.EditProductoRequiredMessage_categoriaidCategoria}">
                             <f:selectItem itemLabel="Seleccione uno" itemValue="#{null}"/>
                             <f:selectItems value="#{categoriaController.itemsAvailableSelectOne}"
                                            var="categoriaidCategoriaItem"
@@ -42,7 +44,7 @@
                         </p:selectOneMenu>
 
                         <p:outputLabel value="Marca" for="marcaidMarca" />
-                        <p:selectOneMenu id="marcaidMarca" value="#{productoController.selected.marcaidMarca}" required="true" requiredMessage="#{bundle.EditProductoRequiredMessage_marcaidMarca}">
+                        <p:selectOneMenu id="marcaidMarca" filter="true" effect="fold" value="#{productoController.selected.marcaidMarca}" required="true" requiredMessage="#{bundle.EditProductoRequiredMessage_marcaidMarca}">
                             <f:selectItem itemLabel="Seleccione uno" itemValue="#{null}"/>
                             <f:selectItems value="#{marcaController.itemsAvailableSelectOne}"
                                            var="marcaidMarcaItem"
@@ -50,8 +52,8 @@
                                            itemLabel="#{marcaidMarcaItem.nombreMarca}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{productoController.create}" value="#{bundle.Save}" update="display,:ProductoListForm:datalist,:growl" oncomplete="PF('ProductoCreateDialog').hide();"/>
-                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('ProductoCreateDialog').hide();"/>
+                    <p:commandButton actionListener="#{productoController.create}" value="#{bundle.Save}" update="display,:ProductoListForm:datalist,:growl" onclick="ProductoCreateDialog.hide()"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="ProductoCreateDialog.hide()"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

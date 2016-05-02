@@ -26,6 +26,7 @@ public class MarcaController implements Serializable {
     @EJB
     private co.com.regimp.operaciones.MarcaFacade ejbFacade;
     private List<Marca> items = null;
+    private List<Marca> filtered = null;
     private Marca selected;
 
     public MarcaController() {
@@ -116,6 +117,14 @@ public class MarcaController implements Serializable {
 
     public List<Marca> getItemsAvailableSelectOne() {
         return getFacade().findAll();
+    }
+
+    public List<Marca> getFiltered() {
+        return filtered;
+    }
+
+    public void setFiltered(List<Marca> filtered) {
+        this.filtered = filtered;
     }
 
     @FacesConverter(forClass = Marca.class)

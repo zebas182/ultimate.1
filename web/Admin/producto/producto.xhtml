@@ -76,8 +76,7 @@
                                 <p:commandButton id="createButton" rendered="#{usuarioController.u.rolidRol.idRol eq 1}"    value="#{bundle.Create}" actionListener="#{productoController.prepareCreate}" update=":ProductoCreateForm" oncomplete="PF('ProductoCreateDialog').show()"/>
                                 <p:commandButton id="viewButton" value="#{bundle.View}" update=":ProductoViewForm" oncomplete="PF('ProductoViewDialog').show()" disabled="#{empty productoController.selected}"/>
                                 <p:commandButton id="editButton"  rendered="#{usuarioController.u.rolidRol.idRol eq 1}"  value="#{bundle.Edit}" update=":ProductoEditForm" oncomplete="PF('ProductoEditDialog').show()" disabled="#{empty productoController.selected}"/>
-                                <p:commandButton id="deleteButton" rendered="#{usuarioController.u.rolidRol.idRol eq 1}"   value="#{bundle.Delete}" actionListener="#{productoController.destroy}" update=":growl,datalist" disabled="#{empty productoController.selected}"/>
-                                <h:commandButton id="ReporteStock"  value="Reporte de Stock"   actionListener="#{productoController.ReporteStockProducto()}"/>
+                                <p:commandButton id="deleteButton"   value="#{bundle.Delete}" rendered="#{usuarioController.u.rolidRol.idRol eq 1}" actionListener="#{productoController.destroy}" update=":growl,datalist" disabled="#{empty productoController.selected}"/>
                             </f:facet>
                         </p:dataTable>
                     </p:panel> 

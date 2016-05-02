@@ -12,8 +12,6 @@
             <h:form id="DetallePedidoViewForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{detallePedidoController.selected != null}">
-                        <h:outputText value="#{bundle.ViewDetallePedidoLabel_idDetallePedido}"/>
-                        <h:outputText value="#{detallePedidoController.selected.idDetallePedido}" title="#{bundle.ViewDetallePedidoTitle_idDetallePedido}"/>
                         <h:outputText value="#{bundle.ViewDetallePedidoLabel_unidadDeMedida}"/>
                         <h:outputText value="#{detallePedidoController.selected.unidadDeMedida}" title="#{bundle.ViewDetallePedidoTitle_unidadDeMedida}"/>
                         <h:outputText value="#{bundle.ViewDetallePedidoLabel_precioUnidadCompra}"/>
@@ -33,9 +31,11 @@
                         <h:outputText value="#{bundle.ViewDetallePedidoLabel_precioTotal}"/>
                         <h:outputText value="#{detallePedidoController.selected.precioTotal}" title="#{bundle.ViewDetallePedidoTitle_precioTotal}"/>
                         <h:outputText value="#{bundle.ViewDetallePedidoLabel_pedidoidPedido}"/>
-                        <h:outputText value="#{detallePedidoController.selected.pedidoidPedido}" title="#{bundle.ViewDetallePedidoTitle_pedidoidPedido}"/>
+                        <h:outputText value="#{detallePedidoController.selected.pedidoidPedido.fechaPedido}" title="#{bundle.ViewDetallePedidoTitle_pedidoidPedido}">
+                            <f:convertDateTime pattern="dd/MM/yyyy"/>
+                        </h:outputText>
                         <h:outputText value="#{bundle.ViewDetallePedidoLabel_productoidProducto}"/>
-                        <h:outputText value="#{detallePedidoController.selected.productoidProducto}" title="#{bundle.ViewDetallePedidoTitle_productoidProducto}"/>
+                        <h:outputText value="#{detallePedidoController.selected.productoidProducto.nombreProducto}" title="#{bundle.ViewDetallePedidoTitle_productoidProducto}"/>
                     </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="DetallePedidoViewDialog.hide()"/>
                 </h:panelGroup>

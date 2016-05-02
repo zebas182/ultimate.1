@@ -17,7 +17,8 @@
             <ui:define name="content">
                 <h:form id="MarcaListForm">
                     <p:panel header="#{bundle.ListMarcaTitle}" rendered="#{usuarioController.validarContra()==1}">
-                        <p:dataTable id="datalist" value="#{marcaController.items}" var="item"
+                        <p:dataTable id="datalist" value="#{marcaController.items}" var="item" widgetVar="marcaTable"
+                                     filteredValue="#{marcaController.filtered}"
                                      selectionMode="single" selection="#{marcaController.selected}"
                                      paginator="true" emptyMessage="No se encontraron resultados"
                                      rowKey="#{item.idMarca}"
@@ -27,9 +28,11 @@
 
                             <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
                             <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
-
-
-                            <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Buscar " />
+                                <p:inputText id="globalFilter" onkeyup="PF('marcaTable').filter()" style="width:150px" placeholder="Ingresar Palabra"/>
+                            </f:facet>
+                            <p:column filterBy="#{item.nombreMarca.toLowerCase()}">
                                 <f:facet name="header">
                                     <h:outputText value="#{bundle.ListMarcaTitle_nombreMarca}"/>
                                 </f:facet>

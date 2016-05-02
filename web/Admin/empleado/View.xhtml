@@ -12,9 +12,7 @@
             <h:form id="EmpleadoViewForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{empleadoController.selected != null}">
-                        <h:outputText value="#{bundle.ViewEmpleadoLabel_idEmpleado}"/>
-                        <h:outputText value="#{empleadoController.selected.idEmpleado}" title="#{bundle.ViewEmpleadoTitle_idEmpleado}"/>
-                        <h:outputText value="#{bundle.ViewEmpleadoLabel_nombreEmpleado}"/>
+                       <h:outputText value="#{bundle.ViewEmpleadoLabel_nombreEmpleado}"/>
                         <h:outputText value="#{empleadoController.selected.nombreEmpleado}" title="#{bundle.ViewEmpleadoTitle_nombreEmpleado}"/>
                         <h:outputText value="#{bundle.ViewEmpleadoLabel_identificacion}"/>
                         <h:outputText value="#{empleadoController.selected.identificacion}" title="#{bundle.ViewEmpleadoTitle_identificacion}"/>
@@ -25,7 +23,7 @@
                         <h:outputText value="#{bundle.ViewEmpleadoLabel_telefono}"/>
                         <h:outputText value="#{empleadoController.selected.telefono}" title="#{bundle.ViewEmpleadoTitle_telefono}"/>
                         <h:outputText value="#{bundle.ViewEmpleadoLabel_usuarioidUsuario}"/>
-                        <h:outputText value="#{empleadoController.selected.usuarioidUsuario}" title="#{bundle.ViewEmpleadoTitle_usuarioidUsuario}"/>
+                        <h:outputText value="#{empleadoController.selected.usuarioidUsuario.nombreUsuario}" title="#{bundle.ViewEmpleadoTitle_usuarioidUsuario}"/>
                     </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="EmpleadoViewDialog.hide()"/>
                 </h:panelGroup>

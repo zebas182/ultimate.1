@@ -23,8 +23,8 @@
                                            itemValue="#{rolIdRolItem}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{usuarioController.update}"  value="#{bundle.Save}" update="display,:UsuarioListForm:datalist,:growl" oncomplete="PF('UsuarioEditDialog').hide();"/>
-                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('UsuarioEditDialog').hide(); "/>
+                    <p:commandButton actionListener="#{usuarioController.update}"  value="#{bundle.Save}" update="display,:UsuarioListForm:datalist,:growl"  onclick="UsuarioEditDialog.hide()"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="UsuarioEditDialog.hide()"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

@@ -17,36 +17,40 @@
             <ui:define name="content">
                 <h:form id="DetalleDevolucionListForm">
                     <p:panel header="#{bundle.ListDetalleDevolucionTitle}" rendered="#{usuarioController.validarContra()==1}">
-                        <p:dataTable id="datalist" value="#{detalleDevolucionController.items}" var="item"
+                        <p:dataTable id="datalist" value="#{detalleDevolucionController.items}" var="item" widgetVar="devolucionTable"
+                                     filteredValue="#{detalleDevolucionController.filtered}"
                                      selectionMode="single" selection="#{detalleDevolucionController.selected}"
                                      paginator="true" emptyMessage="No se encontraron resultados"
                                      rowKey="#{item.idDetalleDevolucion}"
-                                     rows="10"
-                                     rowsPerPageTemplate="10,20,30,40,50"
+                                     rows="5"
+                                     rowsPerPageTemplate="5,10,15,20,25"
                                      >
 
                             <p:ajax event="rowSelect"   update="viewButton editButton deleteButton"/>
                             <p:ajax event="rowUnselect" update="viewButton editButton deleteButton"/>
-
-                            <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Buscar " />
+                                <p:inputText id="globalFilter" onkeyup="PF('categoriaTable').filter()" style="width:150px" placeholder="Ingresar Palabra"/>
+                            </f:facet>
+                            <p:column filterBy="#{item.productoidProducto.nombreProducto}">
                                 <f:facet name="header">
                                     <h:outputText value="Producto"/>
                                 </f:facet>
                                 <h:outputText value="#{item.productoidProducto.nombreProducto}"/>
                             </p:column>
-                            <p:column>
+                            <p:column filterBy="#{item.cantidadProductos}">
                                 <f:facet name="header">
                                     <h:outputText value="Cantidad De Productos"/>
                                 </f:facet>
                                 <h:outputText value="#{item.cantidadProductos}"/>
                             </p:column>
-                            <p:column>
+                            <p:column filterBy="#{item.observaciones}">
                                 <f:facet name="header">
                                     <h:outputText value="Observaciones"/>
                                 </f:facet>
                                 <h:outputText value="#{item.observaciones}"/>
                             </p:column>
-                            <p:column>
+                            <p:column filterBy="#{item.devolucionidDevolucion.fechaDevolucion}">
                                 <f:facet name="header">
                                     <h:outputText value="Fecha Devolución"/>
                                 </f:facet>
@@ -59,11 +63,6 @@
                                 <p:commandButton id="viewButton"    value="#{bundle.View}" update=":DetalleDevolucionViewForm" oncomplete="PF('DetalleDevolucionViewDialog').show()" disabled="#{empty detalleDevolucionController.selected}"/>
                                 <p:commandButton id="editButton"   rendered="#{usuarioController.u.rolidRol.idRol eq 1}"  value="#{bundle.Edit}" update=":DetalleDevolucionEditForm" oncomplete="PF('DetalleDevolucionEditDialog').show()" disabled="#{empty detalleDevolucionController.selected}"/>
                                 <p:commandButton id="deleteButton" rendered="#{usuarioController.u.rolidRol.idRol eq 1}"   value="#{bundle.Delete}" actionListener="#{detalleDevolucionController.destroy}" update=":growl,datalist" disabled="#{empty detalleDevolucionController.selected}"/>
-                                <br></br>
-                                <br></br>
-                                <p:commandButton id="CarritoDevolucion" rendered="#{usuarioController.u.rolidRol.idRol eq 1}" icon="ui-icon-cart"  value="Realizar Devolución Proveedor" actionListener="#{devolucionController.carrito}" />
-                                <p:commandButton id="CarritoDevolucionCliente" icon="ui-icon-cart"  value="Realizar Devolución Cliente" actionListener="#{devolucionController.carritoCliente()}" />
-
                             </f:facet>
                         </p:dataTable>
                     </p:panel>

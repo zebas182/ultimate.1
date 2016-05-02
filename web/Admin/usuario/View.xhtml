@@ -12,16 +12,12 @@
             <h:form id="UsuarioViewForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{usuarioController.selected != null}">
-                        <h:outputText value="#{bundle.ViewUsuarioLabel_idUsuario}"/>
-                        <h:outputText value="#{usuarioController.selected.idUsuario}" title="#{bundle.ViewUsuarioTitle_idUsuario}"/>
                         <h:outputText value="#{bundle.ViewUsuarioLabel_nombreUsuario}"/>
                         <h:outputText value="#{usuarioController.selected.nombreUsuario}" title="#{bundle.ViewUsuarioTitle_nombreUsuario}"/>
                         <h:outputText value="#{bundle.ViewUsuarioLabel_contrasena}"/>
                         <h:outputText value="#{usuarioController.selected.contrasena}" title="#{bundle.ViewUsuarioTitle_contrasena}"/>
-                        <h:outputText value="#{bundle.ViewUsuarioLabel_estado}"/>
-                        <p:selectBooleanCheckbox value="#{usuarioController.selected.estado}" disabled="true"/>
                         <h:outputText value="#{bundle.ViewUsuarioLabel_rolidRol}"/>
-                        <h:outputText value="#{usuarioController.selected.rolidRol}" title="#{bundle.ViewUsuarioTitle_rolidRol}"/>
+                        <h:outputText value="#{usuarioController.selected.rolidRol.nombreRol}" title="#{bundle.ViewUsuarioTitle_rolidRol}"/>
                     </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="UsuarioViewDialog.hide()"/>
                 </h:panelGroup>

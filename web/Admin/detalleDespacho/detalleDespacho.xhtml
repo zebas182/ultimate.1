@@ -73,10 +73,9 @@
                                 <h:outputText value="#{item.despachoidDespacho.empleado}"/>
                             </p:column>
                             <f:facet name="footer">
-                                <p:commandButton id="viewButton"   style="background-image: url('../..//resources/images/Consultar.gif'); background-repeat: no-repeat; background-position-x: 2%;  width: 75px;" value="#{bundle.View}" update=":DetalleDespachoViewForm" oncomplete="PF('DetalleDespachoViewDialog').show()" disabled="#{empty detalleDespachoController.selected}"/>
+                                <p:commandButton id="viewButton" value="#{bundle.View}" update=":DetalleDespachoViewForm" oncomplete="PF('DetalleDespachoViewDialog').show()" disabled="#{empty detalleDespachoController.selected}"/>
                                 <p:commandButton id="editButton"  rendered="false"  value="#{bundle.Edit}" update=":DetalleDespachoEditForm" oncomplete="PF('DetalleDespachoEditDialog').show()" disabled="#{empty detalleDespachoController.selected}"/>
-                                <p:commandButton id="deleteButton" rendered="#{usuarioController.u.rolidRol.idRol eq 1}" style="background-image: url('../..//resources/images/delete.png'); background-repeat: no-repeat; background-position-x: 2%;  width: 80px;"  value="#{bundle.Delete}" actionListener="#{detalleDespachoController.destroy}" update=":growl,datalist" disabled="#{empty detalleDespachoController.selected}"/>
-                                <p:commandButton id="CarritoDespacho" icon="ui-icon-cart"  value="Realizar Despacho" actionListener="#{despachoController.carrito()}" />
+                                <p:commandButton id="deleteButton" rendered="#{usuarioController.u.rolidRol.idRol eq 1}"   value="#{bundle.Delete}" actionListener="#{detalleDespachoController.destroy}" update=":growl,datalist" disabled="#{empty detalleDespachoController.selected}"/>
 
                             </f:facet>
                         </p:dataTable>

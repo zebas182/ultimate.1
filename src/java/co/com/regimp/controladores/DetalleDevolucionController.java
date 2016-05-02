@@ -26,6 +26,7 @@ public class DetalleDevolucionController implements Serializable {
     @EJB
     private co.com.regimp.operaciones.DetalleDevolucionFacade ejbFacade;
     private List<DetalleDevolucion> items = null;
+    private List<DetalleDevolucion> filtered = null;
     private DetalleDevolucion selected;
 
     public DetalleDevolucionController() {
@@ -115,6 +116,14 @@ public class DetalleDevolucionController implements Serializable {
 
     public List<DetalleDevolucion> getItemsAvailableSelectOne() {
         return getFacade().findAll();
+    }
+
+    public List<DetalleDevolucion> getFiltered() {
+        return filtered;
+    }
+
+    public void setFiltered(List<DetalleDevolucion> filtered) {
+        this.filtered = filtered;
     }
 
     @FacesConverter(forClass = DetalleDevolucion.class)

@@ -15,7 +15,8 @@
             <ui:define name="content">
                 <h:form id="CategoriaListForm" >
                     <p:panel header="#{bundle.ListCategoriaTitle}" rendered="#{usuarioController.validarContra()==1}">
-                        <p:dataTable id="datalist"  value="#{categoriaController.items}" var="item"
+                        <p:dataTable id="datalist"  value="#{categoriaController.items}" var="item" widgetVar="categoriaTable"
+                                     filteredValue="#{categoriaController.filtered}"
                                      selectionMode="single" selection="#{categoriaController.selected}"
                                      paginator="true" emptyMessage="No se encontraron resultados"
                                      rowKey="#{item.idCategoria}"
@@ -25,9 +26,12 @@
 
                             <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
                             <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+                            <f:facet name="header">
+                                <h:outputText value="Buscar " />
+                                <p:inputText id="globalFilter" onkeyup="PF('categoriaTable').filter()" style="width:150px" placeholder="Ingresar Palabra"/>
+                            </f:facet>
 
-
-                            <p:column>
+                            <p:column filterBy="#{item.nombreCategoria.toLowerCase()}">
                                 <f:facet name="header">
                                     <h:outputText value="#{bundle.ListCategoriaTitle_nombreCategoria}"/>
                                 </f:facet>
